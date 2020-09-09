@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on cy&#39;s Blog</title>
+    <link>https://theme-stack.jimmycai.com/categories/java/</link>
+    <description>Recent content in Java on cy&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 30 Jun 2019 23:23:23 +0800</lastBuildDate>
+    
+	<atom:link href="https://theme-stack.jimmycai.com/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>KendoUI遇到的问题总结</title>
+      <link>https://theme-stack.jimmycai.com/archive/kendoui%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Sun, 30 Jun 2019 23:23:23 +0800</pubDate>
+      
+      <guid>https://theme-stack.jimmycai.com/archive/kendoui%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/</guid>
+      <description>KendoUI遇到的问题总结   kendoLov带出的值出现 null和undefined   如果数据库中数据为空，查询出来，界面上会显示null，点击新建按钮可能会出现undefined，这是因为template的问题，这样写会出错：
+template: function (dataItem) { if(dataItem.meaning!=null || dataItem.meaning=&amp;#34;&amp;#34;){ return dataItem.meaning; } return &amp;#34;&amp;#34; }, 应将“ !=null ”的时候 将“ || ” 换成“ &amp;amp;&amp;amp; ”
+ 修改某个字段之后 点击保存按钮没有任何效果   原因： __status = &#39;&amp;rsquo;
+HAP框架判断界面是新增还是修改或者是删除，都是通过&amp;rdquo;__status &amp;ldquo;。如果没有值，controller是不会操作数据的。
+新建： __status = &amp;ldquo;add&amp;rdquo;
+更新： __status = ‘&amp;ldquo;update&amp;rdquo;
+删除： __status = &amp;ldquo;delete&amp;rdquo;
+如果 &amp;ldquo;___status&amp;quot;实在是没有值，可以手动设置值。 viewModel.model.set(&amp;quot;_status&amp;rdquo;, &amp;ldquo;add&amp;rdquo;);
+ 检查Grid行中是否还有数据没有保存   使用dataSource.hasChanges() 方法。
+if(!dataSource1.hasChanges()){ kendo.ui.showInfoDialog({ message: &amp;#39;还有未保存的数据，请先保存!&amp;#39; }); }  检查Grid选中的数据是否有脏数据   删除数据时，需要判断选中的数据是否是脏数据（即未保存的数据）</description>
+    </item>
+    
+    <item>
+      <title>KendoUI遇到的问题总结</title>
+      <link>https://theme-stack.jimmycai.com/p/kendoui%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Sun, 30 Jun 2019 23:23:23 +0800</pubDate>
+      
+      <guid>https://theme-stack.jimmycai.com/p/kendoui%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/</guid>
+      <description>KendoUI遇到的问题总结   kendoLov带出的值出现 null和undefined   如果数据库中数据为空，查询出来，界面上会显示null，点击新建按钮可能会出现undefined，这是因为template的问题，这样写会出错：
+template: function (dataItem) { if(dataItem.meaning!=null || dataItem.meaning=&amp;#34;&amp;#34;){ return dataItem.meaning; } return &amp;#34;&amp;#34; }, 应将“ !=null ”的时候 将“ || ” 换成“ &amp;amp;&amp;amp; ”
+ 修改某个字段之后 点击保存按钮没有任何效果   原因： __status = &#39;&amp;rsquo;
+HAP框架判断界面是新增还是修改或者是删除，都是通过&amp;rdquo;__status &amp;ldquo;。如果没有值，controller是不会操作数据的。
+新建： __status = &amp;ldquo;add&amp;rdquo;
+更新： __status = ‘&amp;ldquo;update&amp;rdquo;
+删除： __status = &amp;ldquo;delete&amp;rdquo;
+如果 &amp;ldquo;___status&amp;quot;实在是没有值，可以手动设置值。 viewModel.model.set(&amp;quot;_status&amp;rdquo;, &amp;ldquo;add&amp;rdquo;);
+ 检查Grid行中是否还有数据没有保存   使用dataSource.hasChanges() 方法。
+if(!dataSource1.hasChanges()){ kendo.ui.showInfoDialog({ message: &amp;#39;还有未保存的数据，请先保存!&amp;#39; }); }  检查Grid选中的数据是否有脏数据   删除数据时，需要判断选中的数据是否是脏数据（即未保存的数据）</description>
+    </item>
+    
+    <item>
+      <title>easyexcel</title>
+      <link>https://theme-stack.jimmycai.com/archive/easyexcel%E6%96%87%E6%A1%A3/</link>
+      <pubDate>Tue, 02 Apr 2019 23:00:00 +0800</pubDate>
+      
+      <guid>https://theme-stack.jimmycai.com/archive/easyexcel%E6%96%87%E6%A1%A3/</guid>
+      <description>最近项目要实现大数据量的导入导出，试用了一下easyexcel感觉还挺好用的。
+easyexcel是 Alibaba 的开源项目，项目地址 ：https://github.com/alibaba/easyexcel
+1. 依赖 首先需要添加依赖，推荐使用最新的，可以在Maven仓库中查询；
+&amp;lt;!-- https://mvnrepository.com/artifact/com.alibaba/easyexcel --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.alibaba&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;easyexcel&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.1.1&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 2. 优势  Java解析、生成Excel比较有名的框架有Apache poi、jxl。但他们都存在一个严重的问题就是非常的耗内存，poi有一套SAX模式的API可以一定程度的解决一些内存溢出的问题，但POI还是有一些缺陷，比如07版Excel解压缩以及解压后存储都是在内存中完成的，内存消耗依然很大。easyexcel重写了poi对07版Excel的解析，能够原本一个3M的excel用POI sax依然需要100M左右内存降低到KB级别，并且再大的excel不会出现内存溢出，03版依赖POI的sax模式。在上层做了模型转换的封装，让使用者更加简单方便。
+  读任意大小的03、07版Excel不会OO 读Excel自动通过注解，把结果映射为java模型 写Excel时候自定义是否需要写表头 写Excel通过注解将表头自动写入Excel 写任意大07版Excel不会OOM 写小量数据的03版Excel（不要超过2000行）  #3. 自定义类
+  Temple
+作为模版可以将字段含义写入，在导入导出时可以讲导入导出内容与模版中实体类映射，也可作为模版导出；
+public class Temple extends BaseRowModel { @ExcelProperty(value = &amp;#34;姓名&amp;#34; ,index = 0) private String name; @ExcelProperty(value = &amp;#34;年龄&amp;#34;,index = 1) private String age; @ExcelProperty(value = &amp;#34;邮箱&amp;#34;,index = 2) private String email; @ExcelProperty(value = &amp;#34;地址&amp;#34;,index = 3) private String address; @ExcelProperty(value = &amp;#34;性别&amp;#34;,index = 4) private String sax; @ExcelProperty(value = &amp;#34;高度&amp;#34;,index = 5) private String heigh; @ExcelProperty(value = &amp;#34;备注&amp;#34;,index = 6) private String last; }   ExcelListener</description>
+    </item>
+    
+    <item>
+      <title>easyexcel</title>
+      <link>https://theme-stack.jimmycai.com/p/easyexcel/</link>
+      <pubDate>Tue, 02 Apr 2019 23:00:00 +0800</pubDate>
+      
+      <guid>https://theme-stack.jimmycai.com/p/easyexcel/</guid>
+      <description>最近项目要实现大数据量的导入导出，试用了一下easyexcel感觉还挺好用的。
+easyexcel是 Alibaba 的开源项目，项目地址 ：https://github.com/alibaba/easyexcel
+1. 依赖 首先需要添加依赖，推荐使用最新的，可以在Maven仓库中查询；
+&amp;lt;!-- https://mvnrepository.com/artifact/com.alibaba/easyexcel --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.alibaba&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;easyexcel&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.1.1&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 2. 优势  Java解析、生成Excel比较有名的框架有Apache poi、jxl。但他们都存在一个严重的问题就是非常的耗内存，poi有一套SAX模式的API可以一定程度的解决一些内存溢出的问题，但POI还是有一些缺陷，比如07版Excel解压缩以及解压后存储都是在内存中完成的，内存消耗依然很大。easyexcel重写了poi对07版Excel的解析，能够原本一个3M的excel用POI sax依然需要100M左右内存降低到KB级别，并且再大的excel不会出现内存溢出，03版依赖POI的sax模式。在上层做了模型转换的封装，让使用者更加简单方便。
+  读任意大小的03、07版Excel不会OO 读Excel自动通过注解，把结果映射为java模型 写Excel时候自定义是否需要写表头 写Excel通过注解将表头自动写入Excel 写任意大07版Excel不会OOM 写小量数据的03版Excel（不要超过2000行）  #3. 自定义类
+  Temple
+作为模版可以将字段含义写入，在导入导出时可以讲导入导出内容与模版中实体类映射，也可作为模版导出；
+public class Temple extends BaseRowModel { @ExcelProperty(value = &amp;#34;姓名&amp;#34; ,index = 0) private String name; @ExcelProperty(value = &amp;#34;年龄&amp;#34;,index = 1) private String age; @ExcelProperty(value = &amp;#34;邮箱&amp;#34;,index = 2) private String email; @ExcelProperty(value = &amp;#34;地址&amp;#34;,index = 3) private String address; @ExcelProperty(value = &amp;#34;性别&amp;#34;,index = 4) private String sax; @ExcelProperty(value = &amp;#34;高度&amp;#34;,index = 5) private String heigh; @ExcelProperty(value = &amp;#34;备注&amp;#34;,index = 6) private String last; }   ExcelListener</description>
+    </item>
+    
+  </channel>
+</rss>

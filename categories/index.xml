@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on cy&#39;s Blog</title>
+    <link>https://theme-stack.jimmycai.com/categories/</link>
+    <description>Recent content in Categories on cy&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 30 Jun 2019 23:23:23 +0800</lastBuildDate>
+    
+	<atom:link href="https://theme-stack.jimmycai.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Java</title>
+      <link>https://theme-stack.jimmycai.com/categories/java/</link>
+      <pubDate>Sun, 30 Jun 2019 23:23:23 +0800</pubDate>
+      
+      <guid>https://theme-stack.jimmycai.com/categories/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Machine Learning</title>
+      <link>https://theme-stack.jimmycai.com/categories/machine-learning/</link>
+      <pubDate>Tue, 07 May 2019 10:00:00 +0800</pubDate>
+      
+      <guid>https://theme-stack.jimmycai.com/categories/machine-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Big Data</title>
+      <link>https://theme-stack.jimmycai.com/categories/big-data/</link>
+      <pubDate>Sat, 03 Nov 2018 22:00:12 +0800</pubDate>
+      
+      <guid>https://theme-stack.jimmycai.com/categories/big-data/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
