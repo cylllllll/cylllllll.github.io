@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html lang="zh-cn">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  
+  <title>easyexcel - cy&#39;s Blog 🍉</title>
+
+  
+  
+  <meta name="description" content="最近项目要实现大数据量的导入导出，试用了一下easyexcel感觉还挺好用的。
+easyexcel是 Alibaba 的开源项目，项目地址 ：https://github.com/alibaba/easyexcel
+1. 依赖 首先需要添加依赖，推荐使用最新的，可以在Maven仓库中查询；
+&lt;!-- https://mvnrepository.com/artifact/com.alibaba/easyexcel --&gt; &lt;dependency&gt; &lt;groupId&gt;com.alibaba&lt;/groupId&gt; &lt;artifactId&gt;easyexcel&lt;/artifactId&gt; &lt;version&gt;1.1.1&lt;/version&gt; &lt;/dependency&gt; 2. 优势  Java解析、生成Excel比较有名的框架有Apache poi、jxl。但他们都存在一个严重的问题就是非常的耗内存，poi有一套SAX模式的API可以一定程度的解决一些内存溢出的问题，但POI还是有一些缺陷，比如07版Excel解压缩以及解压后存储都是在内存中完成的，内存消耗依然很大。easyexcel重写了poi对07版Excel的解析，能够原本一个3M的excel用POI sax依然需要100M左右内存降低到KB级别，并且再大的excel不会出现内存溢出，03版依赖POI的sax模式。在上层做了模型转换的封装，让使用者更加简单方便。
+  读任意大小的03、07版Excel不会OO 读Excel自动通过注解，把结果映射为java模型 写Excel时候自定义是否需要写表头 写Excel通过注解将表头自动写入Excel 写任意大07版Excel不会OOM 写小量数据的03版Excel（不要超过2000行）  #3. 自定义类
+  Temple
+作为模版可以将字段含义写入，在导入导出时可以讲导入导出内容与模版中实体类映射，也可作为模版导出；
+public class Temple extends BaseRowModel { @ExcelProperty(value = &#34;姓名&#34; ,index = 0) private String name; @ExcelProperty(value = &#34;年龄&#34;,index = 1) private String age; @ExcelProperty(value = &#34;邮箱&#34;,index = 2) private String email; @ExcelProperty(value = &#34;地址&#34;,index = 3) private String address; @ExcelProperty(value = &#34;性别&#34;,index = 4) private String sax; @ExcelProperty(value = &#34;高度&#34;,index = 5) private String heigh; @ExcelProperty(value = &#34;备注&#34;,index = 6) private String last; }   ExcelListener" />
+  <meta name="author" content="" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="/app.min.css" />
+
+  
+  <link rel="preload stylesheet" as="style" href="an-old-hope.min.css" />
+  <script
+    defer
+    src="highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
+  
+
+  
+  <link rel="preload" as="image" href="theme.png" />
+
+  
+  <link rel="preload" as="image" href="github.svg" />
+  
+
+  
+  <link rel="icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+  
+  <meta name="generator" content="Hugo 0.87.0" />
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="easyexcel" />
+<meta property="og:description" content="最近项目要实现大数据量的导入导出，试用了一下easyexcel感觉还挺好用的。
+easyexcel是 Alibaba 的开源项目，项目地址 ：https://github.com/alibaba/easyexcel
+1. 依赖 首先需要添加依赖，推荐使用最新的，可以在Maven仓库中查询；
+&lt;!-- https://mvnrepository.com/artifact/com.alibaba/easyexcel --&gt; &lt;dependency&gt; &lt;groupId&gt;com.alibaba&lt;/groupId&gt; &lt;artifactId&gt;easyexcel&lt;/artifactId&gt; &lt;version&gt;1.1.1&lt;/version&gt; &lt;/dependency&gt; 2. 优势  Java解析、生成Excel比较有名的框架有Apache poi、jxl。但他们都存在一个严重的问题就是非常的耗内存，poi有一套SAX模式的API可以一定程度的解决一些内存溢出的问题，但POI还是有一些缺陷，比如07版Excel解压缩以及解压后存储都是在内存中完成的，内存消耗依然很大。easyexcel重写了poi对07版Excel的解析，能够原本一个3M的excel用POI sax依然需要100M左右内存降低到KB级别，并且再大的excel不会出现内存溢出，03版依赖POI的sax模式。在上层做了模型转换的封装，让使用者更加简单方便。
+  读任意大小的03、07版Excel不会OO 读Excel自动通过注解，把结果映射为java模型 写Excel时候自定义是否需要写表头 写Excel通过注解将表头自动写入Excel 写任意大07版Excel不会OOM 写小量数据的03版Excel（不要超过2000行）  #3. 自定义类
+  Temple
+作为模版可以将字段含义写入，在导入导出时可以讲导入导出内容与模版中实体类映射，也可作为模版导出；
+public class Temple extends BaseRowModel { @ExcelProperty(value = &#34;姓名&#34; ,index = 0) private String name; @ExcelProperty(value = &#34;年龄&#34;,index = 1) private String age; @ExcelProperty(value = &#34;邮箱&#34;,index = 2) private String email; @ExcelProperty(value = &#34;地址&#34;,index = 3) private String address; @ExcelProperty(value = &#34;性别&#34;,index = 4) private String sax; @ExcelProperty(value = &#34;高度&#34;,index = 5) private String heigh; @ExcelProperty(value = &#34;备注&#34;,index = 6) private String last; }   ExcelListener" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/easyexcel%E6%96%87%E6%A1%A3/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-04-02T23:00:00+00:00" />
+<meta property="article:modified_time" content="2019-04-02T23:00:00+00:00" />
+
+
+  
+  <meta itemprop="name" content="easyexcel">
+<meta itemprop="description" content="最近项目要实现大数据量的导入导出，试用了一下easyexcel感觉还挺好用的。
+easyexcel是 Alibaba 的开源项目，项目地址 ：https://github.com/alibaba/easyexcel
+1. 依赖 首先需要添加依赖，推荐使用最新的，可以在Maven仓库中查询；
+&lt;!-- https://mvnrepository.com/artifact/com.alibaba/easyexcel --&gt; &lt;dependency&gt; &lt;groupId&gt;com.alibaba&lt;/groupId&gt; &lt;artifactId&gt;easyexcel&lt;/artifactId&gt; &lt;version&gt;1.1.1&lt;/version&gt; &lt;/dependency&gt; 2. 优势  Java解析、生成Excel比较有名的框架有Apache poi、jxl。但他们都存在一个严重的问题就是非常的耗内存，poi有一套SAX模式的API可以一定程度的解决一些内存溢出的问题，但POI还是有一些缺陷，比如07版Excel解压缩以及解压后存储都是在内存中完成的，内存消耗依然很大。easyexcel重写了poi对07版Excel的解析，能够原本一个3M的excel用POI sax依然需要100M左右内存降低到KB级别，并且再大的excel不会出现内存溢出，03版依赖POI的sax模式。在上层做了模型转换的封装，让使用者更加简单方便。
+  读任意大小的03、07版Excel不会OO 读Excel自动通过注解，把结果映射为java模型 写Excel时候自定义是否需要写表头 写Excel通过注解将表头自动写入Excel 写任意大07版Excel不会OOM 写小量数据的03版Excel（不要超过2000行）  #3. 自定义类
+  Temple
+作为模版可以将字段含义写入，在导入导出时可以讲导入导出内容与模版中实体类映射，也可作为模版导出；
+public class Temple extends BaseRowModel { @ExcelProperty(value = &#34;姓名&#34; ,index = 0) private String name; @ExcelProperty(value = &#34;年龄&#34;,index = 1) private String age; @ExcelProperty(value = &#34;邮箱&#34;,index = 2) private String email; @ExcelProperty(value = &#34;地址&#34;,index = 3) private String address; @ExcelProperty(value = &#34;性别&#34;,index = 4) private String sax; @ExcelProperty(value = &#34;高度&#34;,index = 5) private String heigh; @ExcelProperty(value = &#34;备注&#34;,index = 6) private String last; }   ExcelListener"><meta itemprop="datePublished" content="2019-04-02T23:00:00+00:00" />
+<meta itemprop="dateModified" content="2019-04-02T23:00:00+00:00" />
+<meta itemprop="wordCount" content="258">
+<meta itemprop="keywords" content="" />
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="easyexcel"/>
+<meta name="twitter:description" content="最近项目要实现大数据量的导入导出，试用了一下easyexcel感觉还挺好用的。
+easyexcel是 Alibaba 的开源项目，项目地址 ：https://github.com/alibaba/easyexcel
+1. 依赖 首先需要添加依赖，推荐使用最新的，可以在Maven仓库中查询；
+&lt;!-- https://mvnrepository.com/artifact/com.alibaba/easyexcel --&gt; &lt;dependency&gt; &lt;groupId&gt;com.alibaba&lt;/groupId&gt; &lt;artifactId&gt;easyexcel&lt;/artifactId&gt; &lt;version&gt;1.1.1&lt;/version&gt; &lt;/dependency&gt; 2. 优势  Java解析、生成Excel比较有名的框架有Apache poi、jxl。但他们都存在一个严重的问题就是非常的耗内存，poi有一套SAX模式的API可以一定程度的解决一些内存溢出的问题，但POI还是有一些缺陷，比如07版Excel解压缩以及解压后存储都是在内存中完成的，内存消耗依然很大。easyexcel重写了poi对07版Excel的解析，能够原本一个3M的excel用POI sax依然需要100M左右内存降低到KB级别，并且再大的excel不会出现内存溢出，03版依赖POI的sax模式。在上层做了模型转换的封装，让使用者更加简单方便。
+  读任意大小的03、07版Excel不会OO 读Excel自动通过注解，把结果映射为java模型 写Excel时候自定义是否需要写表头 写Excel通过注解将表头自动写入Excel 写任意大07版Excel不会OOM 写小量数据的03版Excel（不要超过2000行）  #3. 自定义类
+  Temple
+作为模版可以将字段含义写入，在导入导出时可以讲导入导出内容与模版中实体类映射，也可作为模版导出；
+public class Temple extends BaseRowModel { @ExcelProperty(value = &#34;姓名&#34; ,index = 0) private String name; @ExcelProperty(value = &#34;年龄&#34;,index = 1) private String age; @ExcelProperty(value = &#34;邮箱&#34;,index = 2) private String email; @ExcelProperty(value = &#34;地址&#34;,index = 3) private String address; @ExcelProperty(value = &#34;性别&#34;,index = 4) private String sax; @ExcelProperty(value = &#34;高度&#34;,index = 5) private String heigh; @ExcelProperty(value = &#34;备注&#34;,index = 6) private String last; }   ExcelListener"/>
+
+  
+  
+</head>
+
+
+  <body class="not-ready" data-menu="true">
+    <header class="header">
+  
+  <p class="logo">
+    <a class="site-name" href="">cy&#39;s Blog 🍉</a><a class="btn-dark"></a>
+  </p>
+  
+
+  <script>
+    let bodyClx = document.body.classList;
+    let btnDark = document.querySelector('.btn-dark');
+    let sysDark = window.matchMedia('(prefers-color-scheme: dark)');
+    let darkVal = localStorage.getItem('dark');
+
+    let setDark = (isDark) => {
+      bodyClx[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark ? 'yes' : 'no');
+    };
+
+    setDark(darkVal ? darkVal === 'yes' : sysDark.matches);
+    requestAnimationFrame(() => bodyClx.remove('not-ready'));
+
+    btnDark.addEventListener('click', () => setDark(!bodyClx.contains('dark')));
+    sysDark.addEventListener('change', (event) => setDark(event.matches));
+  </script>
+
+  
+  
+  <nav class="menu">
+    
+    <a class="" href="/">Post</a>
+    
+    <a class="" href="/about/">About</a>
+    
+    <a class="" href="/puzzle/">puzzle</a>
+    
+  </nav>
+  
+
+  
+  <nav class="social">
+    
+    <a
+      class="github"
+      style="--url: url(./github.svg)"
+      href="https://github.com/cylllllll"
+      target="_blank"
+    ></a>
+    
+  </nav>
+  
+</header>
+
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-title">
+    <aside>
+      <time>April 2, 2019</time>
+      
+    </aside>
+    <h1>easyexcel</h1>
+  </header>
+  <section class="post-content"><p>最近项目要实现大数据量的导入导出，试用了一下easyexcel感觉还挺好用的。</p>
+<p><em>easyexcel是 Alibaba 的开源项目，项目地址 ：https://github.com/alibaba/easyexcel</em></p>
+<h1 id="1-依赖">1. 依赖</h1>
+<p>首先需要添加依赖，推荐使用最新的，可以在Maven仓库中查询；</p>
+<pre><code>&lt;!-- https://mvnrepository.com/artifact/com.alibaba/easyexcel --&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+	&lt;artifactId&gt;easyexcel&lt;/artifactId&gt;
+	&lt;version&gt;1.1.1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><h1 id="2-优势">2. 优势</h1>
+<blockquote>
+<p>Java解析、生成Excel比较有名的框架有Apache poi、jxl。但他们都存在一个严重的问题就是非常的耗内存，poi有一套SAX模式的API可以一定程度的解决一些内存溢出的问题，但POI还是有一些缺陷，比如07版Excel解压缩以及解压后存储都是在内存中完成的，内存消耗依然很大。easyexcel重写了poi对07版Excel的解析，能够原本一个3M的excel用POI sax依然需要100M左右内存降低到KB级别，并且再大的excel不会出现内存溢出，03版依赖POI的sax模式。在上层做了模型转换的封装，让使用者更加简单方便。</p>
+</blockquote>
+<ul>
+<li>读任意大小的03、07版Excel不会OO</li>
+<li>读Excel自动通过注解，把结果映射为java模型</li>
+<li>写Excel时候自定义是否需要写表头</li>
+<li>写Excel通过注解将表头自动写入Excel</li>
+<li>写任意大07版Excel不会OOM</li>
+<li>写小量数据的03版Excel（不要超过2000行）</li>
+</ul>
+<p>#3. 自定义类</p>
+<ul>
+<li>
+<p>Temple</p>
+<p>作为模版可以将字段含义写入，在导入导出时可以讲导入导出内容与模版中实体类映射，也可作为模版导出；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Temple</span> <span style="color:#66d9ef">extends</span> BaseRowModel <span style="color:#f92672">{</span>
+
+    <span style="color:#a6e22e">@ExcelProperty</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;姓名&#34;</span> <span style="color:#f92672">,</span>index <span style="color:#f92672">=</span> 0<span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
+
+    <span style="color:#a6e22e">@ExcelProperty</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;年龄&#34;</span><span style="color:#f92672">,</span>index <span style="color:#f92672">=</span> 1<span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">private</span> String age<span style="color:#f92672">;</span>
+
+    <span style="color:#a6e22e">@ExcelProperty</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;邮箱&#34;</span><span style="color:#f92672">,</span>index <span style="color:#f92672">=</span> 2<span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">private</span> String email<span style="color:#f92672">;</span>
+
+    <span style="color:#a6e22e">@ExcelProperty</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;地址&#34;</span><span style="color:#f92672">,</span>index <span style="color:#f92672">=</span> 3<span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">private</span> String address<span style="color:#f92672">;</span>
+
+    <span style="color:#a6e22e">@ExcelProperty</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;性别&#34;</span><span style="color:#f92672">,</span>index <span style="color:#f92672">=</span> 4<span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">private</span> String sax<span style="color:#f92672">;</span>
+
+    <span style="color:#a6e22e">@ExcelProperty</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;高度&#34;</span><span style="color:#f92672">,</span>index <span style="color:#f92672">=</span> 5<span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">private</span> String heigh<span style="color:#f92672">;</span>
+
+    <span style="color:#a6e22e">@ExcelProperty</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;备注&#34;</span><span style="color:#f92672">,</span>index <span style="color:#f92672">=</span> 6<span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">private</span> String last<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div></li>
+<li>
+<p>ExcelListener</p>
+<p>监听类，可以根据需要，自定义处理获取到的数据；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ExcelListener</span> <span style="color:#66d9ef">extends</span> AnalysisEventListener <span style="color:#f92672">{</span>
+    <span style="color:#75715e">//自定义用于暂时存储data。
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//可以通过实例获取该值
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> List<span style="color:#f92672">&lt;</span>Object<span style="color:#f92672">&gt;</span> datas <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+    <span style="color:#75715e">/**
+</span><span style="color:#75715e">     * 通过 AnalysisContext 对象还可以获取当前 sheet，当前行等数据
+</span><span style="color:#75715e">     */</span>
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">invoke</span><span style="color:#f92672">(</span>Object object<span style="color:#f92672">,</span> AnalysisContext context<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">//数据存储到list，供批量处理，或后续自己业务逻辑处理。
+</span><span style="color:#75715e"></span>        datas<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>object<span style="color:#f92672">);</span>
+        <span style="color:#75715e">//根据自己业务做处理
+</span><span style="color:#75715e"></span>        doSomething<span style="color:#f92672">(</span>object<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doSomething</span><span style="color:#f92672">(</span>Object object<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doAfterAllAnalysed</span><span style="color:#f92672">(</span>AnalysisContext context<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e">//  解析结束销毁不用的资源
+</span><span style="color:#75715e"></span>            datas<span style="color:#f92672">.</span><span style="color:#a6e22e">clear</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>Object<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getDatas</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> datas<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setDatas</span><span style="color:#f92672">(</span>List<span style="color:#f92672">&lt;</span>Object<span style="color:#f92672">&gt;</span> datas<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">datas</span> <span style="color:#f92672">=</span> datas<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div></li>
+<li>
+<p>ExcelUtil</p>
+<ul>
+<li>
+<p>导出方法，将需要的导出的内容以及其表头，导出的一个Sheet页上。其中fileName，sheetName 分别是导出文件的文件名和 Sheet 名，list 为需要导出的数据；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">writeExcel</span><span style="color:#f92672">(</span>HttpServletResponse response<span style="color:#f92672">,</span> List<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">extends</span> BaseRowModel<span style="color:#f92672">&gt;</span> list<span style="color:#f92672">,</span>String fileName<span style="color:#f92672">,</span> String sheetName<span style="color:#f92672">,</span> BaseRowModel object<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        ExcelWriter writer <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ExcelWriter<span style="color:#f92672">(</span>getOutputStream<span style="color:#f92672">(</span>fileName<span style="color:#f92672">,</span> response<span style="color:#f92672">),</span> ExcelTypeEnum<span style="color:#f92672">.</span><span style="color:#a6e22e">XLSX</span><span style="color:#f92672">);</span>
+        Sheet sheet <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Sheet<span style="color:#f92672">(</span>1<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> object<span style="color:#f92672">.</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">());</span>
+        sheet<span style="color:#f92672">.</span><span style="color:#a6e22e">setSheetName</span><span style="color:#f92672">(</span>sheetName<span style="color:#f92672">);</span>
+        writer<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>list<span style="color:#f92672">,</span> sheet<span style="color:#f92672">);</span>
+        writer<span style="color:#f92672">.</span><span style="color:#a6e22e">finish</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div></li>
+<li>
+<p>导入方法，读取导入的Excel文件的内容。其中 sheet 的序号从1开始，用于导入指定一Sheet页的内容；headLineNum 为表头行数，一般表头为一行；excel 是 MultipartFile 类型的文件对象；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"> <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> List<span style="color:#f92672">&lt;</span>Object<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">readExcel</span><span style="color:#f92672">(</span>MultipartFile excel<span style="color:#f92672">,</span> BaseRowModel rowModel<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> sheetNo<span style="color:#f92672">,</span><span style="color:#66d9ef">int</span> headLineNum<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        ExcelListener excelListener <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ExcelListener<span style="color:#f92672">();</span>
+        ExcelReader reader <span style="color:#f92672">=</span> getReader<span style="color:#f92672">(</span>excel<span style="color:#f92672">,</span> excelListener<span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>reader <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        reader<span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Sheet<span style="color:#f92672">(</span>sheetNo<span style="color:#f92672">,</span> headLineNum<span style="color:#f92672">,</span> rowModel<span style="color:#f92672">.</span><span style="color:#a6e22e">getClass</span><span style="color:#f92672">()));</span>
+        <span style="color:#66d9ef">return</span> excelListener<span style="color:#f92672">.</span><span style="color:#a6e22e">getDatas</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div></li>
+</ul>
+</li>
+</ul>
+<h1 id="4-遇到的问题">4. 遇到的问题</h1>
+<p>easyexcel 1.0.0 版本存在一些bug，建议使用1.1.X版本；1.1.X版本使用的poi和poi:ooxml版本为3.17；</p>
+<p>在 3.17 版本之后，居中等方法已过时：</p>
+<p>原来为 <code>cellStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER)</code> 更换为<code>cellStylestyle.setAlignment(HorizontalAlignment.CENTER)</code></p>
+</section>
+
+  
+  
+
+  
+  
+  
+  <nav class="post-nav">
+    
+    <a class="prev" href="/post/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/"><span>←</span><span>逻辑回归</span></a>
+     
+    <a class="next" href="/post/emoji-support/"><span>Emoji Support</span><span>→</span></a>
+    
+  </nav>
+  
+
+  
+  
+</article>
+
+</main>
+
+    <footer class="footer">
+  <p>&copy; 2021 <a href="">cy&#39;s Blog 🍉</a></p>
+  <p>Powered by <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper 5.0</a>️</p>
+</footer>
+
+  </body>
+</html>

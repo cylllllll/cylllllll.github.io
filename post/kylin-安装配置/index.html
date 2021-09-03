@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html lang="zh-cn">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  
+  <title>Kylin 安装配置 - cy&#39;s Blog 🍉</title>
+
+  
+  
+  <meta name="description" content="Kylin 安装配置  解压缩到/usr/local目录 tar -zxvf Kyligence.tar.gz -C/usr/local/ 配置环境变量KYLIN_HOME 在/etc/profile中添加： export KYLIN_HOME=/usr/local/Kyligence 在HDFS上创建/kylin用户目录，并赋予全权限 su hdfs hdfs dfs -mkdir /kylin hdfs dfs -chown root /kylin hdfs dfs -mkdir /user/root hdfs dfs -chown root /user/root    root可以替换为你的用户  如果机器为配置SPARK_HOME环境，就指向KYLIN的spark目录 在/etc/profile中添加： export SPARK_HOME=$KYLIN_HOME/spark 启动前检查 $KYLIN_HOME/bin/check_env.sh 启动KYLIN check-env.sh通过，修改$KYLIN_HOME/tomcat/conf/server.xml中&lt;Connector port=&quot;7070&quot; 为 Connector port=&quot;15022&quot; 端口号最好在15020-15039之间，注意端口使用占用,最后启动KYLIN。 ./kylin.sh start  报错信息   The executor&rsquo;s instances: 4 configured in kylin.properties shouldn&rsquo;t beyond maximum: 3 in theory 解决：修改&#39;$KYLIN_HOME/conf/kylin." />
+  <meta name="author" content="" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="/app.min.css" />
+
+  
+  <link rel="preload stylesheet" as="style" href="an-old-hope.min.css" />
+  <script
+    defer
+    src="highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
+  
+
+  
+  <link rel="preload" as="image" href="theme.png" />
+
+  
+  <link rel="preload" as="image" href="github.svg" />
+  
+
+  
+  <link rel="icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+  
+  <meta name="generator" content="Hugo 0.87.0" />
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="Kylin 安装配置" />
+<meta property="og:description" content="Kylin 安装配置  解压缩到/usr/local目录 tar -zxvf Kyligence.tar.gz -C/usr/local/ 配置环境变量KYLIN_HOME 在/etc/profile中添加： export KYLIN_HOME=/usr/local/Kyligence 在HDFS上创建/kylin用户目录，并赋予全权限 su hdfs hdfs dfs -mkdir /kylin hdfs dfs -chown root /kylin hdfs dfs -mkdir /user/root hdfs dfs -chown root /user/root    root可以替换为你的用户  如果机器为配置SPARK_HOME环境，就指向KYLIN的spark目录 在/etc/profile中添加： export SPARK_HOME=$KYLIN_HOME/spark 启动前检查 $KYLIN_HOME/bin/check_env.sh 启动KYLIN check-env.sh通过，修改$KYLIN_HOME/tomcat/conf/server.xml中&lt;Connector port=&quot;7070&quot; 为 Connector port=&quot;15022&quot; 端口号最好在15020-15039之间，注意端口使用占用,最后启动KYLIN。 ./kylin.sh start  报错信息   The executor&rsquo;s instances: 4 configured in kylin.properties shouldn&rsquo;t beyond maximum: 3 in theory 解决：修改&#39;$KYLIN_HOME/conf/kylin." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/kylin-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-11-03T22:00:12+00:00" />
+<meta property="article:modified_time" content="2018-11-03T22:00:12+00:00" />
+
+
+  
+  <meta itemprop="name" content="Kylin 安装配置">
+<meta itemprop="description" content="Kylin 安装配置  解压缩到/usr/local目录 tar -zxvf Kyligence.tar.gz -C/usr/local/ 配置环境变量KYLIN_HOME 在/etc/profile中添加： export KYLIN_HOME=/usr/local/Kyligence 在HDFS上创建/kylin用户目录，并赋予全权限 su hdfs hdfs dfs -mkdir /kylin hdfs dfs -chown root /kylin hdfs dfs -mkdir /user/root hdfs dfs -chown root /user/root    root可以替换为你的用户  如果机器为配置SPARK_HOME环境，就指向KYLIN的spark目录 在/etc/profile中添加： export SPARK_HOME=$KYLIN_HOME/spark 启动前检查 $KYLIN_HOME/bin/check_env.sh 启动KYLIN check-env.sh通过，修改$KYLIN_HOME/tomcat/conf/server.xml中&lt;Connector port=&quot;7070&quot; 为 Connector port=&quot;15022&quot; 端口号最好在15020-15039之间，注意端口使用占用,最后启动KYLIN。 ./kylin.sh start  报错信息   The executor&rsquo;s instances: 4 configured in kylin.properties shouldn&rsquo;t beyond maximum: 3 in theory 解决：修改&#39;$KYLIN_HOME/conf/kylin."><meta itemprop="datePublished" content="2018-11-03T22:00:12+00:00" />
+<meta itemprop="dateModified" content="2018-11-03T22:00:12+00:00" />
+<meta itemprop="wordCount" content="121">
+<meta itemprop="keywords" content="" />
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Kylin 安装配置"/>
+<meta name="twitter:description" content="Kylin 安装配置  解压缩到/usr/local目录 tar -zxvf Kyligence.tar.gz -C/usr/local/ 配置环境变量KYLIN_HOME 在/etc/profile中添加： export KYLIN_HOME=/usr/local/Kyligence 在HDFS上创建/kylin用户目录，并赋予全权限 su hdfs hdfs dfs -mkdir /kylin hdfs dfs -chown root /kylin hdfs dfs -mkdir /user/root hdfs dfs -chown root /user/root    root可以替换为你的用户  如果机器为配置SPARK_HOME环境，就指向KYLIN的spark目录 在/etc/profile中添加： export SPARK_HOME=$KYLIN_HOME/spark 启动前检查 $KYLIN_HOME/bin/check_env.sh 启动KYLIN check-env.sh通过，修改$KYLIN_HOME/tomcat/conf/server.xml中&lt;Connector port=&quot;7070&quot; 为 Connector port=&quot;15022&quot; 端口号最好在15020-15039之间，注意端口使用占用,最后启动KYLIN。 ./kylin.sh start  报错信息   The executor&rsquo;s instances: 4 configured in kylin.properties shouldn&rsquo;t beyond maximum: 3 in theory 解决：修改&#39;$KYLIN_HOME/conf/kylin."/>
+
+  
+  
+</head>
+
+
+  <body class="not-ready" data-menu="true">
+    <header class="header">
+  
+  <p class="logo">
+    <a class="site-name" href="">cy&#39;s Blog 🍉</a><a class="btn-dark"></a>
+  </p>
+  
+
+  <script>
+    let bodyClx = document.body.classList;
+    let btnDark = document.querySelector('.btn-dark');
+    let sysDark = window.matchMedia('(prefers-color-scheme: dark)');
+    let darkVal = localStorage.getItem('dark');
+
+    let setDark = (isDark) => {
+      bodyClx[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark ? 'yes' : 'no');
+    };
+
+    setDark(darkVal ? darkVal === 'yes' : sysDark.matches);
+    requestAnimationFrame(() => bodyClx.remove('not-ready'));
+
+    btnDark.addEventListener('click', () => setDark(!bodyClx.contains('dark')));
+    sysDark.addEventListener('change', (event) => setDark(event.matches));
+  </script>
+
+  
+  
+  <nav class="menu">
+    
+    <a class="" href="/">Post</a>
+    
+    <a class="" href="/about/">About</a>
+    
+    <a class="" href="/puzzle/">puzzle</a>
+    
+  </nav>
+  
+
+  
+  <nav class="social">
+    
+    <a
+      class="github"
+      style="--url: url(./github.svg)"
+      href="https://github.com/cylllllll"
+      target="_blank"
+    ></a>
+    
+  </nav>
+  
+</header>
+
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-title">
+    <aside>
+      <time>November 3, 2018</time>
+      
+    </aside>
+    <h1>Kylin 安装配置</h1>
+  </header>
+  <section class="post-content"><h1 id="kylin-安装配置">Kylin 安装配置</h1>
+<ol>
+<li>解压缩到/usr/local目录
+<code>tar -zxvf Kyligence.tar.gz -C/usr/local/</code></li>
+<li>配置环境变量KYLIN_HOME     在/etc/profile中添加：           <code>export KYLIN_HOME=/usr/local/Kyligence</code></li>
+<li>在HDFS上创建/kylin用户目录，并赋予全权限
+<pre><code>su hdfs 
+hdfs dfs -mkdir /kylin
+hdfs dfs -chown root /kylin
+hdfs dfs -mkdir /user/root
+hdfs dfs -chown root /user/root
+</code></pre></li>
+</ol>
+<ul>
+<li>root可以替换为你的用户</li>
+</ul>
+<ol start="4">
+<li>如果机器为配置SPARK_HOME环境，就指向KYLIN的spark目录 在/etc/profile中添加： <code>export SPARK_HOME=$KYLIN_HOME/spark</code></li>
+<li>启动前检查
+<code>$KYLIN_HOME/bin/check_env.sh</code></li>
+<li>启动KYLIN
+check-env.sh通过，修改<code>$KYLIN_HOME/tomcat/conf/server.xml</code>中<code>&lt;Connector port=&quot;7070&quot; 为 Connector port=&quot;15022&quot;</code> 端口号最好在15020-15039之间，注意端口使用占用,最后启动KYLIN。
+<code>./kylin.sh start</code></li>
+</ol>
+<h1 id="报错信息">报错信息</h1>
+<ul>
+<li>
+<p>The executor&rsquo;s instances: 4 configured in kylin.properties shouldn&rsquo;t beyond maximum: 3 in theory        
+解决：修改'$KYLIN_HOME/conf/kylin.properties&rsquo;中 kap.storage.columnar.spark-conf.spark.executor.instances=3</p>
+</li>
+<li>
+<p>Couldn&rsquo;t find hive configuration directory. Please set HIVE_CONF to the path which contains hive-site.xml
+解决：添加环境变量</p>
+<pre><code>export HIVE_CONF=/usr/hdp/2.6.0.3-8/hive/conf
+export HCAT_HOME=/usr/hdp/2.6.0.3-8/hive-hcatalog
+export HIVE_LIB=/usr/hdp/2.6.0.3-8/hive/lib
+</code></pre></li>
+<li>
+<p>Couldn&rsquo;t find hive.metastore.uris in hive-site.xml. hive.metastore.uris specifies Thrift URI of hive metastore . Please export HIVE_METASTORE_URI with hive.metastore.uris before starting kylin , for example: export HIVE_METASTORE_URI=thrift://sandbox.hortonworks.com:9083
+在hive.site.xml添加</p>
+<pre><code>&lt;/property&gt;
+&lt;property&gt;
+&lt;name&gt;hive.metastore.uris&lt;/name&gt;
+  &lt;value&gt;thrift:你的hostname:9083&lt;/value&gt;
+&lt;/property&gt;
+</code></pre></li>
+<li>
+<p>如图
+<img src="https://lh3.googleusercontent.com/-aM_R-143j7Y/W91HODVoEbI/AAAAAAAAAE8/vkuVOZAWK3AntXHZ69Hie8Wh7UnG6zVgACHMYCw/I/%25255BUNSET%25255D" alt="屏幕快照 2018-11-01 下午17.20.33 下午-w897"></p>
+<p>用当前用户执行：<code>hive</code> 检查当前用户是否具有权限。若无权限可以尝试在HDFS配置Custom core-site中增加：
+<img src="https://lh3.googleusercontent.com/-zx8Gloq0vpk/W91rG02SJdI/AAAAAAAAAFY/_bFmxAQzT_cpIoVcGACpcHDFAsFaiTK5ACHMYCw/I/%255BUNSET%255D" alt="屏幕快照 2018-11-03 下午17.26.55 下午"></p>
+</li>
+</ul>
+</section>
+
+  
+  
+
+  
+  
+  
+  <nav class="post-nav">
+    
+    <a class="prev" href="/post/emoji-support/"><span>←</span><span>Emoji Support</span></a>
+     
+    <a class="next" href="/post/cube/"><span>Cube-数据立方体</span><span>→</span></a>
+    
+  </nav>
+  
+
+  
+  
+</article>
+
+</main>
+
+    <footer class="footer">
+  <p>&copy; 2021 <a href="">cy&#39;s Blog 🍉</a></p>
+  <p>Powered by <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper 5.0</a>️</p>
+</footer>
+
+  </body>
+</html>

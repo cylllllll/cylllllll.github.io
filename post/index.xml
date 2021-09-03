@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on cy&#39;s Blog 🍉</title>
+    <link>/post/</link>
+    <description>Recent content in Posts on cy&#39;s Blog 🍉</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>Copyright © 2021, all rights reserved.</copyright>
+    <lastBuildDate>Sun, 30 Jun 2019 23:23:23 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>KendoUI遇到的问题总结</title>
+      <link>/post/kendoui%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Sun, 30 Jun 2019 23:23:23 +0000</pubDate>
+      
+      <guid>/post/kendoui%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/</guid>
+      <description>KendoUI遇到的问题总结   kendoLov带出的值出现 null和undefined   如果数据库中数据为空，查询出来，界面上会显示null，点击新建按钮可能会出现undefined，这是因为template的问题，这样写会出错：
+template: function (dataItem) { if(dataItem.meaning!=null || dataItem.meaning=&amp;#34;&amp;#34;){ return dataItem.meaning; } return &amp;#34;&amp;#34; }, 应将“ !=null ”的时候 将“ || ” 换成“ &amp;amp;&amp;amp; ”
+ 修改某个字段之后 点击保存按钮没有任何效果   原因： __status = &#39;&#39;
+HAP框架判断界面是新增还是修改或者是删除，都是通过&amp;quot;__status &amp;ldquo;。如果没有值，controller是不会操作数据的。
+新建： __status = &amp;ldquo;add&amp;rdquo;
+更新： __status = ‘&amp;ldquo;update&amp;rdquo;
+删除： __status = &amp;ldquo;delete&amp;rdquo;
+如果 &amp;ldquo;___status&amp;quot;实在是没有值，可以手动设置值。 viewModel.model.set(&amp;quot;_status&amp;rdquo;, &amp;ldquo;add&amp;rdquo;);
+ 检查Grid行中是否还有数据没有保存   使用dataSource.hasChanges() 方法。
+if(!dataSource1.hasChanges()){ kendo.ui.showInfoDialog({ message: &amp;#39;还有未保存的数据，请先保存!&amp;#39; }); }  检查Grid选中的数据是否有脏数据   删除数据时，需要判断选中的数据是否是脏数据（即未保存的数据）</description>
+    </item>
+    
+    <item>
+      <title>逻辑回归</title>
+      <link>/post/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/</link>
+      <pubDate>Tue, 07 May 2019 10:00:00 +0000</pubDate>
+      
+      <guid>/post/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/</guid>
+      <description>逻辑回归  从大的类别上来说，逻辑回归是一种有监督的统计学习方法，主要用于对样本进行分类。在线性回归模型中，输出一般是连续的，例如
+ $$ y=f(x)=ax+b $$
+ 对于每一个输入的x，都有一个对应的y输出。模型的定义域和值域都可以是[-∞, +∞]。但是对于逻辑回归，输入可以是连续的[-∞, +∞]，但输出一般是离散的，即只有有限多个输出值。例如，其值域可以只有两个值{0, 1}，这两个值可以表示对样本的某种分类，高/低、患病/健康、阴性/阳性等，这就是最常见的二分类逻辑回归。因此，从整体上来说，通过逻辑回归模型，我们将在整个实数范围上的x映射到了有限个点上，这样就实现了对x的分类。因为每次拿过来一个x，经过逻辑回归分析，就可以将它归入某一类y中。
+​	逻辑回归也被称为广义线性回归模型，它与线性回归模型的形式基本上相同，都具有 ax+b，其中a和b是待求参数，其区别在于他们的因变量不同，多重线性回归直接将ax+b作为因变量，即y = ax+b，而logistic回归则通过函数S将ax+b对应到一个隐状态p，p = S(ax+b)，然后根据p与1-p的大小决定因变量的值。这里的函数S就是Sigmoid函数
+ $$ S(t)=\frac{1}{1+e−t} $$
+ 将t换成ax+b，可以得到逻辑回归模型的参数形式：
+ $$
+$$
+​	逻辑回归返回的是概率。可以使用返回的概率（例如，用户点击此广告的概率为 0.000054），也可以将返回的概率转换成二元值（例如，这封电子邮件是垃圾邮件）。为了将逻辑回归值映射到二元类别，必须指定分类阈值。如果值高于该阈值，则表示“垃圾邮件”；如果值低于该阈值，则表示“非垃圾邮件”。通常来说分类阈值应始终为 0.5，但阈值取决于具体问题，因此须根据情况进行调整。
+该模型将 100 个分为真 （正类别）或假（负类别）
+   真正例（TP）     真实情况：假   机器学习模型预测结果：假   TP结果数：1       假正例（FP）     真实情况：真   机器学习模型预测结果：假   TP结果数：1       假负例（FN）     真实情况：假   机器学习模型预测结果：真   TP结果数：8       真负例（TN）     真实情况：真   机器学习模型预测结果：真   TP结果数：90     准确率 准确率是指我们的模型预测正确的结果所占的比例 $$ Accuracy=\frac{TP+TN}{TP+TN+FP+FN}=\frac{1+90}{1+90+1+8}=0.</description>
+    </item>
+    
+    <item>
+      <title>easyexcel</title>
+      <link>/post/easyexcel%E6%96%87%E6%A1%A3/</link>
+      <pubDate>Tue, 02 Apr 2019 23:00:00 +0000</pubDate>
+      
+      <guid>/post/easyexcel%E6%96%87%E6%A1%A3/</guid>
+      <description>最近项目要实现大数据量的导入导出，试用了一下easyexcel感觉还挺好用的。
+easyexcel是 Alibaba 的开源项目，项目地址 ：https://github.com/alibaba/easyexcel
+1. 依赖 首先需要添加依赖，推荐使用最新的，可以在Maven仓库中查询；
+&amp;lt;!-- https://mvnrepository.com/artifact/com.alibaba/easyexcel --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.alibaba&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;easyexcel&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.1.1&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 2. 优势  Java解析、生成Excel比较有名的框架有Apache poi、jxl。但他们都存在一个严重的问题就是非常的耗内存，poi有一套SAX模式的API可以一定程度的解决一些内存溢出的问题，但POI还是有一些缺陷，比如07版Excel解压缩以及解压后存储都是在内存中完成的，内存消耗依然很大。easyexcel重写了poi对07版Excel的解析，能够原本一个3M的excel用POI sax依然需要100M左右内存降低到KB级别，并且再大的excel不会出现内存溢出，03版依赖POI的sax模式。在上层做了模型转换的封装，让使用者更加简单方便。
+  读任意大小的03、07版Excel不会OO 读Excel自动通过注解，把结果映射为java模型 写Excel时候自定义是否需要写表头 写Excel通过注解将表头自动写入Excel 写任意大07版Excel不会OOM 写小量数据的03版Excel（不要超过2000行）  #3. 自定义类
+  Temple
+作为模版可以将字段含义写入，在导入导出时可以讲导入导出内容与模版中实体类映射，也可作为模版导出；
+public class Temple extends BaseRowModel { @ExcelProperty(value = &amp;#34;姓名&amp;#34; ,index = 0) private String name; @ExcelProperty(value = &amp;#34;年龄&amp;#34;,index = 1) private String age; @ExcelProperty(value = &amp;#34;邮箱&amp;#34;,index = 2) private String email; @ExcelProperty(value = &amp;#34;地址&amp;#34;,index = 3) private String address; @ExcelProperty(value = &amp;#34;性别&amp;#34;,index = 4) private String sax; @ExcelProperty(value = &amp;#34;高度&amp;#34;,index = 5) private String heigh; @ExcelProperty(value = &amp;#34;备注&amp;#34;,index = 6) private String last; }   ExcelListener</description>
+    </item>
+    
+    <item>
+      <title>Emoji Support</title>
+      <link>/post/emoji-support/</link>
+      <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/emoji-support/</guid>
+      <description>&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Kylin 安装配置</title>
+      <link>/post/kylin-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Sat, 03 Nov 2018 22:00:12 +0000</pubDate>
+      
+      <guid>/post/kylin-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</guid>
+      <description>Kylin 安装配置  解压缩到/usr/local目录 tar -zxvf Kyligence.tar.gz -C/usr/local/ 配置环境变量KYLIN_HOME 在/etc/profile中添加： export KYLIN_HOME=/usr/local/Kyligence 在HDFS上创建/kylin用户目录，并赋予全权限 su hdfs hdfs dfs -mkdir /kylin hdfs dfs -chown root /kylin hdfs dfs -mkdir /user/root hdfs dfs -chown root /user/root    root可以替换为你的用户  如果机器为配置SPARK_HOME环境，就指向KYLIN的spark目录 在/etc/profile中添加： export SPARK_HOME=$KYLIN_HOME/spark 启动前检查 $KYLIN_HOME/bin/check_env.sh 启动KYLIN check-env.sh通过，修改$KYLIN_HOME/tomcat/conf/server.xml中&amp;lt;Connector port=&amp;quot;7070&amp;quot; 为 Connector port=&amp;quot;15022&amp;quot; 端口号最好在15020-15039之间，注意端口使用占用,最后启动KYLIN。 ./kylin.sh start  报错信息   The executor&amp;rsquo;s instances: 4 configured in kylin.properties shouldn&amp;rsquo;t beyond maximum: 3 in theory 解决：修改&#39;$KYLIN_HOME/conf/kylin.</description>
+    </item>
+    
+    <item>
+      <title>Cube-数据立方体</title>
+      <link>/post/cube/</link>
+      <pubDate>Fri, 12 Oct 2018 21:46:12 +0000</pubDate>
+      
+      <guid>/post/cube/</guid>
+      <description>数据立方体 如上图所示，这是由三个维度构成的一个OLAP立方体，立方体中包含了满足条件的cell(子立方块)值，这些cell里面包含了要分析的数据，称之为度量值。显而易见，一组三维坐标唯一确定了一个子立方。
+多位模型的基本概念介绍：
+  立方体：由维度构建出来的多维空间，包含了所有要分析的基础数据，所有的聚合数据操作都在立方体上进行。  维度：就是观察数据的一种角度。在这个例子中，路线，源，时间都是维度，  这三个维度构成了一个立方体空间。维度可以理解为立方体的一个轴。要注意的是有一个特殊的维度，即度量值维度。  维度成员：构成维度的基本单位。对于时间维，它的成员分别是：第一季度、第二季度、第三季度、第四季度。  层次：维度的层次结构，要注意的是存在两种层次：自然层次和用户自定义层次。对于时间维而言，(年、月、日)是它的一个层次，(年、季度、月)是它的另一个层次，一个维可以有多个层次，层次可以理解为单位数据聚合的一种路径。  级别：级别组成层次。对于时间维的一个层次(年、月、日)而言，年是一个级别，月是一个级别，日是一个级别，显然这些级别是有父子关系的。  度量值：要分析展示的数据，即指标。如图1中一个cell中包含了两个度量值：装箱数和截至时间，可以对其进行多维分析。  事实表：存放度量值的表，同时存放了维表的外键。所有的分析用的数据最终都是来自与事实表。  维表：一个维度对应一个或者多个维表。一个维度对应一个维表时数据的组织方式就是采用的星型模式，对应多个维表时就是采用雪花模式。雪花模式是对星型模式的规范化。简言之，维表是对维度的描述。  MDX查询：多维模型的查询语言MDX(MDX是微软发布的多维查询语言标准),它的语法与SQL有很多相似之处：select {[Measures].[Salary]} on columns, {[Employee].[employeeId].members} on rows from CubeTest对于这条语句，COLUMNS 和 ROWS都代表查询轴，其中COLUMNS代表列轴，ROWS代表行轴。COLUMNS又可以写成0，ROWS又可以写成1，当只有两个查询轴时，可以理解为结果的展现格式是一个平坦二维表。这条语句的含义就是查询名字为CubeTest的立方体，列显示Measures维度的salary，行显示 Employee维度employeeId级别的所有成员，那么得出的结果就是employeeId所有成员的salary，也就是所有员工的薪酬。具体语法规范和帮助文档可以参考微软的用户文档。  多维数据模型是为了满足用户从多角度多层次进行数据查询和分析的需要而建立起来的基于事实和维的数据库模型，其基本的应用是为了实现OLAP（Online Analytical Processing）。
+其中，每个维对应于模式中的一个或一组属性，而每个单元存放某种聚集度量值，如count或sum。数据立方体提供数据的多维视图，并允许预计算和快速访问汇总数据。
+《数据挖掘：概念与技术》中例举如下模型
+数据立方体允许以多维数据建模和观察。它由维和事实定义。 维是关于一个组织想要记录的视角或观点。每个维都有一个表与之相关联，称为维表。 事实表包括事实的名称或度量以及每个相关维表的关键字。
+在数据仓库的研究文献中，一个n维的数据的立方体叫做基本方体。给定一个维的集合，我们可以构造一个方体的格，每个都在不同的汇总级或不同的数据子集显示数据，方体的格称为数据立方体。0维方体存放最高层的汇总，称为顶点方体；而存放最底层汇总的方体称为基本方体。
+数据仓库的概念模型 最流行的数据仓库概念是多维数据模型。这种模型可以以星型模式，雪花模式，或事实星座模式的形式存在。
+1.星型模式(Star schema):事实表在中心，周围围绕地连接着维表(每维一个)，事实表包含有大量数据，没有冗余。
+2.雪花模式(Snowflake schema):是星型模式的变种，其中某些维表是规范化的，因而把数据进一步分解到附加表中。结果，模式图形成类似雪花的形状。
+雪花模型相较于星座模型，是把维表进行了规范化。
+事实星座(Fact constellations):多个事实表共享维表，这种模式可以看作星座模式集，因此称作星系模式(galaxy schema)，或者事实星座(fact constellation)
+事实星座模式是把事实间共享的维进行合并。
+对概念进行分层，有利于数据的汇总。
+数据立方体 　关于数据立方体（Data Cube），这里必须注意的是数据立方体只是多维模型的一个形象的说法。立方体其本身只有三维，但多维模型不仅限于三维模型，可以组合更多的维度，但一方面是出于更方便地解释和描述，同时也是给思维成像和想象的空间；另一方面是为了与传统关系型数据库的二维表区别开来，于是就有了数据立方体的叫法。所以本文中也是引用立方体，也就是把多维模型以三维的方式为代表进行展现和描述，其实上Google图片搜索“OLAP”会有一大堆的数据立方体图片，这里我自己画了一个：
+
+OLAP 　**OLAP（On-line Analytical Processing，联机分析处理）**是在基于数据仓库多维模型的基础上实现的面向分析的各类操作的集合。可以比较下其与传统的OLTP（On-line Transaction Processing，联机事务处理）的区别来看一下它的特点：</description>
+    </item>
+    
+    <item>
+      <title>Hello World</title>
+      <link>/post/hello-world/</link>
+      <pubDate>Tue, 03 Apr 2018 21:46:12 +0000</pubDate>
+      
+      <guid>/post/hello-world/</guid>
+      <description>Hi 开了个博客，准备看心情随便写点东西。 内容质量随缘吧XD</description>
+    </item>
+    
+  </channel>
+</rss>

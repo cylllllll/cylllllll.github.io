@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html lang="zh-cn">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  
+  <title>逻辑回归 - cy&#39;s Blog 🍉</title>
+
+  
+  
+  <meta name="description" content="逻辑回归  从大的类别上来说，逻辑回归是一种有监督的统计学习方法，主要用于对样本进行分类。在线性回归模型中，输出一般是连续的，例如
+ $$ y=f(x)=ax&#43;b $$
+ 对于每一个输入的x，都有一个对应的y输出。模型的定义域和值域都可以是[-∞, &#43;∞]。但是对于逻辑回归，输入可以是连续的[-∞, &#43;∞]，但输出一般是离散的，即只有有限多个输出值。例如，其值域可以只有两个值{0, 1}，这两个值可以表示对样本的某种分类，高/低、患病/健康、阴性/阳性等，这就是最常见的二分类逻辑回归。因此，从整体上来说，通过逻辑回归模型，我们将在整个实数范围上的x映射到了有限个点上，这样就实现了对x的分类。因为每次拿过来一个x，经过逻辑回归分析，就可以将它归入某一类y中。
+​	逻辑回归也被称为广义线性回归模型，它与线性回归模型的形式基本上相同，都具有 ax&#43;b，其中a和b是待求参数，其区别在于他们的因变量不同，多重线性回归直接将ax&#43;b作为因变量，即y = ax&#43;b，而logistic回归则通过函数S将ax&#43;b对应到一个隐状态p，p = S(ax&#43;b)，然后根据p与1-p的大小决定因变量的值。这里的函数S就是Sigmoid函数
+ $$ S(t)=\frac{1}{1&#43;e−t} $$
+ 将t换成ax&#43;b，可以得到逻辑回归模型的参数形式：
+ $$
+$$
+​	逻辑回归返回的是概率。可以使用返回的概率（例如，用户点击此广告的概率为 0.000054），也可以将返回的概率转换成二元值（例如，这封电子邮件是垃圾邮件）。为了将逻辑回归值映射到二元类别，必须指定分类阈值。如果值高于该阈值，则表示“垃圾邮件”；如果值低于该阈值，则表示“非垃圾邮件”。通常来说分类阈值应始终为 0.5，但阈值取决于具体问题，因此须根据情况进行调整。
+该模型将 100 个分为真 （正类别）或假（负类别）
+   真正例（TP）     真实情况：假   机器学习模型预测结果：假   TP结果数：1       假正例（FP）     真实情况：真   机器学习模型预测结果：假   TP结果数：1       假负例（FN）     真实情况：假   机器学习模型预测结果：真   TP结果数：8       真负例（TN）     真实情况：真   机器学习模型预测结果：真   TP结果数：90     准确率 准确率是指我们的模型预测正确的结果所占的比例 $$ Accuracy=\frac{TP&#43;TN}{TP&#43;TN&#43;FP&#43;FN}=\frac{1&#43;90}{1&#43;90&#43;1&#43;8}=0." />
+  <meta name="author" content="" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="/app.min.css" />
+
+  
+  <link rel="preload stylesheet" as="style" href="an-old-hope.min.css" />
+  <script
+    defer
+    src="highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
+  
+
+  
+  <link rel="preload" as="image" href="theme.png" />
+
+  
+  <link rel="preload" as="image" href="github.svg" />
+  
+
+  
+  <link rel="icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+  
+  <meta name="generator" content="Hugo 0.87.0" />
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="逻辑回归" />
+<meta property="og:description" content="逻辑回归  从大的类别上来说，逻辑回归是一种有监督的统计学习方法，主要用于对样本进行分类。在线性回归模型中，输出一般是连续的，例如
+ $$ y=f(x)=ax&#43;b $$
+ 对于每一个输入的x，都有一个对应的y输出。模型的定义域和值域都可以是[-∞, &#43;∞]。但是对于逻辑回归，输入可以是连续的[-∞, &#43;∞]，但输出一般是离散的，即只有有限多个输出值。例如，其值域可以只有两个值{0, 1}，这两个值可以表示对样本的某种分类，高/低、患病/健康、阴性/阳性等，这就是最常见的二分类逻辑回归。因此，从整体上来说，通过逻辑回归模型，我们将在整个实数范围上的x映射到了有限个点上，这样就实现了对x的分类。因为每次拿过来一个x，经过逻辑回归分析，就可以将它归入某一类y中。
+​	逻辑回归也被称为广义线性回归模型，它与线性回归模型的形式基本上相同，都具有 ax&#43;b，其中a和b是待求参数，其区别在于他们的因变量不同，多重线性回归直接将ax&#43;b作为因变量，即y = ax&#43;b，而logistic回归则通过函数S将ax&#43;b对应到一个隐状态p，p = S(ax&#43;b)，然后根据p与1-p的大小决定因变量的值。这里的函数S就是Sigmoid函数
+ $$ S(t)=\frac{1}{1&#43;e−t} $$
+ 将t换成ax&#43;b，可以得到逻辑回归模型的参数形式：
+ $$
+$$
+​	逻辑回归返回的是概率。可以使用返回的概率（例如，用户点击此广告的概率为 0.000054），也可以将返回的概率转换成二元值（例如，这封电子邮件是垃圾邮件）。为了将逻辑回归值映射到二元类别，必须指定分类阈值。如果值高于该阈值，则表示“垃圾邮件”；如果值低于该阈值，则表示“非垃圾邮件”。通常来说分类阈值应始终为 0.5，但阈值取决于具体问题，因此须根据情况进行调整。
+该模型将 100 个分为真 （正类别）或假（负类别）
+   真正例（TP）     真实情况：假   机器学习模型预测结果：假   TP结果数：1       假正例（FP）     真实情况：真   机器学习模型预测结果：假   TP结果数：1       假负例（FN）     真实情况：假   机器学习模型预测结果：真   TP结果数：8       真负例（TN）     真实情况：真   机器学习模型预测结果：真   TP结果数：90     准确率 准确率是指我们的模型预测正确的结果所占的比例 $$ Accuracy=\frac{TP&#43;TN}{TP&#43;TN&#43;FP&#43;FN}=\frac{1&#43;90}{1&#43;90&#43;1&#43;8}=0." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2019-05-07T10:00:00+00:00" />
+<meta property="article:modified_time" content="2019-05-07T10:00:00+00:00" />
+
+
+  
+  <meta itemprop="name" content="逻辑回归">
+<meta itemprop="description" content="逻辑回归  从大的类别上来说，逻辑回归是一种有监督的统计学习方法，主要用于对样本进行分类。在线性回归模型中，输出一般是连续的，例如
+ $$ y=f(x)=ax&#43;b $$
+ 对于每一个输入的x，都有一个对应的y输出。模型的定义域和值域都可以是[-∞, &#43;∞]。但是对于逻辑回归，输入可以是连续的[-∞, &#43;∞]，但输出一般是离散的，即只有有限多个输出值。例如，其值域可以只有两个值{0, 1}，这两个值可以表示对样本的某种分类，高/低、患病/健康、阴性/阳性等，这就是最常见的二分类逻辑回归。因此，从整体上来说，通过逻辑回归模型，我们将在整个实数范围上的x映射到了有限个点上，这样就实现了对x的分类。因为每次拿过来一个x，经过逻辑回归分析，就可以将它归入某一类y中。
+​	逻辑回归也被称为广义线性回归模型，它与线性回归模型的形式基本上相同，都具有 ax&#43;b，其中a和b是待求参数，其区别在于他们的因变量不同，多重线性回归直接将ax&#43;b作为因变量，即y = ax&#43;b，而logistic回归则通过函数S将ax&#43;b对应到一个隐状态p，p = S(ax&#43;b)，然后根据p与1-p的大小决定因变量的值。这里的函数S就是Sigmoid函数
+ $$ S(t)=\frac{1}{1&#43;e−t} $$
+ 将t换成ax&#43;b，可以得到逻辑回归模型的参数形式：
+ $$
+$$
+​	逻辑回归返回的是概率。可以使用返回的概率（例如，用户点击此广告的概率为 0.000054），也可以将返回的概率转换成二元值（例如，这封电子邮件是垃圾邮件）。为了将逻辑回归值映射到二元类别，必须指定分类阈值。如果值高于该阈值，则表示“垃圾邮件”；如果值低于该阈值，则表示“非垃圾邮件”。通常来说分类阈值应始终为 0.5，但阈值取决于具体问题，因此须根据情况进行调整。
+该模型将 100 个分为真 （正类别）或假（负类别）
+   真正例（TP）     真实情况：假   机器学习模型预测结果：假   TP结果数：1       假正例（FP）     真实情况：真   机器学习模型预测结果：假   TP结果数：1       假负例（FN）     真实情况：假   机器学习模型预测结果：真   TP结果数：8       真负例（TN）     真实情况：真   机器学习模型预测结果：真   TP结果数：90     准确率 准确率是指我们的模型预测正确的结果所占的比例 $$ Accuracy=\frac{TP&#43;TN}{TP&#43;TN&#43;FP&#43;FN}=\frac{1&#43;90}{1&#43;90&#43;1&#43;8}=0."><meta itemprop="datePublished" content="2019-05-07T10:00:00+00:00" />
+<meta itemprop="dateModified" content="2019-05-07T10:00:00+00:00" />
+<meta itemprop="wordCount" content="608">
+<meta itemprop="keywords" content="" />
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="逻辑回归"/>
+<meta name="twitter:description" content="逻辑回归  从大的类别上来说，逻辑回归是一种有监督的统计学习方法，主要用于对样本进行分类。在线性回归模型中，输出一般是连续的，例如
+ $$ y=f(x)=ax&#43;b $$
+ 对于每一个输入的x，都有一个对应的y输出。模型的定义域和值域都可以是[-∞, &#43;∞]。但是对于逻辑回归，输入可以是连续的[-∞, &#43;∞]，但输出一般是离散的，即只有有限多个输出值。例如，其值域可以只有两个值{0, 1}，这两个值可以表示对样本的某种分类，高/低、患病/健康、阴性/阳性等，这就是最常见的二分类逻辑回归。因此，从整体上来说，通过逻辑回归模型，我们将在整个实数范围上的x映射到了有限个点上，这样就实现了对x的分类。因为每次拿过来一个x，经过逻辑回归分析，就可以将它归入某一类y中。
+​	逻辑回归也被称为广义线性回归模型，它与线性回归模型的形式基本上相同，都具有 ax&#43;b，其中a和b是待求参数，其区别在于他们的因变量不同，多重线性回归直接将ax&#43;b作为因变量，即y = ax&#43;b，而logistic回归则通过函数S将ax&#43;b对应到一个隐状态p，p = S(ax&#43;b)，然后根据p与1-p的大小决定因变量的值。这里的函数S就是Sigmoid函数
+ $$ S(t)=\frac{1}{1&#43;e−t} $$
+ 将t换成ax&#43;b，可以得到逻辑回归模型的参数形式：
+ $$
+$$
+​	逻辑回归返回的是概率。可以使用返回的概率（例如，用户点击此广告的概率为 0.000054），也可以将返回的概率转换成二元值（例如，这封电子邮件是垃圾邮件）。为了将逻辑回归值映射到二元类别，必须指定分类阈值。如果值高于该阈值，则表示“垃圾邮件”；如果值低于该阈值，则表示“非垃圾邮件”。通常来说分类阈值应始终为 0.5，但阈值取决于具体问题，因此须根据情况进行调整。
+该模型将 100 个分为真 （正类别）或假（负类别）
+   真正例（TP）     真实情况：假   机器学习模型预测结果：假   TP结果数：1       假正例（FP）     真实情况：真   机器学习模型预测结果：假   TP结果数：1       假负例（FN）     真实情况：假   机器学习模型预测结果：真   TP结果数：8       真负例（TN）     真实情况：真   机器学习模型预测结果：真   TP结果数：90     准确率 准确率是指我们的模型预测正确的结果所占的比例 $$ Accuracy=\frac{TP&#43;TN}{TP&#43;TN&#43;FP&#43;FN}=\frac{1&#43;90}{1&#43;90&#43;1&#43;8}=0."/>
+
+  
+  
+</head>
+
+
+  <body class="not-ready" data-menu="true">
+    <header class="header">
+  
+  <p class="logo">
+    <a class="site-name" href="">cy&#39;s Blog 🍉</a><a class="btn-dark"></a>
+  </p>
+  
+
+  <script>
+    let bodyClx = document.body.classList;
+    let btnDark = document.querySelector('.btn-dark');
+    let sysDark = window.matchMedia('(prefers-color-scheme: dark)');
+    let darkVal = localStorage.getItem('dark');
+
+    let setDark = (isDark) => {
+      bodyClx[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark ? 'yes' : 'no');
+    };
+
+    setDark(darkVal ? darkVal === 'yes' : sysDark.matches);
+    requestAnimationFrame(() => bodyClx.remove('not-ready'));
+
+    btnDark.addEventListener('click', () => setDark(!bodyClx.contains('dark')));
+    sysDark.addEventListener('change', (event) => setDark(event.matches));
+  </script>
+
+  
+  
+  <nav class="menu">
+    
+    <a class="" href="/">Post</a>
+    
+    <a class="" href="/about/">About</a>
+    
+    <a class="" href="/puzzle/">puzzle</a>
+    
+  </nav>
+  
+
+  
+  <nav class="social">
+    
+    <a
+      class="github"
+      style="--url: url(./github.svg)"
+      href="https://github.com/cylllllll"
+      target="_blank"
+    ></a>
+    
+  </nav>
+  
+</header>
+
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-title">
+    <aside>
+      <time>May 7, 2019</time>
+      
+    </aside>
+    <h1>逻辑回归</h1>
+  </header>
+  <section class="post-content"><h1 id="逻辑回归">逻辑回归</h1>
+<blockquote>
+<p>从大的类别上来说，逻辑回归是一种有监督的统计学习方法，主要用于对样本进行分类。在线性回归模型中，输出一般是连续的，例如</p>
+</blockquote>
+<p>$$
+y=f(x)=ax+b
+$$</p>
+<blockquote>
+<p>对于每一个输入的x，都有一个对应的y输出。模型的定义域和值域都可以是[-∞, +∞]。但是对于逻辑回归，输入可以是连续的[-∞, +∞]，但输出一般是离散的，即只有有限多个输出值。例如，其值域可以只有两个值{0, 1}，这两个值可以表示对样本的某种分类，高/低、患病/健康、阴性/阳性等，这就是最常见的二分类逻辑回归。因此，从整体上来说，通过逻辑回归模型，我们将在整个实数范围上的x映射到了有限个点上，这样就实现了对x的分类。因为每次拿过来一个x，经过逻辑回归分析，就可以将它归入某一类y中。</p>
+<p>​	逻辑回归也被称为广义线性回归模型，它与线性回归模型的形式基本上相同，都具有 ax+b，其中a和b是待求参数，其区别在于他们的因变量不同，多重线性回归直接将ax+b作为因变量，即y = ax+b，而logistic回归则通过函数S将ax+b对应到一个隐状态p，p = S(ax+b)，然后根据p与1-p的大小决定因变量的值。这里的函数S就是Sigmoid函数</p>
+</blockquote>
+<p>$$
+S(t)=\frac{1}{1+e−t}
+$$</p>
+<blockquote>
+<p>将t换成ax+b，可以得到逻辑回归模型的参数形式：</p>
+</blockquote>
+<p>$$</p>
+<p>$$</p>
+<p>​	逻辑回归返回的是概率。可以使用返回的概率（例如，用户点击此广告的概率为 0.000054），也可以将返回的概率转换成二元值（例如，这封电子邮件是垃圾邮件）。为了将逻辑回归值映射到二元类别，必须指定分类阈值。如果值高于该阈值，则表示“垃圾邮件”；如果值低于该阈值，则表示“非垃圾邮件”。通常来说分类阈值应始终为 0.5，但阈值取决于具体问题，因此须根据情况进行调整。</p>
+<p>该模型将 100 个分为真 （正类别）或假（负类别）</p>
+<table>
+<thead>
+<tr>
+<th>真正例（TP）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>真实情况：假</td>
+</tr>
+<tr>
+<td>机器学习模型预测结果：假</td>
+</tr>
+<tr>
+<td>TP结果数：1</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>假正例（FP）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>真实情况：真</td>
+</tr>
+<tr>
+<td>机器学习模型预测结果：假</td>
+</tr>
+<tr>
+<td>TP结果数：1</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>假负例（FN）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>真实情况：假</td>
+</tr>
+<tr>
+<td>机器学习模型预测结果：真</td>
+</tr>
+<tr>
+<td>TP结果数：8</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>真负例（TN）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>真实情况：真</td>
+</tr>
+<tr>
+<td>机器学习模型预测结果：真</td>
+</tr>
+<tr>
+<td>TP结果数：90</td>
+</tr>
+</tbody>
+</table>
+<h2 id="heading"></h2>
+<h3 id="准确率">准确率</h3>
+<p>准确率是指我们的模型预测正确的结果所占的比例
+$$
+Accuracy=\frac{TP+TN}{TP+TN+FP+FN}=\frac{1+90}{1+90+1+8}=0.91
+$$
+在 100 个样本中，91 个为真（90 个 TN 和 1 个 FP），9 个为假（1 个 TP 和 8 个 FN）。在 91 个真中，该模型将 90 个正确识别为真。但是，在 9 个假中，该模型仅将 1 个正确识别为假，9 个假中有 8 个未被识别。</p>
+<p>当使用分类不平衡的数据集（比如正类别标签和负类别标签的数量之间存在明显差异）时，单单准确率一项并不能反映全面情况，准确率指标的效果就会很差。</p>
+<h3 id="精确率">精确率</h3>
+<p>即在被识别为正类别的样本中，实际上确实为正类别的比例是多少。</p>
+<p>精确率的定义如下：
+$$
+Precision=\frac{TP}{TP+FP}=\frac{1}{1+1}=0.5
+$$
+在 100 个样本中，有1个为假实际也为假的（1个TP），还有一个为真实际为假的（1个FP）。精确率为 0.5，也就是说该模型在预测真假时的正确率是 50%。</p>
+<h3 id="召回率">召回率</h3>
+<p>即所有实际上为正类别样本中，被正确预测为正类别的比例是多少。
+$$
+Recall=\frac{TP}{TP+FN}=\frac{1}{1+8}=0.11
+$$
+该模型的召回率是 0.11，也就是说，该模型能够正确识别出所假的百分比是 11%</p>
+<h3 id="精确率和召回率">精确率和召回率</h3>
+<p>对于模型的有效性，需要同时考虑精确率和召回率，但是精确率和召回率总是负相关，提高精确率通常会降低召回率值。下面通过例子说明：</p>
+<p>邮件归类为垃圾邮件或非垃圾邮件的样本数据：</p>
+<p><img src="https://i.imgur.com/qCpGPMY.png" alt="1"></p>
+<p>预测为正的样本（8个TP、2个FP）中实际也为正（8个TP），此时的精确率为：
+$$
+Precision=\frac{TP}{TP+FP}=\frac{8}{2+8}=0.8
+$$
+实际为正的样本（共8个TP、3个FN），预测也为正（阈值右边有8个TP），此时的召回率为：
+$$
+Recall=\frac{TP}{TP+FN}=\frac{8}{8+3}=0.73
+$$
+此时我们提高阈值</p>
+<p><img src="https://i.imgur.com/WXs8VRr.png" alt="2"></p>
+<p>预测为正的样本（7个TP、1个FP）中实际也为正（7个TP），此时的精确率为：
+$$
+Precision=\frac{TP}{TP+FP}=\frac{7}{7+1}=0.88
+$$
+实际为正的样本（7个TP、4个FN），预测也为正（阈值右边有7个TP），此时的召回率为：
+$$
+Recall=\frac{TP}{TP+FN}=\frac{7}{7+4}=0.64
+$$
+相反，降低阈值</p>
+<p><img src="https://i.imgur.com/5G3lqbq.png" alt="3"></p>
+<p>预测为正的样本（7个TP、1个FP）中实际也为正（7个TP），此时的精确率为：
+$$
+Precision=\frac{TP}{TP+FP}=\frac{7}{7+1}=0.88
+$$
+所以，通常来说，提高分类阈值会减少假正例，从而提高精确率。降低分类阈值会提高召回率。</p>
+<h3 id="roc曲线">ROC曲线</h3>
+<blockquote>
+<p>在选择特定的分类阈值后， 精确率和召回率值便都可以确定。但我们可能无法事先得知最合适的分类阈值， 而我们仍然想知道我们的模型质量如何。合理的做法是尝试使用 许多不同的分类阈值来评估我们的模型。事实上，我们有一个指标可衡量 模型在所有可能的分类阈值下的效果。该指标称为ROC曲线，即接收者操作特征曲线。</p>
+<p>ROC 曲线用于绘制采用不同分类阈值时的精确率与召回率。降低分类阈值会导致将更多样本归为正类别，从而增加假正例和真正例的个数。下图显示了一个典型的 ROC 曲线。</p>
+<p><img src="https://i.imgur.com/SA1aycx.png" alt="2972843068-5af547dd014af_articlex"></p>
+<p>为了计算 ROC 曲线上的点，我们可以使用不同的分类阈值多次评估逻辑回归模型，但这样做效率非常低。幸运的是，有一种基于排序的高效算法可以为我们提供此类信息，这种算法称为曲线下面积。</p>
+</blockquote>
+<h3 id="代码">代码</h3>
+<p>样本数据：</p>
+<pre><code>-0.017612	14.053064	0
+-1.395634	4.662541	1
+-0.752157	6.538620	0
+-1.322371	7.152853	0
+0.423363	11.054677	0
+0.406704	7.067335	1
+0.667394	12.741452	0
+-2.460150	6.866805	1
+0.569411	9.548755	0
+-0.026632	10.427743	0
+0.850433	6.920334	1
+1.347183	13.175500	0
+1.176813	3.167020	1
+-1.781871	9.097953	0
+-0.566606	5.749003	1
+0.931635	1.589505	1
+-0.024205	6.151823	1
+-0.036453	2.690988	1
+-0.196949	0.444165	1
+1.014459	5.754399	1
+1.985298	3.230619	1
+-1.693453	-0.557540	1
+-0.576525	11.778922	0
+-0.346811	-1.678730	1
+-2.124484	2.672471	1
+1.217916	9.597015	0
+-0.733928	9.098687	0
+-3.642001	-1.618087	1
+0.315985	3.523953	1
+1.416614	9.619232	0
+-0.386323	3.989286	1
+0.556921	8.294984	1
+1.224863	11.587360	0
+-1.347803	-2.406051	1
+1.196604	4.951851	1
+0.275221	9.543647	0
+0.470575	9.332488	0
+-1.889567	9.542662	0
+-1.527893	12.150579	0
+-1.185247	11.309318	0
+-0.445678	3.297303	1
+1.042222	6.105155	1
+-0.618787	10.320986	0
+1.152083	0.548467	1
+0.828534	2.676045	1
+-1.237728	10.549033	0
+-0.683565	-2.166125	1
+0.229456	5.921938	1
+-0.959885	11.555336	0
+0.492911	10.993324	0
+0.184992	8.721488	0
+-0.355715	10.325976	0
+-0.397822	8.058397	0
+0.824839	13.730343	0
+1.507278	5.027866	1
+0.099671	6.835839	1
+-0.344008	10.717485	0
+1.785928	7.718645	1
+-0.918801	11.560217	0
+-0.364009	4.747300	1
+-0.841722	4.119083	1
+0.490426	1.960539	1
+-0.007194	9.075792	0
+0.356107	12.447863	0
+0.342578	12.281162	0
+-0.810823	-1.466018	1
+2.530777	6.476801	1
+1.296683	11.607559	0
+0.475487	12.040035	0
+-0.783277	11.009725	0
+0.074798	11.023650	0
+-1.337472	0.468339	1
+-0.102781	13.763651	0
+-0.147324	2.874846	1
+0.518389	9.887035	0
+1.015399	7.571882	0
+-1.658086	-0.027255	1
+1.319944	2.171228	1
+2.056216	5.019981	1
+-0.851633	4.375691	1
+-1.510047	6.061992	0
+-1.076637	-3.181888	1
+1.821096	10.283990	0
+3.010150	8.401766	1
+-1.099458	1.688274	1
+-0.834872	-1.733869	1
+-0.846637	3.849075	1
+1.400102	12.628781	0
+1.752842	5.468166	1
+0.078557	0.059736	1
+</code></pre><p>根据学习内容尝试测试逻辑回归算法：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># 从文件中读取样本数据</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">loadDataSet</span>(p, file_n):
+    dataMat <span style="color:#f92672">=</span> [];
+    labelMat <span style="color:#f92672">=</span> []
+    fr <span style="color:#f92672">=</span> open(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(p, file_n))
+    <span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> fr<span style="color:#f92672">.</span>readlines():
+        lineArr <span style="color:#f92672">=</span> line<span style="color:#f92672">.</span>strip()<span style="color:#f92672">.</span>split()
+        dataMat<span style="color:#f92672">.</span>append([<span style="color:#ae81ff">1.0</span>, float(lineArr[<span style="color:#ae81ff">0</span>]), float(lineArr[<span style="color:#ae81ff">1</span>])])  
+        <span style="color:#75715e"># 三个特征x0, x1, x2</span>
+        labelMat<span style="color:#f92672">.</span>append(int(lineArr[<span style="color:#ae81ff">2</span>]))
+    <span style="color:#66d9ef">return</span> dataMat, labelMat
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sigmoid</span>(inX):
+     <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1.0</span><span style="color:#f92672">/</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">+</span>exp(<span style="color:#f92672">-</span>inX))
+</code></pre></div><p>梯度下降法求回归系数a，由于样本量少，所以将迭代次数改成了1000次：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">gradAscent</span>(dataMatIn, classLabels):
+    <span style="color:#75715e"># convert to NumPy matrix</span>
+    dataMatrix <span style="color:#f92672">=</span> mat(dataMatIn)
+    labelMat <span style="color:#f92672">=</span> mat(classLabels)<span style="color:#f92672">.</span>transpose()
+    m, n <span style="color:#f92672">=</span> shape(dataMatrix)
+    alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.001</span>  <span style="color:#75715e"># 学习率</span>
+    maxCycles <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>
+    weights <span style="color:#f92672">=</span> ones((n, <span style="color:#ae81ff">1</span>))
+    <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(maxCycles):
+        <span style="color:#75715e"># 模型预测值, 90 x 1</span>
+        h <span style="color:#f92672">=</span> sigmoid(dataMatrix <span style="color:#f92672">*</span> weights)
+        <span style="color:#75715e"># 真实值与预测值之间的误差, 90 x 1</span>
+        error <span style="color:#f92672">=</span> h <span style="color:#f92672">-</span> labelMat
+        <span style="color:#75715e"># 交叉熵代价函数对所有参数的偏导数, 3 x 1</span>
+        temp <span style="color:#f92672">=</span> dataMatrix<span style="color:#f92672">.</span>transpose() <span style="color:#f92672">*</span> error
+        <span style="color:#75715e"># 更新权重</span>
+        weights <span style="color:#f92672">=</span> weights <span style="color:#f92672">-</span> alpha <span style="color:#f92672">*</span> temp
+    <span style="color:#66d9ef">return</span> weights
+
+</code></pre></div><p>分类效果展示，参数weights就是回归系数：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">plotBestFit</span>(weights):
+    <span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+    dataMat, labelMat <span style="color:#f92672">=</span> loadDataSet(path, training_sample)
+    dataArr <span style="color:#f92672">=</span> array(dataMat)
+    n <span style="color:#f92672">=</span> shape(dataArr)[<span style="color:#ae81ff">0</span>]
+    xcord1 <span style="color:#f92672">=</span> [];
+    ycord1 <span style="color:#f92672">=</span> []
+    xcord2 <span style="color:#f92672">=</span> [];
+    ycord2 <span style="color:#f92672">=</span> []
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
+        <span style="color:#66d9ef">if</span> int(labelMat[i]) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+            xcord1<span style="color:#f92672">.</span>append(dataArr[i, <span style="color:#ae81ff">1</span>]);
+            ycord1<span style="color:#f92672">.</span>append(dataArr[i, <span style="color:#ae81ff">2</span>])
+        <span style="color:#66d9ef">else</span>:
+            xcord2<span style="color:#f92672">.</span>append(dataArr[i, <span style="color:#ae81ff">1</span>]);
+            ycord2<span style="color:#f92672">.</span>append(dataArr[i, <span style="color:#ae81ff">2</span>])
+    fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure()
+    ax <span style="color:#f92672">=</span> fig<span style="color:#f92672">.</span>add_subplot(<span style="color:#ae81ff">111</span>)
+    ax<span style="color:#f92672">.</span>scatter(xcord1, ycord1, s<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>, c<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, marker<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;s&#39;</span>)
+    ax<span style="color:#f92672">.</span>scatter(xcord2, ycord2, s<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>, c<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;green&#39;</span>)
+    x <span style="color:#f92672">=</span> arange(<span style="color:#f92672">-</span><span style="color:#ae81ff">3.0</span>, <span style="color:#ae81ff">3.0</span>, <span style="color:#ae81ff">0.1</span>)
+    y <span style="color:#f92672">=</span> (<span style="color:#f92672">-</span>weights[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> weights[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">*</span> x) <span style="color:#f92672">/</span> weights[<span style="color:#ae81ff">2</span>] 
+    ax<span style="color:#f92672">.</span>plot(x<span style="color:#f92672">.</span>reshape(<span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), y<span style="color:#f92672">.</span>reshape(<span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>))
+    plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;X1&#39;</span>);
+    plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;X2&#39;</span>);
+    plt<span style="color:#f92672">.</span>show()
+</code></pre></div><p>展示结果：
+<img src="https://i.imgur.com/OTb7zuP.png" alt="屏幕快照 2019-04-30 下午11.55.27 上午"></p>
+</section>
+
+  
+  
+
+  
+  
+  
+  <nav class="post-nav">
+    
+    <a class="prev" href="/post/kendoui%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/"><span>←</span><span>KendoUI遇到的问题总结</span></a>
+     
+    <a class="next" href="/post/easyexcel%E6%96%87%E6%A1%A3/"><span>easyexcel</span><span>→</span></a>
+    
+  </nav>
+  
+
+  
+  
+</article>
+
+</main>
+
+    <footer class="footer">
+  <p>&copy; 2021 <a href="">cy&#39;s Blog 🍉</a></p>
+  <p>Powered by <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper 5.0</a>️</p>
+</footer>
+
+  </body>
+</html>
