@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Machine Learning on cy&#39;s Blog 🍉</title>
-    <link>/categories/machine-learning/</link>
+    <link>https://cylllllll.github.io/categories/machine-learning/</link>
     <description>Recent content in Machine Learning on cy&#39;s Blog 🍉</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>Copyright © 2021, all rights reserved.</copyright>
-    <lastBuildDate>Tue, 07 May 2019 10:00:00 +0000</lastBuildDate><atom:link href="/categories/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 07 May 2019 10:00:00 +0000</lastBuildDate><atom:link href="https://cylllllll.github.io/categories/machine-learning/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>逻辑回归</title>
-      <link>/post/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/</link>
+      <link>https://cylllllll.github.io/post/logic/</link>
       <pubDate>Tue, 07 May 2019 10:00:00 +0000</pubDate>
       
-      <guid>/post/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/</guid>
+      <guid>https://cylllllll.github.io/post/logic/</guid>
       <description>逻辑回归  从大的类别上来说，逻辑回归是一种有监督的统计学习方法，主要用于对样本进行分类。在线性回归模型中，输出一般是连续的，例如
  $$ y=f(x)=ax+b $$
  对于每一个输入的x，都有一个对应的y输出。模型的定义域和值域都可以是[-∞, +∞]。但是对于逻辑回归，输入可以是连续的[-∞, +∞]，但输出一般是离散的，即只有有限多个输出值。例如，其值域可以只有两个值{0, 1}，这两个值可以表示对样本的某种分类，高/低、患病/健康、阴性/阳性等，这就是最常见的二分类逻辑回归。因此，从整体上来说，通过逻辑回归模型，我们将在整个实数范围上的x映射到了有限个点上，这样就实现了对x的分类。因为每次拿过来一个x，经过逻辑回归分析，就可以将它归入某一类y中。

@@ -2,36 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on cy&#39;s Blog 🍉</title>
-    <link>/post/</link>
+    <link>https://cylllllll.github.io/post/</link>
     <description>Recent content in Posts on cy&#39;s Blog 🍉</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>Copyright © 2021, all rights reserved.</copyright>
-    <lastBuildDate>Sun, 30 Jun 2019 23:23:23 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 27 Sep 2021 16:00:01 +0000</lastBuildDate><atom:link href="https://cylllllll.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>KendoUI遇到的问题总结</title>
-      <link>/post/kendoui%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/</link>
-      <pubDate>Sun, 30 Jun 2019 23:23:23 +0000</pubDate>
+      <title>树莓派搭建低配版文件存储/家庭影音库</title>
+      <link>https://cylllllll.github.io/post/raspberry/</link>
+      <pubDate>Mon, 27 Sep 2021 16:00:01 +0000</pubDate>
       
-      <guid>/post/kendoui%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/</guid>
-      <description>KendoUI遇到的问题总结   kendoLov带出的值出现 null和undefined   如果数据库中数据为空，查询出来，界面上会显示null，点击新建按钮可能会出现undefined，这是因为template的问题，这样写会出错：
-template: function (dataItem) { if(dataItem.meaning!=null || dataItem.meaning=&amp;#34;&amp;#34;){ return dataItem.meaning; } return &amp;#34;&amp;#34; }, 应将“ !=null ”的时候 将“ || ” 换成“ &amp;amp;&amp;amp; ”
- 修改某个字段之后 点击保存按钮没有任何效果   原因： __status = &#39;&#39;
-HAP框架判断界面是新增还是修改或者是删除，都是通过&amp;quot;__status &amp;ldquo;。如果没有值，controller是不会操作数据的。
-新建： __status = &amp;ldquo;add&amp;rdquo;
-更新： __status = ‘&amp;ldquo;update&amp;rdquo;
-删除： __status = &amp;ldquo;delete&amp;rdquo;
-如果 &amp;ldquo;___status&amp;quot;实在是没有值，可以手动设置值。 viewModel.model.set(&amp;quot;_status&amp;rdquo;, &amp;ldquo;add&amp;rdquo;);
- 检查Grid行中是否还有数据没有保存   使用dataSource.hasChanges() 方法。
-if(!dataSource1.hasChanges()){ kendo.ui.showInfoDialog({ message: &amp;#39;还有未保存的数据，请先保存!&amp;#39; }); }  检查Grid选中的数据是否有脏数据   删除数据时，需要判断选中的数据是否是脏数据（即未保存的数据）</description>
+      <guid>https://cylllllll.github.io/post/raspberry/</guid>
+      <description>树莓派搭建低配版文件存储/家庭影音库 家里有个 Raspberry Pi 4B 只装了 HomeBridge 来接入家电感觉有点浪费，正好又有简单的家庭影音库需求，所以就有了这篇文章。
+Raspberry Pi 4B 这代搭配千兆网口和 USB3.0 ，终于换掉了一直令人诟病的 USB2.0 ，至此速度理论上可以跑满千兆带宽，基本上能满足我的日常需求。
+需要设备材料： Raspberry Pi 4B 搭载 Raspberry Pi OS（其他的可以 TF卡（做系统盘） 千兆路由器 CAT6网线 一个硬盘
+硬盘挂载 手动挂载硬盘 毕竟TF卡做系统盘也存不了多少数据，所以第一件事就是把准备好的磁盘挂载上，我用的是旧电脑拆下来西数机械硬盘，买了个硬盘盒让它发挥余热。 首先插上硬盘通过sudo fdisk -l查看以下硬盘状态： 这个就是我们插上的硬盘，此时我们可以挂载到指定目录下： sudo mount Devide名称 自定义的指定目录 举例： sudo mount /dev/sda1 /media/pi/O 记得先创建一下storage文件夹sudo mkdir /media/pi/O 再次查看硬盘状态df -h，此时/dev/sda1已经挂载上去了。 以上就是手动挂载的方式，但是迫于断电重启的问题，每次挂载有点麻烦，所以设置启动时自动挂载硬盘是个不错的办法
+自动挂载硬盘 在系统开机时会主动读取/etc/fstab这个文件中的内容，根据文件里面的配置挂载磁盘。 所以我们只需在/etc/fstab加入我们硬盘信息即可。 首先编辑文件：sudo vi /etc/fstab 加入UUID 指定目录 硬盘文件系统格式 defaults 0 0
+ 当你不知道硬盘文件系统格式时，可以通过sudo blkid查看硬盘的UUID和TYPE 举例： UUID=&amp;quot;34D58C3DFA562624&amp;quot; /media/pi/O ntfs defaults 0 0  smb文件共享 安装 首先安装一下samba服务：</description>
     </item>
     
     <item>
       <title>逻辑回归</title>
-      <link>/post/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/</link>
+      <link>https://cylllllll.github.io/post/logic/</link>
       <pubDate>Tue, 07 May 2019 10:00:00 +0000</pubDate>
       
-      <guid>/post/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/</guid>
+      <guid>https://cylllllll.github.io/post/logic/</guid>
       <description>逻辑回归  从大的类别上来说，逻辑回归是一种有监督的统计学习方法，主要用于对样本进行分类。在线性回归模型中，输出一般是连续的，例如
  $$ y=f(x)=ax+b $$
  对于每一个输入的x，都有一个对应的y输出。模型的定义域和值域都可以是[-∞, +∞]。但是对于逻辑回归，输入可以是连续的[-∞, +∞]，但输出一般是离散的，即只有有限多个输出值。例如，其值域可以只有两个值{0, 1}，这两个值可以表示对样本的某种分类，高/低、患病/健康、阴性/阳性等，这就是最常见的二分类逻辑回归。因此，从整体上来说，通过逻辑回归模型，我们将在整个实数范围上的x映射到了有限个点上，这样就实现了对x的分类。因为每次拿过来一个x，经过逻辑回归分析，就可以将它归入某一类y中。
@@ -47,10 +43,10 @@ $$
     
     <item>
       <title>easyexcel</title>
-      <link>/post/easyexcel%E6%96%87%E6%A1%A3/</link>
+      <link>https://cylllllll.github.io/post/easyexcel/</link>
       <pubDate>Tue, 02 Apr 2019 23:00:00 +0000</pubDate>
       
-      <guid>/post/easyexcel%E6%96%87%E6%A1%A3/</guid>
+      <guid>https://cylllllll.github.io/post/easyexcel/</guid>
       <description>最近项目要实现大数据量的导入导出，试用了一下easyexcel感觉还挺好用的。
 easyexcel是 Alibaba 的开源项目，项目地址 ：https://github.com/alibaba/easyexcel
 1. 依赖 首先需要添加依赖，推荐使用最新的，可以在Maven仓库中查询；
@@ -62,29 +58,20 @@ public class Temple extends BaseRowModel { @ExcelProperty(value = &amp;#34;姓�
     </item>
     
     <item>
-      <title>Emoji Support</title>
-      <link>/post/emoji-support/</link>
-      <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/post/emoji-support/</guid>
-      <description>&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
       <title>Kylin 安装配置</title>
-      <link>/post/kylin-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</link>
+      <link>https://cylllllll.github.io/post/kylin-/</link>
       <pubDate>Sat, 03 Nov 2018 22:00:12 +0000</pubDate>
       
-      <guid>/post/kylin-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</guid>
+      <guid>https://cylllllll.github.io/post/kylin-/</guid>
       <description>Kylin 安装配置  解压缩到/usr/local目录 tar -zxvf Kyligence.tar.gz -C/usr/local/ 配置环境变量KYLIN_HOME 在/etc/profile中添加： export KYLIN_HOME=/usr/local/Kyligence 在HDFS上创建/kylin用户目录，并赋予全权限 su hdfs hdfs dfs -mkdir /kylin hdfs dfs -chown root /kylin hdfs dfs -mkdir /user/root hdfs dfs -chown root /user/root    root可以替换为你的用户  如果机器为配置SPARK_HOME环境，就指向KYLIN的spark目录 在/etc/profile中添加： export SPARK_HOME=$KYLIN_HOME/spark 启动前检查 $KYLIN_HOME/bin/check_env.sh 启动KYLIN check-env.sh通过，修改$KYLIN_HOME/tomcat/conf/server.xml中&amp;lt;Connector port=&amp;quot;7070&amp;quot; 为 Connector port=&amp;quot;15022&amp;quot; 端口号最好在15020-15039之间，注意端口使用占用,最后启动KYLIN。 ./kylin.sh start  报错信息   The executor&amp;rsquo;s instances: 4 configured in kylin.properties shouldn&amp;rsquo;t beyond maximum: 3 in theory 解决：修改&#39;$KYLIN_HOME/conf/kylin.</description>
     </item>
     
     <item>
       <title>Cube-数据立方体</title>
-      <link>/post/cube/</link>
+      <link>https://cylllllll.github.io/post/cube/</link>
       <pubDate>Fri, 12 Oct 2018 21:46:12 +0000</pubDate>
       
-      <guid>/post/cube/</guid>
+      <guid>https://cylllllll.github.io/post/cube/</guid>
       <description>数据立方体 如上图所示，这是由三个维度构成的一个OLAP立方体，立方体中包含了满足条件的cell(子立方块)值，这些cell里面包含了要分析的数据，称之为度量值。显而易见，一组三维坐标唯一确定了一个子立方。
 多位模型的基本概念介绍：
   立方体：由维度构建出来的多维空间，包含了所有要分析的基础数据，所有的聚合数据操作都在立方体上进行。  维度：就是观察数据的一种角度。在这个例子中，路线，源，时间都是维度，  这三个维度构成了一个立方体空间。维度可以理解为立方体的一个轴。要注意的是有一个特殊的维度，即度量值维度。  维度成员：构成维度的基本单位。对于时间维，它的成员分别是：第一季度、第二季度、第三季度、第四季度。  层次：维度的层次结构，要注意的是存在两种层次：自然层次和用户自定义层次。对于时间维而言，(年、月、日)是它的一个层次，(年、季度、月)是它的另一个层次，一个维可以有多个层次，层次可以理解为单位数据聚合的一种路径。  级别：级别组成层次。对于时间维的一个层次(年、月、日)而言，年是一个级别，月是一个级别，日是一个级别，显然这些级别是有父子关系的。  度量值：要分析展示的数据，即指标。如图1中一个cell中包含了两个度量值：装箱数和截至时间，可以对其进行多维分析。  事实表：存放度量值的表，同时存放了维表的外键。所有的分析用的数据最终都是来自与事实表。  维表：一个维度对应一个或者多个维表。一个维度对应一个维表时数据的组织方式就是采用的星型模式，对应多个维表时就是采用雪花模式。雪花模式是对星型模式的规范化。简言之，维表是对维度的描述。  MDX查询：多维模型的查询语言MDX(MDX是微软发布的多维查询语言标准),它的语法与SQL有很多相似之处：select {[Measures].[Salary]} on columns, {[Employee].[employeeId].members} on rows from CubeTest对于这条语句，COLUMNS 和 ROWS都代表查询轴，其中COLUMNS代表列轴，ROWS代表行轴。COLUMNS又可以写成0，ROWS又可以写成1，当只有两个查询轴时，可以理解为结果的展现格式是一个平坦二维表。这条语句的含义就是查询名字为CubeTest的立方体，列显示Measures维度的salary，行显示 Employee维度employeeId级别的所有成员，那么得出的结果就是employeeId所有成员的salary，也就是所有员工的薪酬。具体语法规范和帮助文档可以参考微软的用户文档。  多维数据模型是为了满足用户从多角度多层次进行数据查询和分析的需要而建立起来的基于事实和维的数据库模型，其基本的应用是为了实现OLAP（Online Analytical Processing）。
@@ -106,10 +93,10 @@ OLAP 　**OLAP（On-line Analytical Processing，联机分析处理）**是在�
     
     <item>
       <title>Hello World</title>
-      <link>/post/hello-world/</link>
+      <link>https://cylllllll.github.io/post/hello-world/</link>
       <pubDate>Tue, 03 Apr 2018 21:46:12 +0000</pubDate>
       
-      <guid>/post/hello-world/</guid>
+      <guid>https://cylllllll.github.io/post/hello-world/</guid>
       <description>Hi 开了个博客，准备看心情随便写点东西。 内容质量随缘吧XD</description>
     </item>
     

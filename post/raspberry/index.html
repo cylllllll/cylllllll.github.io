@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html lang="zh-cn">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  
+  <title>树莓派搭建低配版文件存储/家庭影音库 - cy&#39;s Blog 🍉</title>
+
+  
+  
+  <meta name="description" content="树莓派搭建低配版文件存储/家庭影音库 家里有个 Raspberry Pi 4B 只装了 HomeBridge 来接入家电感觉有点浪费，正好又有简单的家庭影音库需求，所以就有了这篇文章。
+Raspberry Pi 4B 这代搭配千兆网口和 USB3.0 ，终于换掉了一直令人诟病的 USB2.0 ，至此速度理论上可以跑满千兆带宽，基本上能满足我的日常需求。
+需要设备材料： Raspberry Pi 4B 搭载 Raspberry Pi OS（其他的可以 TF卡（做系统盘） 千兆路由器 CAT6网线 一个硬盘
+硬盘挂载 手动挂载硬盘 毕竟TF卡做系统盘也存不了多少数据，所以第一件事就是把准备好的磁盘挂载上，我用的是旧电脑拆下来西数机械硬盘，买了个硬盘盒让它发挥余热。 首先插上硬盘通过sudo fdisk -l查看以下硬盘状态： 这个就是我们插上的硬盘，此时我们可以挂载到指定目录下： sudo mount Devide名称 自定义的指定目录 举例： sudo mount /dev/sda1 /media/pi/O 记得先创建一下storage文件夹sudo mkdir /media/pi/O 再次查看硬盘状态df -h，此时/dev/sda1已经挂载上去了。 以上就是手动挂载的方式，但是迫于断电重启的问题，每次挂载有点麻烦，所以设置启动时自动挂载硬盘是个不错的办法
+自动挂载硬盘 在系统开机时会主动读取/etc/fstab这个文件中的内容，根据文件里面的配置挂载磁盘。 所以我们只需在/etc/fstab加入我们硬盘信息即可。 首先编辑文件：sudo vi /etc/fstab 加入UUID 指定目录 硬盘文件系统格式 defaults 0 0
+ 当你不知道硬盘文件系统格式时，可以通过sudo blkid查看硬盘的UUID和TYPE 举例： UUID=&quot;34D58C3DFA562624&quot; /media/pi/O ntfs defaults 0 0  smb文件共享 安装 首先安装一下samba服务：" />
+  <meta name="author" content="" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="https://cylllllll.github.io/app.min.css" />
+
+  
+  <link rel="preload stylesheet" as="style" href="https://cylllllll.github.io/an-old-hope.min.css" />
+  <script
+    defer
+    src="https://cylllllll.github.io/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
+  
+
+  
+  <link rel="preload" as="image" href="https://cylllllll.github.io/theme.png" />
+
+  
+  <link rel="preload" as="image" href="https://cylllllll.github.io/github.svg" />
+  
+
+  
+  <link rel="icon" href="https://cylllllll.github.io/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://cylllllll.github.io/apple-touch-icon.png" />
+
+  
+  <meta name="generator" content="Hugo 0.88.1" />
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="树莓派搭建低配版文件存储/家庭影音库" />
+<meta property="og:description" content="树莓派搭建低配版文件存储/家庭影音库 家里有个 Raspberry Pi 4B 只装了 HomeBridge 来接入家电感觉有点浪费，正好又有简单的家庭影音库需求，所以就有了这篇文章。
+Raspberry Pi 4B 这代搭配千兆网口和 USB3.0 ，终于换掉了一直令人诟病的 USB2.0 ，至此速度理论上可以跑满千兆带宽，基本上能满足我的日常需求。
+需要设备材料： Raspberry Pi 4B 搭载 Raspberry Pi OS（其他的可以 TF卡（做系统盘） 千兆路由器 CAT6网线 一个硬盘
+硬盘挂载 手动挂载硬盘 毕竟TF卡做系统盘也存不了多少数据，所以第一件事就是把准备好的磁盘挂载上，我用的是旧电脑拆下来西数机械硬盘，买了个硬盘盒让它发挥余热。 首先插上硬盘通过sudo fdisk -l查看以下硬盘状态： 这个就是我们插上的硬盘，此时我们可以挂载到指定目录下： sudo mount Devide名称 自定义的指定目录 举例： sudo mount /dev/sda1 /media/pi/O 记得先创建一下storage文件夹sudo mkdir /media/pi/O 再次查看硬盘状态df -h，此时/dev/sda1已经挂载上去了。 以上就是手动挂载的方式，但是迫于断电重启的问题，每次挂载有点麻烦，所以设置启动时自动挂载硬盘是个不错的办法
+自动挂载硬盘 在系统开机时会主动读取/etc/fstab这个文件中的内容，根据文件里面的配置挂载磁盘。 所以我们只需在/etc/fstab加入我们硬盘信息即可。 首先编辑文件：sudo vi /etc/fstab 加入UUID 指定目录 硬盘文件系统格式 defaults 0 0
+ 当你不知道硬盘文件系统格式时，可以通过sudo blkid查看硬盘的UUID和TYPE 举例： UUID=&quot;34D58C3DFA562624&quot; /media/pi/O ntfs defaults 0 0  smb文件共享 安装 首先安装一下samba服务：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://cylllllll.github.io/post/raspberry/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-09-27T16:00:01+00:00" />
+<meta property="article:modified_time" content="2021-09-27T16:00:01+00:00" />
+
+
+  
+  <meta itemprop="name" content="树莓派搭建低配版文件存储/家庭影音库">
+<meta itemprop="description" content="树莓派搭建低配版文件存储/家庭影音库 家里有个 Raspberry Pi 4B 只装了 HomeBridge 来接入家电感觉有点浪费，正好又有简单的家庭影音库需求，所以就有了这篇文章。
+Raspberry Pi 4B 这代搭配千兆网口和 USB3.0 ，终于换掉了一直令人诟病的 USB2.0 ，至此速度理论上可以跑满千兆带宽，基本上能满足我的日常需求。
+需要设备材料： Raspberry Pi 4B 搭载 Raspberry Pi OS（其他的可以 TF卡（做系统盘） 千兆路由器 CAT6网线 一个硬盘
+硬盘挂载 手动挂载硬盘 毕竟TF卡做系统盘也存不了多少数据，所以第一件事就是把准备好的磁盘挂载上，我用的是旧电脑拆下来西数机械硬盘，买了个硬盘盒让它发挥余热。 首先插上硬盘通过sudo fdisk -l查看以下硬盘状态： 这个就是我们插上的硬盘，此时我们可以挂载到指定目录下： sudo mount Devide名称 自定义的指定目录 举例： sudo mount /dev/sda1 /media/pi/O 记得先创建一下storage文件夹sudo mkdir /media/pi/O 再次查看硬盘状态df -h，此时/dev/sda1已经挂载上去了。 以上就是手动挂载的方式，但是迫于断电重启的问题，每次挂载有点麻烦，所以设置启动时自动挂载硬盘是个不错的办法
+自动挂载硬盘 在系统开机时会主动读取/etc/fstab这个文件中的内容，根据文件里面的配置挂载磁盘。 所以我们只需在/etc/fstab加入我们硬盘信息即可。 首先编辑文件：sudo vi /etc/fstab 加入UUID 指定目录 硬盘文件系统格式 defaults 0 0
+ 当你不知道硬盘文件系统格式时，可以通过sudo blkid查看硬盘的UUID和TYPE 举例： UUID=&quot;34D58C3DFA562624&quot; /media/pi/O ntfs defaults 0 0  smb文件共享 安装 首先安装一下samba服务："><meta itemprop="datePublished" content="2021-09-27T16:00:01+00:00" />
+<meta itemprop="dateModified" content="2021-09-27T16:00:01+00:00" />
+<meta itemprop="wordCount" content="402">
+<meta itemprop="keywords" content="" />
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="树莓派搭建低配版文件存储/家庭影音库"/>
+<meta name="twitter:description" content="树莓派搭建低配版文件存储/家庭影音库 家里有个 Raspberry Pi 4B 只装了 HomeBridge 来接入家电感觉有点浪费，正好又有简单的家庭影音库需求，所以就有了这篇文章。
+Raspberry Pi 4B 这代搭配千兆网口和 USB3.0 ，终于换掉了一直令人诟病的 USB2.0 ，至此速度理论上可以跑满千兆带宽，基本上能满足我的日常需求。
+需要设备材料： Raspberry Pi 4B 搭载 Raspberry Pi OS（其他的可以 TF卡（做系统盘） 千兆路由器 CAT6网线 一个硬盘
+硬盘挂载 手动挂载硬盘 毕竟TF卡做系统盘也存不了多少数据，所以第一件事就是把准备好的磁盘挂载上，我用的是旧电脑拆下来西数机械硬盘，买了个硬盘盒让它发挥余热。 首先插上硬盘通过sudo fdisk -l查看以下硬盘状态： 这个就是我们插上的硬盘，此时我们可以挂载到指定目录下： sudo mount Devide名称 自定义的指定目录 举例： sudo mount /dev/sda1 /media/pi/O 记得先创建一下storage文件夹sudo mkdir /media/pi/O 再次查看硬盘状态df -h，此时/dev/sda1已经挂载上去了。 以上就是手动挂载的方式，但是迫于断电重启的问题，每次挂载有点麻烦，所以设置启动时自动挂载硬盘是个不错的办法
+自动挂载硬盘 在系统开机时会主动读取/etc/fstab这个文件中的内容，根据文件里面的配置挂载磁盘。 所以我们只需在/etc/fstab加入我们硬盘信息即可。 首先编辑文件：sudo vi /etc/fstab 加入UUID 指定目录 硬盘文件系统格式 defaults 0 0
+ 当你不知道硬盘文件系统格式时，可以通过sudo blkid查看硬盘的UUID和TYPE 举例： UUID=&quot;34D58C3DFA562624&quot; /media/pi/O ntfs defaults 0 0  smb文件共享 安装 首先安装一下samba服务："/>
+
+  
+  
+</head>
+
+
+  <body class="not-ready" data-menu="true">
+    <header class="header">
+  
+  <p class="logo">
+    <a class="site-name" href="https://cylllllll.github.io">cy&#39;s Blog 🍉</a><a class="btn-dark"></a>
+  </p>
+  
+
+  <script>
+    let bodyClx = document.body.classList;
+    let btnDark = document.querySelector('.btn-dark');
+    let sysDark = window.matchMedia('(prefers-color-scheme: dark)');
+    let darkVal = localStorage.getItem('dark');
+
+    let setDark = (isDark) => {
+      bodyClx[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark ? 'yes' : 'no');
+    };
+
+    setDark(darkVal ? darkVal === 'yes' : sysDark.matches);
+    requestAnimationFrame(() => bodyClx.remove('not-ready'));
+
+    btnDark.addEventListener('click', () => setDark(!bodyClx.contains('dark')));
+    sysDark.addEventListener('change', (event) => setDark(event.matches));
+  </script>
+
+  
+  
+  <nav class="menu">
+    
+    <a class="" href="/">Post</a>
+    
+    <a class="" href="/about/">About</a>
+    
+    <a class="" href="/puzzle/">puzzle</a>
+    
+  </nav>
+  
+
+  
+  <nav class="social">
+    
+    <a
+      class="github"
+      style="--url: url(./github.svg)"
+      href="https://github.com/cylllllll"
+      target="_blank"
+    ></a>
+    
+  </nav>
+  
+</header>
+
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-title">
+    <aside>
+      <time>September 27, 2021</time>
+      
+    </aside>
+    <h1>树莓派搭建低配版文件存储/家庭影音库</h1>
+  </header>
+  <section class="post-content"><h1 id="树莓派搭建低配版文件存储家庭影音库">树莓派搭建低配版文件存储/家庭影音库</h1>
+<p>家里有个 Raspberry Pi 4B 只装了 HomeBridge 来接入家电感觉有点浪费，正好又有简单的家庭影音库需求，所以就有了这篇文章。</p>
+<p>Raspberry Pi 4B 这代搭配千兆网口和 USB3.0 ，终于换掉了一直令人诟病的 USB2.0 ，至此速度理论上可以跑满千兆带宽，基本上能满足我的日常需求。</p>
+<p>需要设备材料：
+Raspberry Pi 4B 搭载 Raspberry Pi OS（其他的可以
+TF卡（做系统盘）
+千兆路由器
+CAT6网线
+一个硬盘</p>
+<h2 id="硬盘挂载">硬盘挂载</h2>
+<h3 id="手动挂载硬盘">手动挂载硬盘</h3>
+<p>毕竟TF卡做系统盘也存不了多少数据，所以第一件事就是把准备好的磁盘挂载上，我用的是旧电脑拆下来西数机械硬盘，买了个硬盘盒让它发挥余热。
+首先插上硬盘通过<code>sudo fdisk -l</code>查看以下硬盘状态：
+<img src="https://i.loli.net/2021/09/10/JWhl8TP6qfEkzcS.jpg" alt="JWhl8TP6qfEkzcS">
+这个就是我们插上的硬盘，此时我们可以挂载到指定目录下：
+<code>sudo mount Devide名称  自定义的指定目录</code>
+举例： <code>sudo mount /dev/sda1  /media/pi/O</code>
+记得先创建一下storage文件夹<code>sudo mkdir /media/pi/O</code>
+再次查看硬盘状态<code>df -h</code>，此时/dev/sda1已经挂载上去了。
+<img src="https://i.loli.net/2021/09/10/yLdmboerjQcRJYO.jpg" alt="yLdmboerjQcRJYO">
+以上就是手动挂载的方式，但是迫于断电重启的问题，每次挂载有点麻烦，所以设置启动时自动挂载硬盘是个不错的办法</p>
+<h3 id="自动挂载硬盘">自动挂载硬盘</h3>
+<p>在系统开机时会主动读取/etc/fstab这个文件中的内容，根据文件里面的配置挂载磁盘。
+所以我们只需在/etc/fstab加入我们硬盘信息即可。
+首先编辑文件：<code>sudo vi /etc/fstab</code>
+加入<code>UUID 指定目录 硬盘文件系统格式 defaults 0 0</code></p>
+<ul>
+<li>当你不知道硬盘文件系统格式时，可以通过<code>sudo blkid</code>查看硬盘的UUID和TYPE
+<img src="https://i.loli.net/2021/09/10/S4ovtXGLNCs87Mx.jpg" alt="S4ovtXGLNCs87Mx">
+举例：<code> UUID=&quot;34D58C3DFA562624&quot; /media/pi/O ntfs defaults 0 0</code></li>
+</ul>
+<h2 id="smb文件共享">smb文件共享</h2>
+<h3 id="安装">安装</h3>
+<p>首先安装一下samba服务：</p>
+<pre tabindex="0"><code>sudo apt-get update
+sudo apt-get install samba
+</code></pre><h3 id="配置">配置</h3>
+<p>Samba配置文件通常在<code>/etc/samba/</code>路径下，编辑Samba配置文件：</p>
+<pre tabindex="0"><code>sudo vi /etc/samba/smb.conf
+</code></pre><p>在配置文件底部添加如下配置：</p>
+<pre tabindex="0"><code>[NAS]
+   comment = NAS
+   browseable = yes
+   path = /media/pi/O
+   valid users = pi
+   browseable = yes
+   public = yes
+   read only = no
+   writeable = yes
+   create mask = 0777
+   directory mask = 0777
+</code></pre><p>配置参数：</p>
+<ul>
+<li>[NAS] 表示这是一组共享设置。在 Samba 中通过中括号 [xxx] 的形式来标识区分。</li>
+<li>comment = &ldquo;xxxx&rdquo; 表示对该共享的描述信息。</li>
+<li>path = &ldquo;xxxx&rdquo; 表示对该共享路径。默认情况下不设置 path 的话，就是当前账户的Home目录。</li>
+<li>valid users = pi 表示允许访问该共享的用户，如果是多个用户可以通过逗号 , 来分隔；也可以通过 @+组名 的方式来设置可访问的群组。</li>
+<li>browseable = yes/no 表示该共享是否可以浏览。</li>
+<li>public = yes/no 表示该共享是否允许 guest 账户访问。</li>
+<li>read only = yes/no 表示是否可读写。</li>
+<li>writable = yes/no 表示是否可写。</li>
+<li>create mask = 0777 表示客户端上传文件的默认权限</li>
+<li>directory mask = 0777 表示客户端创建目录的默认权限</li>
+</ul>
+<h3 id="设置账户">设置账户</h3>
+<p>配置完毕后执行<code>sudo smbpasswd -a pi</code> （这里的pi是我设置的用户名，可以自行设置）来设置用户名密码，设置完毕后重启samba服务<code>sudo systemctl restart smbd</code></p>
+<ul>
+<li>注：关于Samba账户，Samba 需要 Linux 账户才能使用，可以使用 已有账户 或 创建新用户。虽然用户名可以和 Linux 系统共享，但 Samba 使用的是单独的密码管理。</li>
+</ul>
+<h3 id="macos访问">macOS访问</h3>
+<p>只需要打开 Finder ，选择 菜单栏 –&gt; 前往 –&gt; 连接服务器 (或者直接􀆔K)，在弹出的窗口中输入<code>smb://树莓派的IP地址</code> 后选择 连接 – 输入设置的账户和密码后就能访问了。
+<img src="https://i.loli.net/2021/09/28/1WwiET5QnfpoFYV.png" alt="1WwiET5QnfpoFYV"></p>
+<h2 id="qbittorrent下载器">qbittorrent下载器</h2>
+<h3 id="通过docker安装">通过docker安装</h3>
+<h4 id="安装docker">安装docker</h4>
+<p>下载一键安装脚本<code>curl -fsSL get.docker.com -o get-docker.sh</code>
+执行安装：</p>
+<pre tabindex="0"><code>sudo sh get-docker.sh
+</code></pre><p>把当前用户添加到docker组，就不用每次执行docker时sudo了：</p>
+<pre tabindex="0"><code>sudo usermod -aG docker pi
+</code></pre><h4 id="拉取镜像和安装">拉取镜像和安装</h4>
+<pre tabindex="0"><code>docker pull linuxserver/qbittorrent:arm32v7-latest
+</code></pre><p>其中<code>arm32v7-latest</code>这个tag仅适用于树莓派这种ARM架构的</p>
+<pre tabindex="0"><code>docker run -d \
+--name=qbittorrent \
+-e PUID=1000 \
+-e PGID=1000 \
+-e TZ=Asia/Shanghai \
+-e WEBUI_PORT=8181 \
+-p 6881:6881 \
+-p 6881:6881/udp \
+-p 8181:8181 \
+-v /config
+-v /media/pi/0/qBittorrent/config:/config \
+-v /media/pi/0/qBittorrent/downloads:/downloads \
+--restart unless-stopped \
+linuxserver/qbittorrent:arm32v7-latest
+</code></pre><p>最后在浏览器输入<code>树莓派IP地址:8181</code>，输入默认用户名和密码就可以登陆了：
+用户名：admin
+密码：adminadmin</p>
+<ul>
+<li>
+<p>在上面的命令中，我们自己常设置的，也就下面几处：</p>
+<ol>
+<li>设置WEBUI端口号，可以按需设置：</li>
+</ol>
+<pre tabindex="0"><code>-e WEBUI_PORT=8181 
+-p 8181:8181 
+</code></pre><ol start="2">
+<li>设置qBittorrent的下载路径和配置路径，也可按需设置：</li>
+</ol>
+<pre tabindex="0"><code>-v /media/pi/0/qBittorrent/config-v /media/pi/0/qBittorrent/downloads
+</code></pre></li>
+</ul>
+<p>这里推荐下<a href="https://servercat.app">ServerCat</a>这个软件，可以很方便查看服务器状态，部署docker等
+<img src="https://i.loli.net/2021/09/28/NshKBYIe6yczmjW.jpg" alt="alt-text-1"> <img src="https://i.loli.net/2021/09/28/tsELquoX7MxnzOc.jpg" alt="alt-text-2"></p>
+<h3 id="自行编译">自行编译</h3>
+<p>当docker安装无法满足你时可以考虑自行编译，qBittorrent的Wiki有<a href="https://github.com/qbittorrent/qBittorrent/wiki/Compilation:-Raspberry-Pi-OS-and-DietPi">详细编译步骤</a>可以进行参考，这里不再赘述了</p>
+<h3 id="qbittorrent主题">qBittorrent主题</h3>
+<p>qBittorrent的Wiki有列出一些<a href="https://github.com/qbittorrent/qBittorrent/wiki/List-of-known-alternate-WebUIs">非官方WebUI</a>
+这里推荐两个我用过的：</p>
+<ol>
+<li>
+<p><a href="https://github.com/CzBiX/qb-web">CzBiX/qb-web</a></p>
+</li>
+<li>
+<p><a href="https://github.com/CzBiX/qb-web">WDaan/VueTorrent</a></p>
+</li>
+</ol>
+<h2 id="外网访问">外网访问</h2>
+<p>如果你有公网IP的话就跳过这部分吧</p>
+<h3 id="frp">frp</h3>
+<p>frp可以通过docker部署（docker的安装方法不再赘述）主要分为两步，服务端和客户端的分别配置。</p>
+<h4 id="客户端部署frpc">客户端部署frpc</h4>
+<ol>
+<li>首先拉取镜像文件：</li>
+</ol>
+<pre tabindex="0"><code>docker pull snowdreamtech/frpc
+</code></pre><ol start="2">
+<li>启动frpc：</li>
+</ol>
+<pre tabindex="0"><code>docker run -d \--name frpc \--restart=always \--network host  \-v /etc/frp/frpc.ini:/etc/frp/frpc.ini \--name frpc \snowdreamtech/frpc
+</code></pre><ul>
+<li>
+<p>在上面的命令中可按需设置frpc的配置文件路径：</p>
+<pre tabindex="0"><code>-v /etc/frp/frpc.ini:/etc/frp/frpc.ini     
+</code></pre></li>
+</ul>
+<ol start="3">
+<li>配置</li>
+</ol>
+<pre tabindex="0"><code>[common]
+# server_addr为frp的服务器ip或已解析到该ip的域名
+server_addr = x.x.x.x
+# server_port与服务端配置bind_port一致
+server_port = 7000
+privilege_token = xxxx
+
+[http web]
+type = http
+local_port = 8181
+custom_domains = one.yourdomain.com
+</code></pre><h4 id="服务器端部署frps">服务器端部署frps</h4>
+<ol>
+<li>首先拉取镜像文件：</li>
+</ol>
+<pre tabindex="0"><code>docker pull snowdreamtech/frps
+</code></pre><ol start="2">
+<li>启动frps：</li>
+</ol>
+<pre tabindex="0"><code>docker run -d \
+--name frps \
+--restart=always \
+--network host  \
+-v /etc/frp/frps.ini:/etc/frp/frps.ini \
+--name frpc \
+snowdreamtech/frps
+</code></pre><ul>
+<li>
+<p>在上面的命令中可按需设置frps的配置文件路径：</p>
+<pre tabindex="0"><code>-v /etc/frp/frps.ini:/etc/frp/frps.ini  
+</code></pre></li>
+</ul>
+<ol start="3">
+<li>配置</li>
+</ol>
+<pre tabindex="0"><code>[common]
+bind_port = 7000
+# 启用面板
+dashboard_port = 7500
+# 面板登录名和密码
+dashboard_user = admin
+dashboard_pwd = 12345678
+# 使用http代理并使用8888端口进行穿透
+vhost_http_port = 8888
+# 令牌
+privilege_token = xxxx
+</code></pre></section>
+
+  
+  
+
+  
+  
+  
+  <nav class="post-nav">
+     
+    <a class="next" href="https://cylllllll.github.io/post/logic/"><span>逻辑回归</span><span>→</span></a>
+    
+  </nav>
+  
+
+  
+  
+</article>
+
+</main>
+
+    <footer class="footer">
+  <p>&copy; 2021 <a href="https://cylllllll.github.io">cy&#39;s Blog 🍉</a></p>
+  <p>Powered by <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper 5.0</a>️</p>
+</footer>
+
+  </body>
+</html>
