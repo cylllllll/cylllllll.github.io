@@ -59,10 +59,10 @@ public class Temple extends BaseRowModel { @ExcelProperty(value = &amp;#34;姓�
     
     <item>
       <title>Kylin 安装配置</title>
-      <link>https://cylllllll.github.io/post/kylin-/</link>
+      <link>https://cylllllll.github.io/post/kylin/</link>
       <pubDate>Sat, 03 Nov 2018 22:00:12 +0000</pubDate>
       
-      <guid>https://cylllllll.github.io/post/kylin-/</guid>
+      <guid>https://cylllllll.github.io/post/kylin/</guid>
       <description>Kylin 安装配置  解压缩到/usr/local目录 tar -zxvf Kyligence.tar.gz -C/usr/local/ 配置环境变量KYLIN_HOME 在/etc/profile中添加： export KYLIN_HOME=/usr/local/Kyligence 在HDFS上创建/kylin用户目录，并赋予全权限 su hdfs hdfs dfs -mkdir /kylin hdfs dfs -chown root /kylin hdfs dfs -mkdir /user/root hdfs dfs -chown root /user/root    root可以替换为你的用户  如果机器为配置SPARK_HOME环境，就指向KYLIN的spark目录 在/etc/profile中添加： export SPARK_HOME=$KYLIN_HOME/spark 启动前检查 $KYLIN_HOME/bin/check_env.sh 启动KYLIN check-env.sh通过，修改$KYLIN_HOME/tomcat/conf/server.xml中&amp;lt;Connector port=&amp;quot;7070&amp;quot; 为 Connector port=&amp;quot;15022&amp;quot; 端口号最好在15020-15039之间，注意端口使用占用,最后启动KYLIN。 ./kylin.sh start  报错信息   The executor&amp;rsquo;s instances: 4 configured in kylin.properties shouldn&amp;rsquo;t beyond maximum: 3 in theory 解决：修改&#39;$KYLIN_HOME/conf/kylin.</description>
     </item>
     

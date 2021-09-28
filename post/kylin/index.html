@@ -71,7 +71,7 @@
   <meta property="og:title" content="Kylin 安装配置" />
 <meta property="og:description" content="Kylin 安装配置  解压缩到/usr/local目录 tar -zxvf Kyligence.tar.gz -C/usr/local/ 配置环境变量KYLIN_HOME 在/etc/profile中添加： export KYLIN_HOME=/usr/local/Kyligence 在HDFS上创建/kylin用户目录，并赋予全权限 su hdfs hdfs dfs -mkdir /kylin hdfs dfs -chown root /kylin hdfs dfs -mkdir /user/root hdfs dfs -chown root /user/root    root可以替换为你的用户  如果机器为配置SPARK_HOME环境，就指向KYLIN的spark目录 在/etc/profile中添加： export SPARK_HOME=$KYLIN_HOME/spark 启动前检查 $KYLIN_HOME/bin/check_env.sh 启动KYLIN check-env.sh通过，修改$KYLIN_HOME/tomcat/conf/server.xml中&lt;Connector port=&quot;7070&quot; 为 Connector port=&quot;15022&quot; 端口号最好在15020-15039之间，注意端口使用占用,最后启动KYLIN。 ./kylin.sh start  报错信息   The executor&rsquo;s instances: 4 configured in kylin.properties shouldn&rsquo;t beyond maximum: 3 in theory 解决：修改&#39;$KYLIN_HOME/conf/kylin." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://cylllllll.github.io/post/kylin-/" /><meta property="article:section" content="post" />
+<meta property="og:url" content="https://cylllllll.github.io/post/kylin/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2018-11-03T22:00:12+00:00" />
 <meta property="article:modified_time" content="2018-11-03T22:00:12+00:00" />
 
