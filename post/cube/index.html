@@ -23,7 +23,7 @@
 
   
   
-  <meta name="description" content="数据立方体 如上图所示，这是由三个维度构成的一个OLAP立方体，立方体中包含了满足条件的cell(子立方块)值，这些cell里面包含了要分析的数据，称之为度量值。显而易见，一组三维坐标唯一确定了一个子立方。
+  <meta name="description" content="如上图所示，这是由三个维度构成的一个OLAP立方体，立方体中包含了满足条件的cell(子立方块)值，这些cell里面包含了要分析的数据，称之为度量值。显而易见，一组三维坐标唯一确定了一个子立方。
 多位模型的基本概念介绍：
   立方体：由维度构建出来的多维空间，包含了所有要分析的基础数据，所有的聚合数据操作都在立方体上进行。  维度：就是观察数据的一种角度。在这个例子中，路线，源，时间都是维度，  这三个维度构成了一个立方体空间。维度可以理解为立方体的一个轴。要注意的是有一个特殊的维度，即度量值维度。  维度成员：构成维度的基本单位。对于时间维，它的成员分别是：第一季度、第二季度、第三季度、第四季度。  层次：维度的层次结构，要注意的是存在两种层次：自然层次和用户自定义层次。对于时间维而言，(年、月、日)是它的一个层次，(年、季度、月)是它的另一个层次，一个维可以有多个层次，层次可以理解为单位数据聚合的一种路径。  级别：级别组成层次。对于时间维的一个层次(年、月、日)而言，年是一个级别，月是一个级别，日是一个级别，显然这些级别是有父子关系的。  度量值：要分析展示的数据，即指标。如图1中一个cell中包含了两个度量值：装箱数和截至时间，可以对其进行多维分析。  事实表：存放度量值的表，同时存放了维表的外键。所有的分析用的数据最终都是来自与事实表。  维表：一个维度对应一个或者多个维表。一个维度对应一个维表时数据的组织方式就是采用的星型模式，对应多个维表时就是采用雪花模式。雪花模式是对星型模式的规范化。简言之，维表是对维度的描述。  MDX查询：多维模型的查询语言MDX(MDX是微软发布的多维查询语言标准),它的语法与SQL有很多相似之处：select {[Measures].[Salary]} on columns, {[Employee].[employeeId].members} on rows from CubeTest对于这条语句，COLUMNS 和 ROWS都代表查询轴，其中COLUMNS代表列轴，ROWS代表行轴。COLUMNS又可以写成0，ROWS又可以写成1，当只有两个查询轴时，可以理解为结果的展现格式是一个平坦二维表。这条语句的含义就是查询名字为CubeTest的立方体，列显示Measures维度的salary，行显示 Employee维度employeeId级别的所有成员，那么得出的结果就是employeeId所有成员的salary，也就是所有员工的薪酬。具体语法规范和帮助文档可以参考微软的用户文档。  多维数据模型是为了满足用户从多角度多层次进行数据查询和分析的需要而建立起来的基于事实和维的数据库模型，其基本的应用是为了实现OLAP（Online Analytical Processing）。
 其中，每个维对应于模式中的一个或一组属性，而每个单元存放某种聚集度量值，如count或sum。数据立方体提供数据的多维视图，并允许预计算和快速访问汇总数据。
@@ -39,7 +39,8 @@
 对概念进行分层，有利于数据的汇总。
 数据立方体 　关于数据立方体（Data Cube），这里必须注意的是数据立方体只是多维模型的一个形象的说法。立方体其本身只有三维，但多维模型不仅限于三维模型，可以组合更多的维度，但一方面是出于更方便地解释和描述，同时也是给思维成像和想象的空间；另一方面是为了与传统关系型数据库的二维表区别开来，于是就有了数据立方体的叫法。所以本文中也是引用立方体，也就是把多维模型以三维的方式为代表进行展现和描述，其实上Google图片搜索“OLAP”会有一大堆的数据立方体图片，这里我自己画了一个：
 
-OLAP 　**OLAP（On-line Analytical Processing，联机分析处理）**是在基于数据仓库多维模型的基础上实现的面向分析的各类操作的集合。可以比较下其与传统的OLTP（On-line Transaction Processing，联机事务处理）的区别来看一下它的特点：" />
+OLAP 　**OLAP（On-line Analytical Processing，联机分析处理）**是在基于数据仓库多维模型的基础上实现的面向分析的各类操作的集合。可以比较下其与传统的OLTP（On-line Transaction Processing，联机事务处理）的区别来看一下它的特点：
+OLAP与OLTP | 数据处理类型 | OLTP | OLAP | | 面向对象 | 业务开发人员 | 分析决策人员 | | 功能实现 | 日常事务处理 | 面向分析决策 | | 数据模型 | 关系模型 | 多维模型 | | 数据量 | 几条或几十条记录 | 百万千万条记录 | | 操作类型 | 查询、插入、更新、删除 | 查询为主 |" />
   <meta name="author" content="" />
   
 
@@ -85,7 +86,7 @@ OLAP 　**OLAP（On-line Analytical Processing，联机分析处理）**是在�
   
   
   <meta property="og:title" content="Cube-数据立方体" />
-<meta property="og:description" content="数据立方体 如上图所示，这是由三个维度构成的一个OLAP立方体，立方体中包含了满足条件的cell(子立方块)值，这些cell里面包含了要分析的数据，称之为度量值。显而易见，一组三维坐标唯一确定了一个子立方。
+<meta property="og:description" content="如上图所示，这是由三个维度构成的一个OLAP立方体，立方体中包含了满足条件的cell(子立方块)值，这些cell里面包含了要分析的数据，称之为度量值。显而易见，一组三维坐标唯一确定了一个子立方。
 多位模型的基本概念介绍：
   立方体：由维度构建出来的多维空间，包含了所有要分析的基础数据，所有的聚合数据操作都在立方体上进行。  维度：就是观察数据的一种角度。在这个例子中，路线，源，时间都是维度，  这三个维度构成了一个立方体空间。维度可以理解为立方体的一个轴。要注意的是有一个特殊的维度，即度量值维度。  维度成员：构成维度的基本单位。对于时间维，它的成员分别是：第一季度、第二季度、第三季度、第四季度。  层次：维度的层次结构，要注意的是存在两种层次：自然层次和用户自定义层次。对于时间维而言，(年、月、日)是它的一个层次，(年、季度、月)是它的另一个层次，一个维可以有多个层次，层次可以理解为单位数据聚合的一种路径。  级别：级别组成层次。对于时间维的一个层次(年、月、日)而言，年是一个级别，月是一个级别，日是一个级别，显然这些级别是有父子关系的。  度量值：要分析展示的数据，即指标。如图1中一个cell中包含了两个度量值：装箱数和截至时间，可以对其进行多维分析。  事实表：存放度量值的表，同时存放了维表的外键。所有的分析用的数据最终都是来自与事实表。  维表：一个维度对应一个或者多个维表。一个维度对应一个维表时数据的组织方式就是采用的星型模式，对应多个维表时就是采用雪花模式。雪花模式是对星型模式的规范化。简言之，维表是对维度的描述。  MDX查询：多维模型的查询语言MDX(MDX是微软发布的多维查询语言标准),它的语法与SQL有很多相似之处：select {[Measures].[Salary]} on columns, {[Employee].[employeeId].members} on rows from CubeTest对于这条语句，COLUMNS 和 ROWS都代表查询轴，其中COLUMNS代表列轴，ROWS代表行轴。COLUMNS又可以写成0，ROWS又可以写成1，当只有两个查询轴时，可以理解为结果的展现格式是一个平坦二维表。这条语句的含义就是查询名字为CubeTest的立方体，列显示Measures维度的salary，行显示 Employee维度employeeId级别的所有成员，那么得出的结果就是employeeId所有成员的salary，也就是所有员工的薪酬。具体语法规范和帮助文档可以参考微软的用户文档。  多维数据模型是为了满足用户从多角度多层次进行数据查询和分析的需要而建立起来的基于事实和维的数据库模型，其基本的应用是为了实现OLAP（Online Analytical Processing）。
 其中，每个维对应于模式中的一个或一组属性，而每个单元存放某种聚集度量值，如count或sum。数据立方体提供数据的多维视图，并允许预计算和快速访问汇总数据。
@@ -101,7 +102,8 @@ OLAP 　**OLAP（On-line Analytical Processing，联机分析处理）**是在�
 对概念进行分层，有利于数据的汇总。
 数据立方体 　关于数据立方体（Data Cube），这里必须注意的是数据立方体只是多维模型的一个形象的说法。立方体其本身只有三维，但多维模型不仅限于三维模型，可以组合更多的维度，但一方面是出于更方便地解释和描述，同时也是给思维成像和想象的空间；另一方面是为了与传统关系型数据库的二维表区别开来，于是就有了数据立方体的叫法。所以本文中也是引用立方体，也就是把多维模型以三维的方式为代表进行展现和描述，其实上Google图片搜索“OLAP”会有一大堆的数据立方体图片，这里我自己画了一个：
 
-OLAP 　**OLAP（On-line Analytical Processing，联机分析处理）**是在基于数据仓库多维模型的基础上实现的面向分析的各类操作的集合。可以比较下其与传统的OLTP（On-line Transaction Processing，联机事务处理）的区别来看一下它的特点：" />
+OLAP 　**OLAP（On-line Analytical Processing，联机分析处理）**是在基于数据仓库多维模型的基础上实现的面向分析的各类操作的集合。可以比较下其与传统的OLTP（On-line Transaction Processing，联机事务处理）的区别来看一下它的特点：
+OLAP与OLTP | 数据处理类型 | OLTP | OLAP | | 面向对象 | 业务开发人员 | 分析决策人员 | | 功能实现 | 日常事务处理 | 面向分析决策 | | 数据模型 | 关系模型 | 多维模型 | | 数据量 | 几条或几十条记录 | 百万千万条记录 | | 操作类型 | 查询、插入、更新、删除 | 查询为主 |" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://cylllllll.github.io/post/cube/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2018-10-12T21:46:12+00:00" />
@@ -110,7 +112,7 @@ OLAP 　**OLAP（On-line Analytical Processing，联机分析处理）**是在�
 
   
   <meta itemprop="name" content="Cube-数据立方体">
-<meta itemprop="description" content="数据立方体 如上图所示，这是由三个维度构成的一个OLAP立方体，立方体中包含了满足条件的cell(子立方块)值，这些cell里面包含了要分析的数据，称之为度量值。显而易见，一组三维坐标唯一确定了一个子立方。
+<meta itemprop="description" content="如上图所示，这是由三个维度构成的一个OLAP立方体，立方体中包含了满足条件的cell(子立方块)值，这些cell里面包含了要分析的数据，称之为度量值。显而易见，一组三维坐标唯一确定了一个子立方。
 多位模型的基本概念介绍：
   立方体：由维度构建出来的多维空间，包含了所有要分析的基础数据，所有的聚合数据操作都在立方体上进行。  维度：就是观察数据的一种角度。在这个例子中，路线，源，时间都是维度，  这三个维度构成了一个立方体空间。维度可以理解为立方体的一个轴。要注意的是有一个特殊的维度，即度量值维度。  维度成员：构成维度的基本单位。对于时间维，它的成员分别是：第一季度、第二季度、第三季度、第四季度。  层次：维度的层次结构，要注意的是存在两种层次：自然层次和用户自定义层次。对于时间维而言，(年、月、日)是它的一个层次，(年、季度、月)是它的另一个层次，一个维可以有多个层次，层次可以理解为单位数据聚合的一种路径。  级别：级别组成层次。对于时间维的一个层次(年、月、日)而言，年是一个级别，月是一个级别，日是一个级别，显然这些级别是有父子关系的。  度量值：要分析展示的数据，即指标。如图1中一个cell中包含了两个度量值：装箱数和截至时间，可以对其进行多维分析。  事实表：存放度量值的表，同时存放了维表的外键。所有的分析用的数据最终都是来自与事实表。  维表：一个维度对应一个或者多个维表。一个维度对应一个维表时数据的组织方式就是采用的星型模式，对应多个维表时就是采用雪花模式。雪花模式是对星型模式的规范化。简言之，维表是对维度的描述。  MDX查询：多维模型的查询语言MDX(MDX是微软发布的多维查询语言标准),它的语法与SQL有很多相似之处：select {[Measures].[Salary]} on columns, {[Employee].[employeeId].members} on rows from CubeTest对于这条语句，COLUMNS 和 ROWS都代表查询轴，其中COLUMNS代表列轴，ROWS代表行轴。COLUMNS又可以写成0，ROWS又可以写成1，当只有两个查询轴时，可以理解为结果的展现格式是一个平坦二维表。这条语句的含义就是查询名字为CubeTest的立方体，列显示Measures维度的salary，行显示 Employee维度employeeId级别的所有成员，那么得出的结果就是employeeId所有成员的salary，也就是所有员工的薪酬。具体语法规范和帮助文档可以参考微软的用户文档。  多维数据模型是为了满足用户从多角度多层次进行数据查询和分析的需要而建立起来的基于事实和维的数据库模型，其基本的应用是为了实现OLAP（Online Analytical Processing）。
 其中，每个维对应于模式中的一个或一组属性，而每个单元存放某种聚集度量值，如count或sum。数据立方体提供数据的多维视图，并允许预计算和快速访问汇总数据。
@@ -126,14 +128,15 @@ OLAP 　**OLAP（On-line Analytical Processing，联机分析处理）**是在�
 对概念进行分层，有利于数据的汇总。
 数据立方体 　关于数据立方体（Data Cube），这里必须注意的是数据立方体只是多维模型的一个形象的说法。立方体其本身只有三维，但多维模型不仅限于三维模型，可以组合更多的维度，但一方面是出于更方便地解释和描述，同时也是给思维成像和想象的空间；另一方面是为了与传统关系型数据库的二维表区别开来，于是就有了数据立方体的叫法。所以本文中也是引用立方体，也就是把多维模型以三维的方式为代表进行展现和描述，其实上Google图片搜索“OLAP”会有一大堆的数据立方体图片，这里我自己画了一个：
 
-OLAP 　**OLAP（On-line Analytical Processing，联机分析处理）**是在基于数据仓库多维模型的基础上实现的面向分析的各类操作的集合。可以比较下其与传统的OLTP（On-line Transaction Processing，联机事务处理）的区别来看一下它的特点："><meta itemprop="datePublished" content="2018-10-12T21:46:12+00:00" />
+OLAP 　**OLAP（On-line Analytical Processing，联机分析处理）**是在基于数据仓库多维模型的基础上实现的面向分析的各类操作的集合。可以比较下其与传统的OLTP（On-line Transaction Processing，联机事务处理）的区别来看一下它的特点：
+OLAP与OLTP | 数据处理类型 | OLTP | OLAP | | 面向对象 | 业务开发人员 | 分析决策人员 | | 功能实现 | 日常事务处理 | 面向分析决策 | | 数据模型 | 关系模型 | 多维模型 | | 数据量 | 几条或几十条记录 | 百万千万条记录 | | 操作类型 | 查询、插入、更新、删除 | 查询为主 |"><meta itemprop="datePublished" content="2018-10-12T21:46:12+00:00" />
 <meta itemprop="dateModified" content="2018-10-12T21:46:12+00:00" />
-<meta itemprop="wordCount" content="197">
+<meta itemprop="wordCount" content="196">
 <meta itemprop="keywords" content="" />
   
   <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Cube-数据立方体"/>
-<meta name="twitter:description" content="数据立方体 如上图所示，这是由三个维度构成的一个OLAP立方体，立方体中包含了满足条件的cell(子立方块)值，这些cell里面包含了要分析的数据，称之为度量值。显而易见，一组三维坐标唯一确定了一个子立方。
+<meta name="twitter:description" content="如上图所示，这是由三个维度构成的一个OLAP立方体，立方体中包含了满足条件的cell(子立方块)值，这些cell里面包含了要分析的数据，称之为度量值。显而易见，一组三维坐标唯一确定了一个子立方。
 多位模型的基本概念介绍：
   立方体：由维度构建出来的多维空间，包含了所有要分析的基础数据，所有的聚合数据操作都在立方体上进行。  维度：就是观察数据的一种角度。在这个例子中，路线，源，时间都是维度，  这三个维度构成了一个立方体空间。维度可以理解为立方体的一个轴。要注意的是有一个特殊的维度，即度量值维度。  维度成员：构成维度的基本单位。对于时间维，它的成员分别是：第一季度、第二季度、第三季度、第四季度。  层次：维度的层次结构，要注意的是存在两种层次：自然层次和用户自定义层次。对于时间维而言，(年、月、日)是它的一个层次，(年、季度、月)是它的另一个层次，一个维可以有多个层次，层次可以理解为单位数据聚合的一种路径。  级别：级别组成层次。对于时间维的一个层次(年、月、日)而言，年是一个级别，月是一个级别，日是一个级别，显然这些级别是有父子关系的。  度量值：要分析展示的数据，即指标。如图1中一个cell中包含了两个度量值：装箱数和截至时间，可以对其进行多维分析。  事实表：存放度量值的表，同时存放了维表的外键。所有的分析用的数据最终都是来自与事实表。  维表：一个维度对应一个或者多个维表。一个维度对应一个维表时数据的组织方式就是采用的星型模式，对应多个维表时就是采用雪花模式。雪花模式是对星型模式的规范化。简言之，维表是对维度的描述。  MDX查询：多维模型的查询语言MDX(MDX是微软发布的多维查询语言标准),它的语法与SQL有很多相似之处：select {[Measures].[Salary]} on columns, {[Employee].[employeeId].members} on rows from CubeTest对于这条语句，COLUMNS 和 ROWS都代表查询轴，其中COLUMNS代表列轴，ROWS代表行轴。COLUMNS又可以写成0，ROWS又可以写成1，当只有两个查询轴时，可以理解为结果的展现格式是一个平坦二维表。这条语句的含义就是查询名字为CubeTest的立方体，列显示Measures维度的salary，行显示 Employee维度employeeId级别的所有成员，那么得出的结果就是employeeId所有成员的salary，也就是所有员工的薪酬。具体语法规范和帮助文档可以参考微软的用户文档。  多维数据模型是为了满足用户从多角度多层次进行数据查询和分析的需要而建立起来的基于事实和维的数据库模型，其基本的应用是为了实现OLAP（Online Analytical Processing）。
 其中，每个维对应于模式中的一个或一组属性，而每个单元存放某种聚集度量值，如count或sum。数据立方体提供数据的多维视图，并允许预计算和快速访问汇总数据。
@@ -149,7 +152,8 @@ OLAP 　**OLAP（On-line Analytical Processing，联机分析处理）**是在�
 对概念进行分层，有利于数据的汇总。
 数据立方体 　关于数据立方体（Data Cube），这里必须注意的是数据立方体只是多维模型的一个形象的说法。立方体其本身只有三维，但多维模型不仅限于三维模型，可以组合更多的维度，但一方面是出于更方便地解释和描述，同时也是给思维成像和想象的空间；另一方面是为了与传统关系型数据库的二维表区别开来，于是就有了数据立方体的叫法。所以本文中也是引用立方体，也就是把多维模型以三维的方式为代表进行展现和描述，其实上Google图片搜索“OLAP”会有一大堆的数据立方体图片，这里我自己画了一个：
 
-OLAP 　**OLAP（On-line Analytical Processing，联机分析处理）**是在基于数据仓库多维模型的基础上实现的面向分析的各类操作的集合。可以比较下其与传统的OLTP（On-line Transaction Processing，联机事务处理）的区别来看一下它的特点："/>
+OLAP 　**OLAP（On-line Analytical Processing，联机分析处理）**是在基于数据仓库多维模型的基础上实现的面向分析的各类操作的集合。可以比较下其与传统的OLTP（On-line Transaction Processing，联机事务处理）的区别来看一下它的特点：
+OLAP与OLTP | 数据处理类型 | OLTP | OLAP | | 面向对象 | 业务开发人员 | 分析决策人员 | | 功能实现 | 日常事务处理 | 面向分析决策 | | 数据模型 | 关系模型 | 多维模型 | | 数据量 | 几条或几十条记录 | 百万千万条记录 | | 操作类型 | 查询、插入、更新、删除 | 查询为主 |"/>
 
   
   
@@ -220,8 +224,7 @@ OLAP 　**OLAP（On-line Analytical Processing，联机分析处理）**是在�
     </aside>
     <h1>Cube-数据立方体</h1>
   </header>
-  <section class="post-content"><h1 id="数据立方体">数据立方体</h1>
-<p><img src="https://lh3.googleusercontent.com/-UQybmKmBPTM/W5jWLBXKZiI/AAAAAAAAADE/qIlli4mzPBw2qdX0uMoTIgX_OLMt5bBegCHMYCw/I/997232-20161015213701062-312799747.jpg" alt=""></p>
+  <section class="post-content"><p><img src="https://lh3.googleusercontent.com/-UQybmKmBPTM/W5jWLBXKZiI/AAAAAAAAADE/qIlli4mzPBw2qdX0uMoTIgX_OLMt5bBegCHMYCw/I/997232-20161015213701062-312799747.jpg" alt=""></p>
 <p><img src="https://lh3.googleusercontent.com/--EMu_O8Ayo4/W5jWLvlnLUI/AAAAAAAAADQ/iWJ4uxvuep0iKVqzdZIMiyc0y4818qWNACHMYCw/I/70c751c090ca.jpg" alt=""></p>
 <p>如上图所示，这是由三个维度构成的一个OLAP立方体，立方体中包含了满足条件的cell(子立方块)值，这些cell里面包含了要分析的数据，称之为度量值。显而易见，一组三维坐标唯一确定了一个子立方。</p>
 <p>多位模型的基本概念介绍：</p>
@@ -253,7 +256,7 @@ OLAP 　**OLAP（On-line Analytical Processing，联机分析处理）**是在�
 <p><img src="https://lh3.googleusercontent.com/-_JABES4R170/W5jWLuxZa3I/AAAAAAAAADg/0z42WRq9gI0hdgrnPCC6wcl2wfA4men_gCHMYCw/I/172054291753720.png" alt=""></p>
 <p>事实星座模式是把事实间共享的维进行合并。</p>
 <p>对概念进行分层，有利于数据的汇总。</p>
-<h3 id="数据立方体-1">数据立方体</h3>
+<h3 id="数据立方体">数据立方体</h3>
 <p>　　关于数据立方体（Data Cube），这里必须注意的是数据立方体只是多维模型的一个形象的说法。立方体其本身只有三维，但多维模型不仅限于三维模型，可以组合更多的维度，但一方面是出于更方便地解释和描述，同时也是给思维成像和想象的空间；另一方面是为了与传统关系型数据库的二维表区别开来，于是就有了数据立方体的叫法。所以本文中也是引用立方体，也就是把多维模型以三维的方式为代表进行展现和描述，其实上Google图片搜索“OLAP”会有一大堆的数据立方体图片，这里我自己画了一个：</p>
 <p><a href="https://lh3.googleusercontent.com/-5yqRqJvAgLg/W5jWcazfGAI/AAAAAAAAAD0/J3VmHTa6JH0kxNGImCq2zglVVJhneoN7gCHMYCw/I/Data-Cube.png"><img src="https://lh3.googleusercontent.com/-5yqRqJvAgLg/W5jWcazfGAI/AAAAAAAAAD0/J3VmHTa6JH0kxNGImCq2zglVVJhneoN7gCHMYCw/I/Data-Cube.png" alt="Data-Cube" title="数据立方体"></a></p>
 <h3 id="olap">OLAP</h3>

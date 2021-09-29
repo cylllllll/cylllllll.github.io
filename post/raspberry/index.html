@@ -23,7 +23,7 @@
 
   
   
-  <meta name="description" content="树莓派搭建低配版文件存储/家庭影音库 家里有个 Raspberry Pi 4B 只装了 HomeBridge 来接入家电感觉有点浪费，正好又有简单的家庭影音库需求，所以就有了这篇文章。
+  <meta name="description" content="家里有个 Raspberry Pi 4B 只装了 HomeBridge 来接入家电感觉有点浪费，正好又有简单的家庭影音库需求，所以就有了这篇文章。
 Raspberry Pi 4B 这代搭配千兆网口和 USB3.0 ，终于换掉了一直令人诟病的 USB2.0 ，至此速度理论上可以跑满千兆带宽，基本上能满足我的日常需求。
 需要设备材料： Raspberry Pi 4B 搭载 Raspberry Pi OS（其他的可以 TF卡（做系统盘） 千兆路由器 CAT6网线 一个硬盘
 硬盘挂载 手动挂载硬盘 毕竟TF卡做系统盘也存不了多少数据，所以第一件事就是把准备好的磁盘挂载上，我用的是旧电脑拆下来西数机械硬盘，买了个硬盘盒让它发挥余热。 首先插上硬盘通过sudo fdisk -l查看以下硬盘状态： 这个就是我们插上的硬盘，此时我们可以挂载到指定目录下： sudo mount Devide名称 自定义的指定目录 举例： sudo mount /dev/sda1 /media/pi/O 记得先创建一下storage文件夹sudo mkdir /media/pi/O 再次查看硬盘状态df -h，此时/dev/sda1已经挂载上去了。 以上就是手动挂载的方式，但是迫于断电重启的问题，每次挂载有点麻烦，所以设置启动时自动挂载硬盘是个不错的办法
@@ -74,7 +74,7 @@ Raspberry Pi 4B 这代搭配千兆网口和 USB3.0 ，终于换掉了一直令�
   
   
   <meta property="og:title" content="树莓派搭建低配版文件存储/家庭影音库" />
-<meta property="og:description" content="树莓派搭建低配版文件存储/家庭影音库 家里有个 Raspberry Pi 4B 只装了 HomeBridge 来接入家电感觉有点浪费，正好又有简单的家庭影音库需求，所以就有了这篇文章。
+<meta property="og:description" content="家里有个 Raspberry Pi 4B 只装了 HomeBridge 来接入家电感觉有点浪费，正好又有简单的家庭影音库需求，所以就有了这篇文章。
 Raspberry Pi 4B 这代搭配千兆网口和 USB3.0 ，终于换掉了一直令人诟病的 USB2.0 ，至此速度理论上可以跑满千兆带宽，基本上能满足我的日常需求。
 需要设备材料： Raspberry Pi 4B 搭载 Raspberry Pi OS（其他的可以 TF卡（做系统盘） 千兆路由器 CAT6网线 一个硬盘
 硬盘挂载 手动挂载硬盘 毕竟TF卡做系统盘也存不了多少数据，所以第一件事就是把准备好的磁盘挂载上，我用的是旧电脑拆下来西数机械硬盘，买了个硬盘盒让它发挥余热。 首先插上硬盘通过sudo fdisk -l查看以下硬盘状态： 这个就是我们插上的硬盘，此时我们可以挂载到指定目录下： sudo mount Devide名称 自定义的指定目录 举例： sudo mount /dev/sda1 /media/pi/O 记得先创建一下storage文件夹sudo mkdir /media/pi/O 再次查看硬盘状态df -h，此时/dev/sda1已经挂载上去了。 以上就是手动挂载的方式，但是迫于断电重启的问题，每次挂载有点麻烦，所以设置启动时自动挂载硬盘是个不错的办法
@@ -88,19 +88,19 @@ Raspberry Pi 4B 这代搭配千兆网口和 USB3.0 ，终于换掉了一直令�
 
   
   <meta itemprop="name" content="树莓派搭建低配版文件存储/家庭影音库">
-<meta itemprop="description" content="树莓派搭建低配版文件存储/家庭影音库 家里有个 Raspberry Pi 4B 只装了 HomeBridge 来接入家电感觉有点浪费，正好又有简单的家庭影音库需求，所以就有了这篇文章。
+<meta itemprop="description" content="家里有个 Raspberry Pi 4B 只装了 HomeBridge 来接入家电感觉有点浪费，正好又有简单的家庭影音库需求，所以就有了这篇文章。
 Raspberry Pi 4B 这代搭配千兆网口和 USB3.0 ，终于换掉了一直令人诟病的 USB2.0 ，至此速度理论上可以跑满千兆带宽，基本上能满足我的日常需求。
 需要设备材料： Raspberry Pi 4B 搭载 Raspberry Pi OS（其他的可以 TF卡（做系统盘） 千兆路由器 CAT6网线 一个硬盘
 硬盘挂载 手动挂载硬盘 毕竟TF卡做系统盘也存不了多少数据，所以第一件事就是把准备好的磁盘挂载上，我用的是旧电脑拆下来西数机械硬盘，买了个硬盘盒让它发挥余热。 首先插上硬盘通过sudo fdisk -l查看以下硬盘状态： 这个就是我们插上的硬盘，此时我们可以挂载到指定目录下： sudo mount Devide名称 自定义的指定目录 举例： sudo mount /dev/sda1 /media/pi/O 记得先创建一下storage文件夹sudo mkdir /media/pi/O 再次查看硬盘状态df -h，此时/dev/sda1已经挂载上去了。 以上就是手动挂载的方式，但是迫于断电重启的问题，每次挂载有点麻烦，所以设置启动时自动挂载硬盘是个不错的办法
 自动挂载硬盘 在系统开机时会主动读取/etc/fstab这个文件中的内容，根据文件里面的配置挂载磁盘。 所以我们只需在/etc/fstab加入我们硬盘信息即可。 首先编辑文件：sudo vi /etc/fstab 加入UUID 指定目录 硬盘文件系统格式 defaults 0 0
  当你不知道硬盘文件系统格式时，可以通过sudo blkid查看硬盘的UUID和TYPE 举例： UUID=&quot;34D58C3DFA562624&quot; /media/pi/O ntfs defaults 0 0  smb文件共享 安装 首先安装一下samba服务："><meta itemprop="datePublished" content="2021-09-27T16:00:01+00:00" />
 <meta itemprop="dateModified" content="2021-09-27T16:00:01+00:00" />
-<meta itemprop="wordCount" content="402">
+<meta itemprop="wordCount" content="401">
 <meta itemprop="keywords" content="" />
   
   <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="树莓派搭建低配版文件存储/家庭影音库"/>
-<meta name="twitter:description" content="树莓派搭建低配版文件存储/家庭影音库 家里有个 Raspberry Pi 4B 只装了 HomeBridge 来接入家电感觉有点浪费，正好又有简单的家庭影音库需求，所以就有了这篇文章。
+<meta name="twitter:description" content="家里有个 Raspberry Pi 4B 只装了 HomeBridge 来接入家电感觉有点浪费，正好又有简单的家庭影音库需求，所以就有了这篇文章。
 Raspberry Pi 4B 这代搭配千兆网口和 USB3.0 ，终于换掉了一直令人诟病的 USB2.0 ，至此速度理论上可以跑满千兆带宽，基本上能满足我的日常需求。
 需要设备材料： Raspberry Pi 4B 搭载 Raspberry Pi OS（其他的可以 TF卡（做系统盘） 千兆路由器 CAT6网线 一个硬盘
 硬盘挂载 手动挂载硬盘 毕竟TF卡做系统盘也存不了多少数据，所以第一件事就是把准备好的磁盘挂载上，我用的是旧电脑拆下来西数机械硬盘，买了个硬盘盒让它发挥余热。 首先插上硬盘通过sudo fdisk -l查看以下硬盘状态： 这个就是我们插上的硬盘，此时我们可以挂载到指定目录下： sudo mount Devide名称 自定义的指定目录 举例： sudo mount /dev/sda1 /media/pi/O 记得先创建一下storage文件夹sudo mkdir /media/pi/O 再次查看硬盘状态df -h，此时/dev/sda1已经挂载上去了。 以上就是手动挂载的方式，但是迫于断电重启的问题，每次挂载有点麻烦，所以设置启动时自动挂载硬盘是个不错的办法
@@ -176,8 +176,7 @@ Raspberry Pi 4B 这代搭配千兆网口和 USB3.0 ，终于换掉了一直令�
     </aside>
     <h1>树莓派搭建低配版文件存储/家庭影音库</h1>
   </header>
-  <section class="post-content"><h1 id="树莓派搭建低配版文件存储家庭影音库">树莓派搭建低配版文件存储/家庭影音库</h1>
-<p>家里有个 Raspberry Pi 4B 只装了 HomeBridge 来接入家电感觉有点浪费，正好又有简单的家庭影音库需求，所以就有了这篇文章。</p>
+  <section class="post-content"><p>家里有个 Raspberry Pi 4B 只装了 HomeBridge 来接入家电感觉有点浪费，正好又有简单的家庭影音库需求，所以就有了这篇文章。</p>
 <p>Raspberry Pi 4B 这代搭配千兆网口和 USB3.0 ，终于换掉了一直令人诟病的 USB2.0 ，至此速度理论上可以跑满千兆带宽，基本上能满足我的日常需求。</p>
 <p>需要设备材料：
 Raspberry Pi 4B 搭载 Raspberry Pi OS（其他的可以
@@ -383,7 +382,7 @@ privilege_token = xxxx
   
   <nav class="post-nav">
      
-    <a class="next" href="https://cylllllll.github.io/post/logic/"><span>逻辑回归</span><span>→</span></a>
+    <a class="next" href="https://cylllllll.github.io/post/timemachine/"><span>树莓派4做Time Machine</span><span>→</span></a>
     
   </nav>
   
