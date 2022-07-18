@@ -24,16 +24,16 @@
   
   
   <meta name="description" content="从大的类别上来说，逻辑回归是一种有监督的统计学习方法，主要用于对样本进行分类。在线性回归模型中，输出一般是连续的，例如
- $$ y=f(x)=ax&#43;b $$
- 对于每一个输入的x，都有一个对应的y输出。模型的定义域和值域都可以是[-∞, &#43;∞]。但是对于逻辑回归，输入可以是连续的[-∞, &#43;∞]，但输出一般是离散的，即只有有限多个输出值。例如，其值域可以只有两个值{0, 1}，这两个值可以表示对样本的某种分类，高/低、患病/健康、阴性/阳性等，这就是最常见的二分类逻辑回归。因此，从整体上来说，通过逻辑回归模型，我们将在整个实数范围上的x映射到了有限个点上，这样就实现了对x的分类。因为每次拿过来一个x，经过逻辑回归分析，就可以将它归入某一类y中。
+$$ y=f(x)=ax&#43;b $$
+对于每一个输入的x，都有一个对应的y输出。模型的定义域和值域都可以是[-∞, &#43;∞]。但是对于逻辑回归，输入可以是连续的[-∞, &#43;∞]，但输出一般是离散的，即只有有限多个输出值。例如，其值域可以只有两个值{0, 1}，这两个值可以表示对样本的某种分类，高/低、患病/健康、阴性/阳性等，这就是最常见的二分类逻辑回归。因此，从整体上来说，通过逻辑回归模型，我们将在整个实数范围上的x映射到了有限个点上，这样就实现了对x的分类。因为每次拿过来一个x，经过逻辑回归分析，就可以将它归入某一类y中。
 ​	逻辑回归也被称为广义线性回归模型，它与线性回归模型的形式基本上相同，都具有 ax&#43;b，其中a和b是待求参数，其区别在于他们的因变量不同，多重线性回归直接将ax&#43;b作为因变量，即y = ax&#43;b，而logistic回归则通过函数S将ax&#43;b对应到一个隐状态p，p = S(ax&#43;b)，然后根据p与1-p的大小决定因变量的值。这里的函数S就是Sigmoid函数
- $$ S(t)=\frac{1}{1&#43;e−t} $$
- 将t换成ax&#43;b，可以得到逻辑回归模型的参数形式：
- $$
+$$ S(t)=\frac{1}{1&#43;e−t} $$
+将t换成ax&#43;b，可以得到逻辑回归模型的参数形式：
+$$
 $$
 ​	逻辑回归返回的是概率。可以使用返回的概率（例如，用户点击此广告的概率为 0.000054），也可以将返回的概率转换成二元值（例如，这封电子邮件是垃圾邮件）。为了将逻辑回归值映射到二元类别，必须指定分类阈值。如果值高于该阈值，则表示“垃圾邮件”；如果值低于该阈值，则表示“非垃圾邮件”。通常来说分类阈值应始终为 0.5，但阈值取决于具体问题，因此须根据情况进行调整。
 该模型将 100 个分为真 （正类别）或假（负类别）
-   真正例（TP）     真实情况：假   机器学习模型预测结果：假   TP结果数：1       假正例（FP）     真实情况：真   机器学习模型预测结果：假   TP结果数：1       假负例（FN）     真实情况：假   机器学习模型预测结果：真   TP结果数：8       真负例（TN）     真实情况：真   机器学习模型预测结果：真   TP结果数：90     准确率 准确率是指我们的模型预测正确的结果所占的比例 $$ Accuracy=\frac{TP&#43;TN}{TP&#43;TN&#43;FP&#43;FN}=\frac{1&#43;90}{1&#43;90&#43;1&#43;8}=0." />
+真正例（TP） 真实情况：假 机器学习模型预测结果：假 TP结果数：1 假正例（FP） 真实情况：真 机器学习模型预测结果：假 TP结果数：1 假负例（FN） 真实情况：假 机器学习模型预测结果：真 TP结果数：8 真负例（TN） 真实情况：真 机器学习模型预测结果：真 TP结果数：90 准确率 准确率是指我们的模型预测正确的结果所占的比例 $$ Accuracy=\frac{TP&#43;TN}{TP&#43;TN&#43;FP&#43;FN}=\frac{1&#43;90}{1&#43;90&#43;1&#43;8}=0.91 $$ 在 100 个样本中，91 个为真（90 个 TN 和 1 个 FP），9 个为假（1 个 TP 和 8 个 FN）。在 91 个真中，该模型将 90 个正确识别为真。但是，在 9 个假中，该模型仅将 1 个正确识别为假，9 个假中有 8 个未被识别。" />
   <meta name="author" content="" />
   
 
@@ -66,11 +66,13 @@ $$
   <link rel="apple-touch-icon" href="https://cylllllll.github.io/apple-touch-icon.png" />
 
   
-  <meta name="generator" content="Hugo 0.88.1" />
+  <meta name="generator" content="Hugo 0.101.0" />
 
   
   
 
+  
+  
   
   
   
@@ -80,16 +82,16 @@ $$
   
   <meta property="og:title" content="逻辑回归" />
 <meta property="og:description" content="从大的类别上来说，逻辑回归是一种有监督的统计学习方法，主要用于对样本进行分类。在线性回归模型中，输出一般是连续的，例如
- $$ y=f(x)=ax&#43;b $$
- 对于每一个输入的x，都有一个对应的y输出。模型的定义域和值域都可以是[-∞, &#43;∞]。但是对于逻辑回归，输入可以是连续的[-∞, &#43;∞]，但输出一般是离散的，即只有有限多个输出值。例如，其值域可以只有两个值{0, 1}，这两个值可以表示对样本的某种分类，高/低、患病/健康、阴性/阳性等，这就是最常见的二分类逻辑回归。因此，从整体上来说，通过逻辑回归模型，我们将在整个实数范围上的x映射到了有限个点上，这样就实现了对x的分类。因为每次拿过来一个x，经过逻辑回归分析，就可以将它归入某一类y中。
+$$ y=f(x)=ax&#43;b $$
+对于每一个输入的x，都有一个对应的y输出。模型的定义域和值域都可以是[-∞, &#43;∞]。但是对于逻辑回归，输入可以是连续的[-∞, &#43;∞]，但输出一般是离散的，即只有有限多个输出值。例如，其值域可以只有两个值{0, 1}，这两个值可以表示对样本的某种分类，高/低、患病/健康、阴性/阳性等，这就是最常见的二分类逻辑回归。因此，从整体上来说，通过逻辑回归模型，我们将在整个实数范围上的x映射到了有限个点上，这样就实现了对x的分类。因为每次拿过来一个x，经过逻辑回归分析，就可以将它归入某一类y中。
 ​	逻辑回归也被称为广义线性回归模型，它与线性回归模型的形式基本上相同，都具有 ax&#43;b，其中a和b是待求参数，其区别在于他们的因变量不同，多重线性回归直接将ax&#43;b作为因变量，即y = ax&#43;b，而logistic回归则通过函数S将ax&#43;b对应到一个隐状态p，p = S(ax&#43;b)，然后根据p与1-p的大小决定因变量的值。这里的函数S就是Sigmoid函数
- $$ S(t)=\frac{1}{1&#43;e−t} $$
- 将t换成ax&#43;b，可以得到逻辑回归模型的参数形式：
- $$
+$$ S(t)=\frac{1}{1&#43;e−t} $$
+将t换成ax&#43;b，可以得到逻辑回归模型的参数形式：
+$$
 $$
 ​	逻辑回归返回的是概率。可以使用返回的概率（例如，用户点击此广告的概率为 0.000054），也可以将返回的概率转换成二元值（例如，这封电子邮件是垃圾邮件）。为了将逻辑回归值映射到二元类别，必须指定分类阈值。如果值高于该阈值，则表示“垃圾邮件”；如果值低于该阈值，则表示“非垃圾邮件”。通常来说分类阈值应始终为 0.5，但阈值取决于具体问题，因此须根据情况进行调整。
 该模型将 100 个分为真 （正类别）或假（负类别）
-   真正例（TP）     真实情况：假   机器学习模型预测结果：假   TP结果数：1       假正例（FP）     真实情况：真   机器学习模型预测结果：假   TP结果数：1       假负例（FN）     真实情况：假   机器学习模型预测结果：真   TP结果数：8       真负例（TN）     真实情况：真   机器学习模型预测结果：真   TP结果数：90     准确率 准确率是指我们的模型预测正确的结果所占的比例 $$ Accuracy=\frac{TP&#43;TN}{TP&#43;TN&#43;FP&#43;FN}=\frac{1&#43;90}{1&#43;90&#43;1&#43;8}=0." />
+真正例（TP） 真实情况：假 机器学习模型预测结果：假 TP结果数：1 假正例（FP） 真实情况：真 机器学习模型预测结果：假 TP结果数：1 假负例（FN） 真实情况：假 机器学习模型预测结果：真 TP结果数：8 真负例（TN） 真实情况：真 机器学习模型预测结果：真 TP结果数：90 准确率 准确率是指我们的模型预测正确的结果所占的比例 $$ Accuracy=\frac{TP&#43;TN}{TP&#43;TN&#43;FP&#43;FN}=\frac{1&#43;90}{1&#43;90&#43;1&#43;8}=0.91 $$ 在 100 个样本中，91 个为真（90 个 TN 和 1 个 FP），9 个为假（1 个 TP 和 8 个 FN）。在 91 个真中，该模型将 90 个正确识别为真。但是，在 9 个假中，该模型仅将 1 个正确识别为假，9 个假中有 8 个未被识别。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://cylllllll.github.io/post/logic/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2019-05-07T10:00:00+00:00" />
@@ -99,16 +101,16 @@ $$
   
   <meta itemprop="name" content="逻辑回归">
 <meta itemprop="description" content="从大的类别上来说，逻辑回归是一种有监督的统计学习方法，主要用于对样本进行分类。在线性回归模型中，输出一般是连续的，例如
- $$ y=f(x)=ax&#43;b $$
- 对于每一个输入的x，都有一个对应的y输出。模型的定义域和值域都可以是[-∞, &#43;∞]。但是对于逻辑回归，输入可以是连续的[-∞, &#43;∞]，但输出一般是离散的，即只有有限多个输出值。例如，其值域可以只有两个值{0, 1}，这两个值可以表示对样本的某种分类，高/低、患病/健康、阴性/阳性等，这就是最常见的二分类逻辑回归。因此，从整体上来说，通过逻辑回归模型，我们将在整个实数范围上的x映射到了有限个点上，这样就实现了对x的分类。因为每次拿过来一个x，经过逻辑回归分析，就可以将它归入某一类y中。
+$$ y=f(x)=ax&#43;b $$
+对于每一个输入的x，都有一个对应的y输出。模型的定义域和值域都可以是[-∞, &#43;∞]。但是对于逻辑回归，输入可以是连续的[-∞, &#43;∞]，但输出一般是离散的，即只有有限多个输出值。例如，其值域可以只有两个值{0, 1}，这两个值可以表示对样本的某种分类，高/低、患病/健康、阴性/阳性等，这就是最常见的二分类逻辑回归。因此，从整体上来说，通过逻辑回归模型，我们将在整个实数范围上的x映射到了有限个点上，这样就实现了对x的分类。因为每次拿过来一个x，经过逻辑回归分析，就可以将它归入某一类y中。
 ​	逻辑回归也被称为广义线性回归模型，它与线性回归模型的形式基本上相同，都具有 ax&#43;b，其中a和b是待求参数，其区别在于他们的因变量不同，多重线性回归直接将ax&#43;b作为因变量，即y = ax&#43;b，而logistic回归则通过函数S将ax&#43;b对应到一个隐状态p，p = S(ax&#43;b)，然后根据p与1-p的大小决定因变量的值。这里的函数S就是Sigmoid函数
- $$ S(t)=\frac{1}{1&#43;e−t} $$
- 将t换成ax&#43;b，可以得到逻辑回归模型的参数形式：
- $$
+$$ S(t)=\frac{1}{1&#43;e−t} $$
+将t换成ax&#43;b，可以得到逻辑回归模型的参数形式：
+$$
 $$
 ​	逻辑回归返回的是概率。可以使用返回的概率（例如，用户点击此广告的概率为 0.000054），也可以将返回的概率转换成二元值（例如，这封电子邮件是垃圾邮件）。为了将逻辑回归值映射到二元类别，必须指定分类阈值。如果值高于该阈值，则表示“垃圾邮件”；如果值低于该阈值，则表示“非垃圾邮件”。通常来说分类阈值应始终为 0.5，但阈值取决于具体问题，因此须根据情况进行调整。
 该模型将 100 个分为真 （正类别）或假（负类别）
-   真正例（TP）     真实情况：假   机器学习模型预测结果：假   TP结果数：1       假正例（FP）     真实情况：真   机器学习模型预测结果：假   TP结果数：1       假负例（FN）     真实情况：假   机器学习模型预测结果：真   TP结果数：8       真负例（TN）     真实情况：真   机器学习模型预测结果：真   TP结果数：90     准确率 准确率是指我们的模型预测正确的结果所占的比例 $$ Accuracy=\frac{TP&#43;TN}{TP&#43;TN&#43;FP&#43;FN}=\frac{1&#43;90}{1&#43;90&#43;1&#43;8}=0."><meta itemprop="datePublished" content="2019-05-07T10:00:00+00:00" />
+真正例（TP） 真实情况：假 机器学习模型预测结果：假 TP结果数：1 假正例（FP） 真实情况：真 机器学习模型预测结果：假 TP结果数：1 假负例（FN） 真实情况：假 机器学习模型预测结果：真 TP结果数：8 真负例（TN） 真实情况：真 机器学习模型预测结果：真 TP结果数：90 准确率 准确率是指我们的模型预测正确的结果所占的比例 $$ Accuracy=\frac{TP&#43;TN}{TP&#43;TN&#43;FP&#43;FN}=\frac{1&#43;90}{1&#43;90&#43;1&#43;8}=0.91 $$ 在 100 个样本中，91 个为真（90 个 TN 和 1 个 FP），9 个为假（1 个 TP 和 8 个 FN）。在 91 个真中，该模型将 90 个正确识别为真。但是，在 9 个假中，该模型仅将 1 个正确识别为假，9 个假中有 8 个未被识别。"><meta itemprop="datePublished" content="2019-05-07T10:00:00+00:00" />
 <meta itemprop="dateModified" content="2019-05-07T10:00:00+00:00" />
 <meta itemprop="wordCount" content="607">
 <meta itemprop="keywords" content="" />
@@ -116,16 +118,16 @@ $$
   <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="逻辑回归"/>
 <meta name="twitter:description" content="从大的类别上来说，逻辑回归是一种有监督的统计学习方法，主要用于对样本进行分类。在线性回归模型中，输出一般是连续的，例如
- $$ y=f(x)=ax&#43;b $$
- 对于每一个输入的x，都有一个对应的y输出。模型的定义域和值域都可以是[-∞, &#43;∞]。但是对于逻辑回归，输入可以是连续的[-∞, &#43;∞]，但输出一般是离散的，即只有有限多个输出值。例如，其值域可以只有两个值{0, 1}，这两个值可以表示对样本的某种分类，高/低、患病/健康、阴性/阳性等，这就是最常见的二分类逻辑回归。因此，从整体上来说，通过逻辑回归模型，我们将在整个实数范围上的x映射到了有限个点上，这样就实现了对x的分类。因为每次拿过来一个x，经过逻辑回归分析，就可以将它归入某一类y中。
+$$ y=f(x)=ax&#43;b $$
+对于每一个输入的x，都有一个对应的y输出。模型的定义域和值域都可以是[-∞, &#43;∞]。但是对于逻辑回归，输入可以是连续的[-∞, &#43;∞]，但输出一般是离散的，即只有有限多个输出值。例如，其值域可以只有两个值{0, 1}，这两个值可以表示对样本的某种分类，高/低、患病/健康、阴性/阳性等，这就是最常见的二分类逻辑回归。因此，从整体上来说，通过逻辑回归模型，我们将在整个实数范围上的x映射到了有限个点上，这样就实现了对x的分类。因为每次拿过来一个x，经过逻辑回归分析，就可以将它归入某一类y中。
 ​	逻辑回归也被称为广义线性回归模型，它与线性回归模型的形式基本上相同，都具有 ax&#43;b，其中a和b是待求参数，其区别在于他们的因变量不同，多重线性回归直接将ax&#43;b作为因变量，即y = ax&#43;b，而logistic回归则通过函数S将ax&#43;b对应到一个隐状态p，p = S(ax&#43;b)，然后根据p与1-p的大小决定因变量的值。这里的函数S就是Sigmoid函数
- $$ S(t)=\frac{1}{1&#43;e−t} $$
- 将t换成ax&#43;b，可以得到逻辑回归模型的参数形式：
- $$
+$$ S(t)=\frac{1}{1&#43;e−t} $$
+将t换成ax&#43;b，可以得到逻辑回归模型的参数形式：
+$$
 $$
 ​	逻辑回归返回的是概率。可以使用返回的概率（例如，用户点击此广告的概率为 0.000054），也可以将返回的概率转换成二元值（例如，这封电子邮件是垃圾邮件）。为了将逻辑回归值映射到二元类别，必须指定分类阈值。如果值高于该阈值，则表示“垃圾邮件”；如果值低于该阈值，则表示“非垃圾邮件”。通常来说分类阈值应始终为 0.5，但阈值取决于具体问题，因此须根据情况进行调整。
 该模型将 100 个分为真 （正类别）或假（负类别）
-   真正例（TP）     真实情况：假   机器学习模型预测结果：假   TP结果数：1       假正例（FP）     真实情况：真   机器学习模型预测结果：假   TP结果数：1       假负例（FN）     真实情况：假   机器学习模型预测结果：真   TP结果数：8       真负例（TN）     真实情况：真   机器学习模型预测结果：真   TP结果数：90     准确率 准确率是指我们的模型预测正确的结果所占的比例 $$ Accuracy=\frac{TP&#43;TN}{TP&#43;TN&#43;FP&#43;FN}=\frac{1&#43;90}{1&#43;90&#43;1&#43;8}=0."/>
+真正例（TP） 真实情况：假 机器学习模型预测结果：假 TP结果数：1 假正例（FP） 真实情况：真 机器学习模型预测结果：假 TP结果数：1 假负例（FN） 真实情况：假 机器学习模型预测结果：真 TP结果数：8 真负例（TN） 真实情况：真 机器学习模型预测结果：真 TP结果数：90 准确率 准确率是指我们的模型预测正确的结果所占的比例 $$ Accuracy=\frac{TP&#43;TN}{TP&#43;TN&#43;FP&#43;FN}=\frac{1&#43;90}{1&#43;90&#43;1&#43;8}=0.91 $$ 在 100 个样本中，91 个为真（90 个 TN 和 1 个 FP），9 个为假（1 个 TP 和 8 个 FN）。在 91 个真中，该模型将 90 个正确识别为真。但是，在 9 个假中，该模型仅将 1 个正确识别为假，9 个假中有 8 个未被识别。"/>
 
   
   
@@ -190,10 +192,12 @@ $$
 
 <article class="post-single">
   <header class="post-title">
-    <aside>
+    <p>
+      
       <time>May 7, 2019</time>
       
-    </aside>
+      
+    </p>
     <h1>逻辑回归</h1>
   </header>
   <section class="post-content"><blockquote>
@@ -438,67 +442,66 @@ $$
 1.752842	5.468166	1
 0.078557	0.059736	1
 </code></pre><p>根据学习内容尝试测试逻辑回归算法：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># 从文件中读取样本数据</span>
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">loadDataSet</span>(p, file_n):
-    dataMat <span style="color:#f92672">=</span> [];
-    labelMat <span style="color:#f92672">=</span> []
-    fr <span style="color:#f92672">=</span> open(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(p, file_n))
-    <span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> fr<span style="color:#f92672">.</span>readlines():
-        lineArr <span style="color:#f92672">=</span> line<span style="color:#f92672">.</span>strip()<span style="color:#f92672">.</span>split()
-        dataMat<span style="color:#f92672">.</span>append([<span style="color:#ae81ff">1.0</span>, float(lineArr[<span style="color:#ae81ff">0</span>]), float(lineArr[<span style="color:#ae81ff">1</span>])])  
-        <span style="color:#75715e"># 三个特征x0, x1, x2</span>
-        labelMat<span style="color:#f92672">.</span>append(int(lineArr[<span style="color:#ae81ff">2</span>]))
-    <span style="color:#66d9ef">return</span> dataMat, labelMat
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sigmoid</span>(inX):
-     <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1.0</span><span style="color:#f92672">/</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">+</span>exp(<span style="color:#f92672">-</span>inX))
-</code></pre></div><p>梯度下降法求回归系数a，由于样本量少，所以将迭代次数改成了1000次：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">gradAscent</span>(dataMatIn, classLabels):
-    <span style="color:#75715e"># convert to NumPy matrix</span>
-    dataMatrix <span style="color:#f92672">=</span> mat(dataMatIn)
-    labelMat <span style="color:#f92672">=</span> mat(classLabels)<span style="color:#f92672">.</span>transpose()
-    m, n <span style="color:#f92672">=</span> shape(dataMatrix)
-    alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.001</span>  <span style="color:#75715e"># 学习率</span>
-    maxCycles <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>
-    weights <span style="color:#f92672">=</span> ones((n, <span style="color:#ae81ff">1</span>))
-    <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(maxCycles):
-        <span style="color:#75715e"># 模型预测值, 90 x 1</span>
-        h <span style="color:#f92672">=</span> sigmoid(dataMatrix <span style="color:#f92672">*</span> weights)
-        <span style="color:#75715e"># 真实值与预测值之间的误差, 90 x 1</span>
-        error <span style="color:#f92672">=</span> h <span style="color:#f92672">-</span> labelMat
-        <span style="color:#75715e"># 交叉熵代价函数对所有参数的偏导数, 3 x 1</span>
-        temp <span style="color:#f92672">=</span> dataMatrix<span style="color:#f92672">.</span>transpose() <span style="color:#f92672">*</span> error
-        <span style="color:#75715e"># 更新权重</span>
-        weights <span style="color:#f92672">=</span> weights <span style="color:#f92672">-</span> alpha <span style="color:#f92672">*</span> temp
-    <span style="color:#66d9ef">return</span> weights
-
-</code></pre></div><p>分类效果展示，参数weights就是回归系数：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">plotBestFit</span>(weights):
-    <span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
-    dataMat, labelMat <span style="color:#f92672">=</span> loadDataSet(path, training_sample)
-    dataArr <span style="color:#f92672">=</span> array(dataMat)
-    n <span style="color:#f92672">=</span> shape(dataArr)[<span style="color:#ae81ff">0</span>]
-    xcord1 <span style="color:#f92672">=</span> [];
-    ycord1 <span style="color:#f92672">=</span> []
-    xcord2 <span style="color:#f92672">=</span> [];
-    ycord2 <span style="color:#f92672">=</span> []
-    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
-        <span style="color:#66d9ef">if</span> int(labelMat[i]) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
-            xcord1<span style="color:#f92672">.</span>append(dataArr[i, <span style="color:#ae81ff">1</span>]);
-            ycord1<span style="color:#f92672">.</span>append(dataArr[i, <span style="color:#ae81ff">2</span>])
-        <span style="color:#66d9ef">else</span>:
-            xcord2<span style="color:#f92672">.</span>append(dataArr[i, <span style="color:#ae81ff">1</span>]);
-            ycord2<span style="color:#f92672">.</span>append(dataArr[i, <span style="color:#ae81ff">2</span>])
-    fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure()
-    ax <span style="color:#f92672">=</span> fig<span style="color:#f92672">.</span>add_subplot(<span style="color:#ae81ff">111</span>)
-    ax<span style="color:#f92672">.</span>scatter(xcord1, ycord1, s<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>, c<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, marker<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;s&#39;</span>)
-    ax<span style="color:#f92672">.</span>scatter(xcord2, ycord2, s<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>, c<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;green&#39;</span>)
-    x <span style="color:#f92672">=</span> arange(<span style="color:#f92672">-</span><span style="color:#ae81ff">3.0</span>, <span style="color:#ae81ff">3.0</span>, <span style="color:#ae81ff">0.1</span>)
-    y <span style="color:#f92672">=</span> (<span style="color:#f92672">-</span>weights[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> weights[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">*</span> x) <span style="color:#f92672">/</span> weights[<span style="color:#ae81ff">2</span>] 
-    ax<span style="color:#f92672">.</span>plot(x<span style="color:#f92672">.</span>reshape(<span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), y<span style="color:#f92672">.</span>reshape(<span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>))
-    plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;X1&#39;</span>);
-    plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;X2&#39;</span>);
-    plt<span style="color:#f92672">.</span>show()
-</code></pre></div><p>展示结果：
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 从文件中读取样本数据</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">loadDataSet</span>(p, file_n):
+</span></span><span style="display:flex;"><span>    dataMat <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>    labelMat <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    fr <span style="color:#f92672">=</span> open(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(p, file_n))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> fr<span style="color:#f92672">.</span>readlines():
+</span></span><span style="display:flex;"><span>        lineArr <span style="color:#f92672">=</span> line<span style="color:#f92672">.</span>strip()<span style="color:#f92672">.</span>split()
+</span></span><span style="display:flex;"><span>        dataMat<span style="color:#f92672">.</span>append([<span style="color:#ae81ff">1.0</span>, float(lineArr[<span style="color:#ae81ff">0</span>]), float(lineArr[<span style="color:#ae81ff">1</span>])])  
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 三个特征x0, x1, x2</span>
+</span></span><span style="display:flex;"><span>        labelMat<span style="color:#f92672">.</span>append(int(lineArr[<span style="color:#ae81ff">2</span>]))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> dataMat, labelMat
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sigmoid</span>(inX):
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1.0</span><span style="color:#f92672">/</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">+</span>exp(<span style="color:#f92672">-</span>inX))
+</span></span></code></pre></div><p>梯度下降法求回归系数a，由于样本量少，所以将迭代次数改成了1000次：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">gradAscent</span>(dataMatIn, classLabels):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># convert to NumPy matrix</span>
+</span></span><span style="display:flex;"><span>    dataMatrix <span style="color:#f92672">=</span> mat(dataMatIn)
+</span></span><span style="display:flex;"><span>    labelMat <span style="color:#f92672">=</span> mat(classLabels)<span style="color:#f92672">.</span>transpose()
+</span></span><span style="display:flex;"><span>    m, n <span style="color:#f92672">=</span> shape(dataMatrix)
+</span></span><span style="display:flex;"><span>    alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.001</span>  <span style="color:#75715e"># 学习率</span>
+</span></span><span style="display:flex;"><span>    maxCycles <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>
+</span></span><span style="display:flex;"><span>    weights <span style="color:#f92672">=</span> ones((n, <span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(maxCycles):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 模型预测值, 90 x 1</span>
+</span></span><span style="display:flex;"><span>        h <span style="color:#f92672">=</span> sigmoid(dataMatrix <span style="color:#f92672">*</span> weights)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 真实值与预测值之间的误差, 90 x 1</span>
+</span></span><span style="display:flex;"><span>        error <span style="color:#f92672">=</span> h <span style="color:#f92672">-</span> labelMat
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 交叉熵代价函数对所有参数的偏导数, 3 x 1</span>
+</span></span><span style="display:flex;"><span>        temp <span style="color:#f92672">=</span> dataMatrix<span style="color:#f92672">.</span>transpose() <span style="color:#f92672">*</span> error
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># 更新权重</span>
+</span></span><span style="display:flex;"><span>        weights <span style="color:#f92672">=</span> weights <span style="color:#f92672">-</span> alpha <span style="color:#f92672">*</span> temp
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> weights
+</span></span></code></pre></div><p>分类效果展示，参数weights就是回归系数：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">plotBestFit</span>(weights):
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>    dataMat, labelMat <span style="color:#f92672">=</span> loadDataSet(path, training_sample)
+</span></span><span style="display:flex;"><span>    dataArr <span style="color:#f92672">=</span> array(dataMat)
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> shape(dataArr)[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>    xcord1 <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>    ycord1 <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    xcord2 <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>    ycord2 <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> int(labelMat[i]) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>            xcord1<span style="color:#f92672">.</span>append(dataArr[i, <span style="color:#ae81ff">1</span>]);
+</span></span><span style="display:flex;"><span>            ycord1<span style="color:#f92672">.</span>append(dataArr[i, <span style="color:#ae81ff">2</span>])
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            xcord2<span style="color:#f92672">.</span>append(dataArr[i, <span style="color:#ae81ff">1</span>]);
+</span></span><span style="display:flex;"><span>            ycord2<span style="color:#f92672">.</span>append(dataArr[i, <span style="color:#ae81ff">2</span>])
+</span></span><span style="display:flex;"><span>    fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure()
+</span></span><span style="display:flex;"><span>    ax <span style="color:#f92672">=</span> fig<span style="color:#f92672">.</span>add_subplot(<span style="color:#ae81ff">111</span>)
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>scatter(xcord1, ycord1, s<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>, c<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;red&#39;</span>, marker<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;s&#39;</span>)
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>scatter(xcord2, ycord2, s<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>, c<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;green&#39;</span>)
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> arange(<span style="color:#f92672">-</span><span style="color:#ae81ff">3.0</span>, <span style="color:#ae81ff">3.0</span>, <span style="color:#ae81ff">0.1</span>)
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> (<span style="color:#f92672">-</span>weights[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> weights[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">*</span> x) <span style="color:#f92672">/</span> weights[<span style="color:#ae81ff">2</span>] 
+</span></span><span style="display:flex;"><span>    ax<span style="color:#f92672">.</span>plot(x<span style="color:#f92672">.</span>reshape(<span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), y<span style="color:#f92672">.</span>reshape(<span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#39;X1&#39;</span>);
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#39;X2&#39;</span>);
+</span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><p>展示结果：
 <img src="https://i.imgur.com/OTb7zuP.png" alt="屏幕快照 2019-04-30 下午11.55.27 上午"></p>
 </section>
 
@@ -524,8 +527,11 @@ $$
 </main>
 
     <footer class="footer">
-  <p>&copy; 2021 <a href="https://cylllllll.github.io">cy&#39;s Blog 🍉</a></p>
-  <p>Powered by <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper 5.0</a>️</p>
+  <p>&copy; 2022 <a href="https://cylllllll.github.io">cy&#39;s Blog 🍉</a></p>
+  <p>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</p>
+  <p>
+    <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper 5.1</a>
+  </p>
 </footer>
 
   </body>

@@ -26,7 +26,7 @@
   <meta name="description" content="准备硬盘 格式化分区 首先插上硬盘通过sudo fdisk -l查看以下硬盘状态： 可以看出这里的是NTFS格式的硬盘，我这里要根据/dev/sda1把硬盘格式化为ext4格式：
 sudo mkfs.ext4 /dev/sda1 手动挂载硬盘 格式化完成后，重新通过sudo fdisk -l查看以下硬盘状态，此时我们可以把硬盘挂载到指定目录下： sudo mount Devide名称 自定义的指定目录 举例： sudo mount /dev/sda1 /media/pi/TimeMachine 记得先创建一下storage文件夹sudo mkdir /media/pi/TimeMachine 再次查看硬盘状态df -h，此时/dev/sda1已经挂载上去了。 以上就是手动挂载的方式，但是迫于断电重启的问题，每次挂载有点麻烦，所以设置启动时自动挂载硬盘是个不错的办法
 自动挂载硬盘 在系统开机时会主动读取/etc/fstab这个文件中的内容，根据文件里面的配置挂载磁盘。 所以我们只需在/etc/fstab加入我们硬盘信息即可。 首先编辑文件：sudo vi /etc/fstab 加入UUID 指定目录 硬盘文件系统格式 defaults 0 0
- 当你不知道硬盘文件系统格式时，可以通过sudo blkid查看硬盘的UUID和TYPE 举例： UUID=&quot;34D58C3DFA562624&quot; /media/pi/TimeMachine ntfs defaults 0 0  安装netatalk sudo apt-get update sudo apt-get install netatalk avahi-daemon 配置 通常配置文件在/etc/netatalk/路径下，编辑配置文件：
+当你不知道硬盘文件系统格式时，可以通过sudo blkid查看硬盘的UUID和TYPE 举例： UUID=&quot;34D58C3DFA562624&quot; /media/pi/TimeMachine ntfs defaults 0 0 安装netatalk sudo apt-get update sudo apt-get install netatalk avahi-daemon 配置 通常配置文件在/etc/netatalk/路径下，编辑配置文件：
 sudo vi /etc/netatalk/afp.conf 追加以下配置：
 [Time Machine] path = /media/pi/TimeMachine time machine = yes 重启netatalk服务来生效修改的配置文件：" />
   <meta name="author" content="" />
@@ -61,11 +61,13 @@ sudo vi /etc/netatalk/afp.conf 追加以下配置：
   <link rel="apple-touch-icon" href="https://cylllllll.github.io/apple-touch-icon.png" />
 
   
-  <meta name="generator" content="Hugo 0.88.1" />
+  <meta name="generator" content="Hugo 0.101.0" />
 
   
   
 
+  
+  
   
   
   
@@ -77,7 +79,7 @@ sudo vi /etc/netatalk/afp.conf 追加以下配置：
 <meta property="og:description" content="准备硬盘 格式化分区 首先插上硬盘通过sudo fdisk -l查看以下硬盘状态： 可以看出这里的是NTFS格式的硬盘，我这里要根据/dev/sda1把硬盘格式化为ext4格式：
 sudo mkfs.ext4 /dev/sda1 手动挂载硬盘 格式化完成后，重新通过sudo fdisk -l查看以下硬盘状态，此时我们可以把硬盘挂载到指定目录下： sudo mount Devide名称 自定义的指定目录 举例： sudo mount /dev/sda1 /media/pi/TimeMachine 记得先创建一下storage文件夹sudo mkdir /media/pi/TimeMachine 再次查看硬盘状态df -h，此时/dev/sda1已经挂载上去了。 以上就是手动挂载的方式，但是迫于断电重启的问题，每次挂载有点麻烦，所以设置启动时自动挂载硬盘是个不错的办法
 自动挂载硬盘 在系统开机时会主动读取/etc/fstab这个文件中的内容，根据文件里面的配置挂载磁盘。 所以我们只需在/etc/fstab加入我们硬盘信息即可。 首先编辑文件：sudo vi /etc/fstab 加入UUID 指定目录 硬盘文件系统格式 defaults 0 0
- 当你不知道硬盘文件系统格式时，可以通过sudo blkid查看硬盘的UUID和TYPE 举例： UUID=&quot;34D58C3DFA562624&quot; /media/pi/TimeMachine ntfs defaults 0 0  安装netatalk sudo apt-get update sudo apt-get install netatalk avahi-daemon 配置 通常配置文件在/etc/netatalk/路径下，编辑配置文件：
+当你不知道硬盘文件系统格式时，可以通过sudo blkid查看硬盘的UUID和TYPE 举例： UUID=&quot;34D58C3DFA562624&quot; /media/pi/TimeMachine ntfs defaults 0 0 安装netatalk sudo apt-get update sudo apt-get install netatalk avahi-daemon 配置 通常配置文件在/etc/netatalk/路径下，编辑配置文件：
 sudo vi /etc/netatalk/afp.conf 追加以下配置：
 [Time Machine] path = /media/pi/TimeMachine time machine = yes 重启netatalk服务来生效修改的配置文件：" />
 <meta property="og:type" content="article" />
@@ -91,7 +93,7 @@ sudo vi /etc/netatalk/afp.conf 追加以下配置：
 <meta itemprop="description" content="准备硬盘 格式化分区 首先插上硬盘通过sudo fdisk -l查看以下硬盘状态： 可以看出这里的是NTFS格式的硬盘，我这里要根据/dev/sda1把硬盘格式化为ext4格式：
 sudo mkfs.ext4 /dev/sda1 手动挂载硬盘 格式化完成后，重新通过sudo fdisk -l查看以下硬盘状态，此时我们可以把硬盘挂载到指定目录下： sudo mount Devide名称 自定义的指定目录 举例： sudo mount /dev/sda1 /media/pi/TimeMachine 记得先创建一下storage文件夹sudo mkdir /media/pi/TimeMachine 再次查看硬盘状态df -h，此时/dev/sda1已经挂载上去了。 以上就是手动挂载的方式，但是迫于断电重启的问题，每次挂载有点麻烦，所以设置启动时自动挂载硬盘是个不错的办法
 自动挂载硬盘 在系统开机时会主动读取/etc/fstab这个文件中的内容，根据文件里面的配置挂载磁盘。 所以我们只需在/etc/fstab加入我们硬盘信息即可。 首先编辑文件：sudo vi /etc/fstab 加入UUID 指定目录 硬盘文件系统格式 defaults 0 0
- 当你不知道硬盘文件系统格式时，可以通过sudo blkid查看硬盘的UUID和TYPE 举例： UUID=&quot;34D58C3DFA562624&quot; /media/pi/TimeMachine ntfs defaults 0 0  安装netatalk sudo apt-get update sudo apt-get install netatalk avahi-daemon 配置 通常配置文件在/etc/netatalk/路径下，编辑配置文件：
+当你不知道硬盘文件系统格式时，可以通过sudo blkid查看硬盘的UUID和TYPE 举例： UUID=&quot;34D58C3DFA562624&quot; /media/pi/TimeMachine ntfs defaults 0 0 安装netatalk sudo apt-get update sudo apt-get install netatalk avahi-daemon 配置 通常配置文件在/etc/netatalk/路径下，编辑配置文件：
 sudo vi /etc/netatalk/afp.conf 追加以下配置：
 [Time Machine] path = /media/pi/TimeMachine time machine = yes 重启netatalk服务来生效修改的配置文件："><meta itemprop="datePublished" content="2020-09-12T18:46:12+00:00" />
 <meta itemprop="dateModified" content="2020-09-12T18:46:12+00:00" />
@@ -103,7 +105,7 @@ sudo vi /etc/netatalk/afp.conf 追加以下配置：
 <meta name="twitter:description" content="准备硬盘 格式化分区 首先插上硬盘通过sudo fdisk -l查看以下硬盘状态： 可以看出这里的是NTFS格式的硬盘，我这里要根据/dev/sda1把硬盘格式化为ext4格式：
 sudo mkfs.ext4 /dev/sda1 手动挂载硬盘 格式化完成后，重新通过sudo fdisk -l查看以下硬盘状态，此时我们可以把硬盘挂载到指定目录下： sudo mount Devide名称 自定义的指定目录 举例： sudo mount /dev/sda1 /media/pi/TimeMachine 记得先创建一下storage文件夹sudo mkdir /media/pi/TimeMachine 再次查看硬盘状态df -h，此时/dev/sda1已经挂载上去了。 以上就是手动挂载的方式，但是迫于断电重启的问题，每次挂载有点麻烦，所以设置启动时自动挂载硬盘是个不错的办法
 自动挂载硬盘 在系统开机时会主动读取/etc/fstab这个文件中的内容，根据文件里面的配置挂载磁盘。 所以我们只需在/etc/fstab加入我们硬盘信息即可。 首先编辑文件：sudo vi /etc/fstab 加入UUID 指定目录 硬盘文件系统格式 defaults 0 0
- 当你不知道硬盘文件系统格式时，可以通过sudo blkid查看硬盘的UUID和TYPE 举例： UUID=&quot;34D58C3DFA562624&quot; /media/pi/TimeMachine ntfs defaults 0 0  安装netatalk sudo apt-get update sudo apt-get install netatalk avahi-daemon 配置 通常配置文件在/etc/netatalk/路径下，编辑配置文件：
+当你不知道硬盘文件系统格式时，可以通过sudo blkid查看硬盘的UUID和TYPE 举例： UUID=&quot;34D58C3DFA562624&quot; /media/pi/TimeMachine ntfs defaults 0 0 安装netatalk sudo apt-get update sudo apt-get install netatalk avahi-daemon 配置 通常配置文件在/etc/netatalk/路径下，编辑配置文件：
 sudo vi /etc/netatalk/afp.conf 追加以下配置：
 [Time Machine] path = /media/pi/TimeMachine time machine = yes 重启netatalk服务来生效修改的配置文件："/>
 
@@ -170,10 +172,12 @@ sudo vi /etc/netatalk/afp.conf 追加以下配置：
 
 <article class="post-single">
   <header class="post-title">
-    <aside>
-      <time>September 12, 2020</time>
+    <p>
       
-    </aside>
+      <time>Sep 12, 2020</time>
+      
+      
+    </p>
     <h1>树莓派4做Time Machine</h1>
   </header>
   <section class="post-content"><h2 id="准备硬盘">准备硬盘</h2>
@@ -241,8 +245,11 @@ time machine = yes
 </main>
 
     <footer class="footer">
-  <p>&copy; 2021 <a href="https://cylllllll.github.io">cy&#39;s Blog 🍉</a></p>
-  <p>Powered by <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper 5.0</a>️</p>
+  <p>&copy; 2022 <a href="https://cylllllll.github.io">cy&#39;s Blog 🍉</a></p>
+  <p>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</p>
+  <p>
+    <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper 5.1</a>
+  </p>
 </footer>
 
   </body>
