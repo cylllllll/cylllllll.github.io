@@ -12,7 +12,21 @@
 
 
 
-<html lang="zh-cn">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="not-ready text-sm lg:text-base" lang="zh-cn">
   <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -22,6 +36,7 @@
   <title>Cube-数据立方体 - cy&#39;s Blog 🍉</title>
 
   
+  <meta name="theme-color" />
   
   <meta name="description" content="如上图所示，这是由三个维度构成的一个OLAP立方体，立方体中包含了满足条件的cell(子立方块)值，这些cell里面包含了要分析的数据，称之为度量值。显而易见，一组三维坐标唯一确定了一个子立方。
 多位模型的基本概念介绍：
@@ -49,10 +64,9 @@ OLAP与OLTP | 数据处理类型 | OLTP | OLAP | | 面向对象 | 业务开发�
   
   
   
-  <link rel="preload stylesheet" as="style" href="https://cylllllll.github.io/app.min.css" />
+  <link rel="preload stylesheet" as="style" href="https://cylllllll.github.io/main.min.css" />
 
   
-  <link rel="preload stylesheet" as="style" href="https://cylllllll.github.io/an-old-hope.min.css" />
   <script
     defer
     src="https://cylllllll.github.io/highlight.min.js"
@@ -61,10 +75,23 @@ OLAP与OLTP | 数据处理类型 | OLTP | OLAP | | 面向对象 | 业务开发�
   
 
   
-  <link rel="preload" as="image" href="https://cylllllll.github.io/theme.png" />
+  <link
+    rel="preload"
+    as="image"
+    href="https://cylllllll.github.io/theme.%7B%7B%20if%20site.Params.monoDarkIcon%20%7D%7Dsvg%7B%7B%20else%20%7D%7Dpng%7B%7B%20end%20%7D%7D"
+  />
+
+  
+  
+  
+  <link rel="preload" as="image" href="https://deno.land/logo.svg" />
+  
+  
 
   
   <link rel="preload" as="image" href="https://cylllllll.github.io/github.svg" />
+  
+  <link rel="preload" as="image" href="https://cylllllll.github.io/rss.svg" />
   
 
   
@@ -157,74 +184,128 @@ OLAP与OLTP | 数据处理类型 | OLTP | OLAP | | 面向对象 | 业务开发�
   
 </head>
 
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold" href="https://cylllllll.github.io"
+      >cy&#39;s Blog 🍉</a
+    >
+    <a
+      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]"
+    ></a>
+  </div>
 
-  <body class="not-ready" data-menu="true">
-    <header class="header">
-  
-  <p class="logo">
-    <a class="site-name" href="https://cylllllll.github.io">cy&#39;s Blog 🍉</a><a class="btn-dark"></a>
-  </p>
-  
+  <a
+    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+  ></a>
 
   <script>
-    let bodyClx = document.body.classList;
-    let btnDark = document.querySelector('.btn-dark');
-    let sysDark = window.matchMedia('(prefers-color-scheme: dark)');
-    let darkVal = localStorage.getItem('dark');
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => htmlClass.remove('not-ready'), 10);
 
-    let setDark = (isDark) => {
-      bodyClx[isDark ? 'add' : 'remove']('dark');
-      localStorage.setItem('dark', isDark ? 'yes' : 'no');
+    const setDark = (newDark) => {
+      metaTheme.setAttribute('content', newDark ? '#000' : '#fbfbfb');
+      htmlClass[newDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', newDark);
     };
 
-    setDark(darkVal ? darkVal === 'yes' : sysDark.matches);
-    requestAnimationFrame(() => bodyClx.remove('not-ready'));
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkVal = localStorage.getItem('dark');
+    setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
 
-    btnDark.addEventListener('click', () => setDark(!bodyClx.contains('dark')));
-    sysDark.addEventListener('change', (event) => setDark(event.matches));
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
   </script>
 
-  
-  
-  <nav class="menu">
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
     
-    <a class="" href="/">Post</a>
     
-    <a class="" href="/about/">About</a>
+    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/"
+        >Post</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/about/"
+        >About</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/puzzle/"
+        >puzzle</a
+      >
+      
+    </nav>
     
-    <a class="" href="/puzzle/">puzzle</a>
-    
-  </nav>
-  
 
-  
-  <nav class="social">
     
-    <a
-      class="github"
-      style="--url: url(./github.svg)"
-      href="https://github.com/cylllllll"
-      target="_blank"
-    ></a>
+    <nav
+      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
+    >
+      
+      <a
+        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./github.svg)"
+        href=" https://github.com/cylllllll "
+        target="_blank"
+      ></a>
+      
+      <a
+        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./rss.svg)"
+        href=" https://cylllllll.github.io/index.xml "
+        target="_blank"
+      ></a>
+      
+    </nav>
     
-  </nav>
-  
+  </div>
 </header>
 
 
-    <main class="main">
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
+    >
+      
 
-<article class="post-single">
-  <header class="post-title">
-    <p>
+<article>
+  <header class="mb-20">
+    <h1 class="!my-0 pb-2">Cube-数据立方体</h1>
+
+    
+    <div class="text-[0.9em] opacity-70">
       
       <time>Oct 12, 2018</time>
       
       
-    </p>
-    <h1>Cube-数据立方体</h1>
+    </div>
+    
   </header>
-  <section class="post-content"><p><img src="https://lh3.googleusercontent.com/-UQybmKmBPTM/W5jWLBXKZiI/AAAAAAAAADE/qIlli4mzPBw2qdX0uMoTIgX_OLMt5bBegCHMYCw/I/997232-20161015213701062-312799747.jpg" alt=""></p>
+
+  <section><p><img src="https://lh3.googleusercontent.com/-UQybmKmBPTM/W5jWLBXKZiI/AAAAAAAAADE/qIlli4mzPBw2qdX0uMoTIgX_OLMt5bBegCHMYCw/I/997232-20161015213701062-312799747.jpg" alt=""></p>
 <p><img src="https://lh3.googleusercontent.com/--EMu_O8Ayo4/W5jWLvlnLUI/AAAAAAAAADQ/iWJ4uxvuep0iKVqzdZIMiyc0y4818qWNACHMYCw/I/70c751c090ca.jpg" alt=""></p>
 <p>如上图所示，这是由三个维度构成的一个OLAP立方体，立方体中包含了满足条件的cell(子立方块)值，这些cell里面包含了要分析的数据，称之为度量值。显而易见，一组三维坐标唯一确定了一个子立方。</p>
 <p>多位模型的基本概念介绍：</p>
@@ -360,11 +441,18 @@ OLAP与OLTP | 数据处理类型 | OLTP | OLAP | | 面向对象 | 业务开发�
   
   
   
-  <nav class="post-nav">
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
     
-    <a class="prev" href="https://cylllllll.github.io/post/kylin/"><span>←</span><span>Kylin 安装配置</span></a>
-     
-    <a class="next" href="https://cylllllll.github.io/post/hello-world/"><span>Hello World</span><span>→</span></a>
+    <a class="flex w-1/2 items-center p-6 pr-3 font-bold no-underline" href="https://cylllllll.github.io/post/kylin/"
+      ><span class="mr-1.5">←</span><span>Kylin 安装配置</span></a
+    >
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end p-6 pl-3 font-bold no-underline"
+      href="https://cylllllll.github.io/post/hello-world/"
+      ><span>Hello World</span><span class="ml-1.5">→</span></a
+    >
     
   </nav>
   
@@ -373,14 +461,19 @@ OLAP与OLTP | 数据处理类型 | OLTP | OLAP | | 面向对象 | 业务开发�
   
 </article>
 
-</main>
 
-    <footer class="footer">
-  <p>&copy; 2022 <a href="https://cylllllll.github.io">cy&#39;s Blog 🍉</a></p>
-  <p>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</p>
-  <p>
-    <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper 5.1</a>
-  </p>
+    </main>
+
+    <footer class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60">
+  <div class="mr-auto">
+    &copy; 2022
+    <a class="link" href="https://cylllllll.github.io">cy&#39;s Blog 🍉</a>
+  </div>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank">Powered by Hugo️️</a
+  >️
+  <a class="link" href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank"
+    >▷ Paper 6</a
+  >
 </footer>
 
   </body>

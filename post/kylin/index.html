@@ -12,7 +12,21 @@
 
 
 
-<html lang="zh-cn">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="not-ready text-sm lg:text-base" lang="zh-cn">
   <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -22,6 +36,7 @@
   <title>Kylin 安装配置 - cy&#39;s Blog 🍉</title>
 
   
+  <meta name="theme-color" />
   
   <meta name="description" content="解压缩到/usr/local目录 tar -zxvf Kyligence.tar.gz -C/usr/local/ 配置环境变量KYLIN_HOME 在/etc/profile中添加： export KYLIN_HOME=/usr/local/Kyligence 在HDFS上创建/kylin用户目录，并赋予全权限 su hdfs hdfs dfs -mkdir /kylin hdfs dfs -chown root /kylin hdfs dfs -mkdir /user/root hdfs dfs -chown root /user/root root可以替换为你的用户 如果机器为配置SPARK_HOME环境，就指向KYLIN的spark目录 在/etc/profile中添加： export SPARK_HOME=$KYLIN_HOME/spark 启动前检查 $KYLIN_HOME/bin/check_env.sh 启动KYLIN check-env.sh通过，修改$KYLIN_HOME/tomcat/conf/server.xml中&lt;Connector port=&quot;7070&quot; 为 Connector port=&quot;15022&quot; 端口号最好在15020-15039之间，注意端口使用占用,最后启动KYLIN。 ./kylin.sh start 报错信息 The executor&rsquo;s instances: 4 configured in kylin.properties shouldn&rsquo;t beyond maximum: 3 in theory 解决：修改&rsquo;$KYLIN_HOME/conf/kylin.properties&rsquo;中 kap.storage.columnar.spark-conf.spark.executor.instances=3
 Couldn&rsquo;t find hive configuration directory. Please set HIVE_CONF to the path which contains hive-site." />
@@ -34,10 +49,9 @@ Couldn&rsquo;t find hive configuration directory. Please set HIVE_CONF to the pa
   
   
   
-  <link rel="preload stylesheet" as="style" href="https://cylllllll.github.io/app.min.css" />
+  <link rel="preload stylesheet" as="style" href="https://cylllllll.github.io/main.min.css" />
 
   
-  <link rel="preload stylesheet" as="style" href="https://cylllllll.github.io/an-old-hope.min.css" />
   <script
     defer
     src="https://cylllllll.github.io/highlight.min.js"
@@ -46,10 +60,23 @@ Couldn&rsquo;t find hive configuration directory. Please set HIVE_CONF to the pa
   
 
   
-  <link rel="preload" as="image" href="https://cylllllll.github.io/theme.png" />
+  <link
+    rel="preload"
+    as="image"
+    href="https://cylllllll.github.io/theme.%7B%7B%20if%20site.Params.monoDarkIcon%20%7D%7Dsvg%7B%7B%20else%20%7D%7Dpng%7B%7B%20end%20%7D%7D"
+  />
+
+  
+  
+  
+  <link rel="preload" as="image" href="https://deno.land/logo.svg" />
+  
+  
 
   
   <link rel="preload" as="image" href="https://cylllllll.github.io/github.svg" />
+  
+  <link rel="preload" as="image" href="https://cylllllll.github.io/rss.svg" />
   
 
   
@@ -97,74 +124,128 @@ Couldn&rsquo;t find hive configuration directory. Please set HIVE_CONF to the pa
   
 </head>
 
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold" href="https://cylllllll.github.io"
+      >cy&#39;s Blog 🍉</a
+    >
+    <a
+      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]"
+    ></a>
+  </div>
 
-  <body class="not-ready" data-menu="true">
-    <header class="header">
-  
-  <p class="logo">
-    <a class="site-name" href="https://cylllllll.github.io">cy&#39;s Blog 🍉</a><a class="btn-dark"></a>
-  </p>
-  
+  <a
+    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+  ></a>
 
   <script>
-    let bodyClx = document.body.classList;
-    let btnDark = document.querySelector('.btn-dark');
-    let sysDark = window.matchMedia('(prefers-color-scheme: dark)');
-    let darkVal = localStorage.getItem('dark');
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => htmlClass.remove('not-ready'), 10);
 
-    let setDark = (isDark) => {
-      bodyClx[isDark ? 'add' : 'remove']('dark');
-      localStorage.setItem('dark', isDark ? 'yes' : 'no');
+    const setDark = (newDark) => {
+      metaTheme.setAttribute('content', newDark ? '#000' : '#fbfbfb');
+      htmlClass[newDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', newDark);
     };
 
-    setDark(darkVal ? darkVal === 'yes' : sysDark.matches);
-    requestAnimationFrame(() => bodyClx.remove('not-ready'));
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkVal = localStorage.getItem('dark');
+    setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
 
-    btnDark.addEventListener('click', () => setDark(!bodyClx.contains('dark')));
-    sysDark.addEventListener('change', (event) => setDark(event.matches));
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
   </script>
 
-  
-  
-  <nav class="menu">
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
     
-    <a class="" href="/">Post</a>
     
-    <a class="" href="/about/">About</a>
+    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/"
+        >Post</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/about/"
+        >About</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/puzzle/"
+        >puzzle</a
+      >
+      
+    </nav>
     
-    <a class="" href="/puzzle/">puzzle</a>
-    
-  </nav>
-  
 
-  
-  <nav class="social">
     
-    <a
-      class="github"
-      style="--url: url(./github.svg)"
-      href="https://github.com/cylllllll"
-      target="_blank"
-    ></a>
+    <nav
+      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
+    >
+      
+      <a
+        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./github.svg)"
+        href=" https://github.com/cylllllll "
+        target="_blank"
+      ></a>
+      
+      <a
+        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./rss.svg)"
+        href=" https://cylllllll.github.io/index.xml "
+        target="_blank"
+      ></a>
+      
+    </nav>
     
-  </nav>
-  
+  </div>
 </header>
 
 
-    <main class="main">
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
+    >
+      
 
-<article class="post-single">
-  <header class="post-title">
-    <p>
+<article>
+  <header class="mb-20">
+    <h1 class="!my-0 pb-2">Kylin 安装配置</h1>
+
+    
+    <div class="text-[0.9em] opacity-70">
       
       <time>Nov 3, 2018</time>
       
       
-    </p>
-    <h1>Kylin 安装配置</h1>
+    </div>
+    
   </header>
-  <section class="post-content"><ol>
+
+  <section><ol>
 <li>解压缩到/usr/local目录
 <code>tar -zxvf Kyligence.tar.gz -C/usr/local/</code></li>
 <li>配置环境变量KYLIN_HOME     在/etc/profile中添加：           <code>export KYLIN_HOME=/usr/local/Kyligence</code></li>
@@ -224,11 +305,18 @@ export HIVE_LIB=/usr/hdp/2.6.0.3-8/hive/lib
   
   
   
-  <nav class="post-nav">
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
     
-    <a class="prev" href="https://cylllllll.github.io/post/easyexcel/"><span>←</span><span>easyexcel</span></a>
-     
-    <a class="next" href="https://cylllllll.github.io/post/cube/"><span>Cube-数据立方体</span><span>→</span></a>
+    <a class="flex w-1/2 items-center p-6 pr-3 font-bold no-underline" href="https://cylllllll.github.io/post/easyexcel/"
+      ><span class="mr-1.5">←</span><span>easyexcel</span></a
+    >
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end p-6 pl-3 font-bold no-underline"
+      href="https://cylllllll.github.io/post/cube/"
+      ><span>Cube-数据立方体</span><span class="ml-1.5">→</span></a
+    >
     
   </nav>
   
@@ -237,14 +325,19 @@ export HIVE_LIB=/usr/hdp/2.6.0.3-8/hive/lib
   
 </article>
 
-</main>
 
-    <footer class="footer">
-  <p>&copy; 2022 <a href="https://cylllllll.github.io">cy&#39;s Blog 🍉</a></p>
-  <p>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</p>
-  <p>
-    <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper 5.1</a>
-  </p>
+    </main>
+
+    <footer class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60">
+  <div class="mr-auto">
+    &copy; 2022
+    <a class="link" href="https://cylllllll.github.io">cy&#39;s Blog 🍉</a>
+  </div>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank">Powered by Hugo️️</a
+  >️
+  <a class="link" href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank"
+    >▷ Paper 6</a
+  >
 </footer>
 
   </body>

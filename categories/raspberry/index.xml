@@ -7,7 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>Copyright © 2021, all rights reserved.</copyright>
-    <lastBuildDate>Mon, 27 Sep 2021 16:00:01 +0000</lastBuildDate><atom:link href="https://cylllllll.github.io/categories/raspberry/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 20 Jul 2022 11:11:01 +0000</lastBuildDate><atom:link href="https://cylllllll.github.io/categories/raspberry/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>为树莓派升级AirPlay 2</title>
+      <link>https://cylllllll.github.io/post/airplay2/</link>
+      <pubDate>Wed, 20 Jul 2022 11:11:01 +0000</pubDate>
+      
+      <guid>https://cylllllll.github.io/post/airplay2/</guid>
+      <description>这两天在Reddit上看到一个关于「AirPlay2 on Linux」的帖子，其中推荐了 Shairport Sync 项目，于是我打算给家里在用的树莓派的AirPlay升级一下。大家有能力的可以直接去看原文，里面文档写的很详细。
+准备 一台Linux 或 FreeBSD的设备，其性能至少要大于等于树莓派 2 319 和 320端口没有被占用 一个音箱（最好是3.5mm接口） 开始安装 首选建议大家先将系统更新到最新状态，可以大大减少许多莫名其妙的问题。
+sudo apt-get update #检查更新 sudo apt-get upgrade #执行更新 关闭Wi-Fi节能管理 如果你使用设备使用Wi-Fi连接的话，需要将节能管理关闭，可以避免安装后设备进入节能后搜索不到音箱。
+iwconfig wlan0 power off 安装依赖 以下是Shairport Sync需要依赖
+apt install --no-install-recommends build-essential git xxd xmltoman \ autoconf automake libtool libpopt-dev libconfig-dev libasound2-dev \ avahi-daemon libavahi-client-dev libssl-dev libsoxr-dev libplist-dev \ libsodium-dev libavutil-dev libavcodec-dev libavformat-dev uuid-dev libgcrypt-dev nqptp nqptp是 Shairport Sync 监控时间的重要依赖，需要手动编译安装。
+git clone https://github.com/mikebrady/nqptp.git #下载项目 cd nqptp #进入项目目录 autoreconf -fi #编译 .</description>
+    </item>
+    
     <item>
       <title>树莓派搭建低配版文件存储/家庭影音库</title>
       <link>https://cylllllll.github.io/post/raspberry/</link>

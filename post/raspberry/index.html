@@ -12,7 +12,21 @@
 
 
 
-<html lang="zh-cn">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="not-ready text-sm lg:text-base" lang="zh-cn">
   <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -22,6 +36,7 @@
   <title>树莓派搭建低配版文件存储/家庭影音库 - cy&#39;s Blog 🍉</title>
 
   
+  <meta name="theme-color" />
   
   <meta name="description" content="家里有个 Raspberry Pi 4B 只装了 HomeBridge 来接入家电感觉有点浪费，正好又有简单的家庭影音库需求，所以就有了这篇文章。
 Raspberry Pi 4B 这代搭配千兆网口和 USB3.0 ，终于换掉了一直令人诟病的 USB2.0 ，至此速度理论上可以跑满千兆带宽，基本上能满足我的日常需求。
@@ -38,10 +53,9 @@ Raspberry Pi 4B 这代搭配千兆网口和 USB3.0 ，终于换掉了一直令�
   
   
   
-  <link rel="preload stylesheet" as="style" href="https://cylllllll.github.io/app.min.css" />
+  <link rel="preload stylesheet" as="style" href="https://cylllllll.github.io/main.min.css" />
 
   
-  <link rel="preload stylesheet" as="style" href="https://cylllllll.github.io/an-old-hope.min.css" />
   <script
     defer
     src="https://cylllllll.github.io/highlight.min.js"
@@ -50,10 +64,23 @@ Raspberry Pi 4B 这代搭配千兆网口和 USB3.0 ，终于换掉了一直令�
   
 
   
-  <link rel="preload" as="image" href="https://cylllllll.github.io/theme.png" />
+  <link
+    rel="preload"
+    as="image"
+    href="https://cylllllll.github.io/theme.%7B%7B%20if%20site.Params.monoDarkIcon%20%7D%7Dsvg%7B%7B%20else%20%7D%7Dpng%7B%7B%20end%20%7D%7D"
+  />
+
+  
+  
+  
+  <link rel="preload" as="image" href="https://deno.land/logo.svg" />
+  
+  
 
   
   <link rel="preload" as="image" href="https://cylllllll.github.io/github.svg" />
+  
+  <link rel="preload" as="image" href="https://cylllllll.github.io/rss.svg" />
   
 
   
@@ -113,74 +140,128 @@ Raspberry Pi 4B 这代搭配千兆网口和 USB3.0 ，终于换掉了一直令�
   
 </head>
 
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold" href="https://cylllllll.github.io"
+      >cy&#39;s Blog 🍉</a
+    >
+    <a
+      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]"
+    ></a>
+  </div>
 
-  <body class="not-ready" data-menu="true">
-    <header class="header">
-  
-  <p class="logo">
-    <a class="site-name" href="https://cylllllll.github.io">cy&#39;s Blog 🍉</a><a class="btn-dark"></a>
-  </p>
-  
+  <a
+    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+  ></a>
 
   <script>
-    let bodyClx = document.body.classList;
-    let btnDark = document.querySelector('.btn-dark');
-    let sysDark = window.matchMedia('(prefers-color-scheme: dark)');
-    let darkVal = localStorage.getItem('dark');
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => htmlClass.remove('not-ready'), 10);
 
-    let setDark = (isDark) => {
-      bodyClx[isDark ? 'add' : 'remove']('dark');
-      localStorage.setItem('dark', isDark ? 'yes' : 'no');
+    const setDark = (newDark) => {
+      metaTheme.setAttribute('content', newDark ? '#000' : '#fbfbfb');
+      htmlClass[newDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', newDark);
     };
 
-    setDark(darkVal ? darkVal === 'yes' : sysDark.matches);
-    requestAnimationFrame(() => bodyClx.remove('not-ready'));
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkVal = localStorage.getItem('dark');
+    setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
 
-    btnDark.addEventListener('click', () => setDark(!bodyClx.contains('dark')));
-    sysDark.addEventListener('change', (event) => setDark(event.matches));
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
   </script>
 
-  
-  
-  <nav class="menu">
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
     
-    <a class="" href="/">Post</a>
     
-    <a class="" href="/about/">About</a>
+    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/"
+        >Post</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/about/"
+        >About</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/puzzle/"
+        >puzzle</a
+      >
+      
+    </nav>
     
-    <a class="" href="/puzzle/">puzzle</a>
-    
-  </nav>
-  
 
-  
-  <nav class="social">
     
-    <a
-      class="github"
-      style="--url: url(./github.svg)"
-      href="https://github.com/cylllllll"
-      target="_blank"
-    ></a>
+    <nav
+      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
+    >
+      
+      <a
+        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./github.svg)"
+        href=" https://github.com/cylllllll "
+        target="_blank"
+      ></a>
+      
+      <a
+        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./rss.svg)"
+        href=" https://cylllllll.github.io/index.xml "
+        target="_blank"
+      ></a>
+      
+    </nav>
     
-  </nav>
-  
+  </div>
 </header>
 
 
-    <main class="main">
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
+    >
+      
 
-<article class="post-single">
-  <header class="post-title">
-    <p>
+<article>
+  <header class="mb-20">
+    <h1 class="!my-0 pb-2">树莓派搭建低配版文件存储/家庭影音库</h1>
+
+    
+    <div class="text-[0.9em] opacity-70">
       
       <time>Sep 27, 2021</time>
       
       
-    </p>
-    <h1>树莓派搭建低配版文件存储/家庭影音库</h1>
+    </div>
+    
   </header>
-  <section class="post-content"><p>家里有个 Raspberry Pi 4B 只装了 HomeBridge 来接入家电感觉有点浪费，正好又有简单的家庭影音库需求，所以就有了这篇文章。</p>
+
+  <section><p>家里有个 Raspberry Pi 4B 只装了 HomeBridge 来接入家电感觉有点浪费，正好又有简单的家庭影音库需求，所以就有了这篇文章。</p>
 <p>Raspberry Pi 4B 这代搭配千兆网口和 USB3.0 ，终于换掉了一直令人诟病的 USB2.0 ，至此速度理论上可以跑满千兆带宽，基本上能满足我的日常需求。</p>
 <p>需要设备材料：
 Raspberry Pi 4B 搭载 Raspberry Pi OS（其他的可以
@@ -384,9 +465,18 @@ privilege_token = xxxx
   
   
   
-  <nav class="post-nav">
-     
-    <a class="next" href="https://cylllllll.github.io/post/timemachine/"><span>树莓派4做Time Machine</span><span>→</span></a>
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    <a class="flex w-1/2 items-center p-6 pr-3 font-bold no-underline" href="https://cylllllll.github.io/post/airplay2/"
+      ><span class="mr-1.5">←</span><span>为树莓派升级AirPlay 2</span></a
+    >
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end p-6 pl-3 font-bold no-underline"
+      href="https://cylllllll.github.io/post/timemachine/"
+      ><span>树莓派4做Time Machine</span><span class="ml-1.5">→</span></a
+    >
     
   </nav>
   
@@ -395,14 +485,19 @@ privilege_token = xxxx
   
 </article>
 
-</main>
 
-    <footer class="footer">
-  <p>&copy; 2022 <a href="https://cylllllll.github.io">cy&#39;s Blog 🍉</a></p>
-  <p>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</p>
-  <p>
-    <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper 5.1</a>
-  </p>
+    </main>
+
+    <footer class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60">
+  <div class="mr-auto">
+    &copy; 2022
+    <a class="link" href="https://cylllllll.github.io">cy&#39;s Blog 🍉</a>
+  </div>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank">Powered by Hugo️️</a
+  >️
+  <a class="link" href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank"
+    >▷ Paper 6</a
+  >
 </footer>
 
   </body>
